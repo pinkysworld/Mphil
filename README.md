@@ -42,4 +42,14 @@ Running `scripts/01_ingest.py` extracts report JSON files to
 .venv/bin/python scripts/04_extract_features.py
 ```
 
+## Baseline Run
+
+```bash
+.venv/bin/python scripts/run_experiment.py \
+  --view api_tfidf \
+  --split global_chronological \
+  --model sgd \
+  --output artifacts/metrics/table_5_8.json
+```
+
 Additional notes are in `docs/data_notes.md` and `docs/work_plan.md`.

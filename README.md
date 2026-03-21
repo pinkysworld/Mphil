@@ -13,6 +13,7 @@ views used in the first round of experiments.
 - `data/processed/`, `data/cache/`, `data/splits/` derived data
 - `artifacts/` logs, figures, and result files
 - `docs/` working notes
+- `site/` public project website for GitHub Pages
 
 ## Local Setup
 
@@ -51,5 +52,13 @@ Running `scripts/01_ingest.py` extracts report JSON files to
   --model sgd \
   --output artifacts/metrics/table_5_8.json
 ```
+
+## Project Website
+
+The public project website lives in `site/` and deploys through
+`.github/workflows/pages.yml`.
+
+If GitHub Pages does not publish automatically on the first push, open the
+repository settings on GitHub and set the Pages source to **GitHub Actions**.
 
 Additional notes are in `docs/data_notes.md` and `docs/work_plan.md`.

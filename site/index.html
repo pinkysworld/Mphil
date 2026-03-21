@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MPhil Research Project | Malware Family Classification</title>
+    <meta
+      name="description"
+      content="Project website for an MPhil research project on explainable and time-aware malware family classification."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="#top">MPhil Research Project</a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="#questions">Questions</a>
+          <a href="#method">Method</a>
+          <a href="#data">Data</a>
+          <a href="#progress">Progress</a>
+        </nav>
+      </header>
+
+      <main id="top">
+        <section class="hero reveal">
+          <p class="eyebrow">Explainable and Time-Aware Malware Family Classification</p>
+          <h1>Studying how malware family classification behaves under temporal drift, leakage control, and feature fusion.</h1>
+          <p class="lead">
+            This project examines whether dynamic malware reports can support a
+            more robust and interpretable family-classification pipeline when
+            evaluation is aligned with time rather than relying only on random
+            train/test splits.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="https://github.com/pinkysworld/Mphil">View Repository</a>
+            <a class="button secondary" href="#method">See Workflow</a>
+          </div>
+        </section>
+
+        <section class="snapshot reveal">
+          <article class="stat-card">
+            <span class="stat-label">Dataset</span>
+            <strong>Avast-CTU CAPEv2</strong>
+            <p>Reduced dynamic-analysis reports with family labels, malware type, and detection dates.</p>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Current Focus</span>
+            <strong>Baselines and temporal evaluation</strong>
+            <p>Preparing the baseline pipeline before moving into deeper analytical comparisons.</p>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Core Themes</span>
+            <strong>Leakage, drift, calibration</strong>
+            <p>The project emphasises fair evaluation and interpretable model behaviour over time.</p>
+          </article>
+        </section>
+
+        <section class="content-grid">
+          <section id="questions" class="panel reveal">
+            <div class="panel-heading">
+              <p class="eyebrow">Research Questions</p>
+              <h2>What is the project trying to answer?</h2>
+            </div>
+            <div class="question-grid">
+              <article>
+                <h3>RQ1</h3>
+                <p>Which feature views retain predictive value when malware behaviour is evaluated across time rather than at random?</p>
+              </article>
+              <article>
+                <h3>RQ2</h3>
+                <p>How much do results change once family-name leakage and similar shortcuts are controlled?</p>
+              </article>
+              <article>
+                <h3>RQ3</h3>
+                <p>Does feature fusion remain useful under chronological evaluation and rolling-origin testing?</p>
+              </article>
+              <article>
+                <h3>RQ4</h3>
+                <p>Are the resulting class probabilities reliable enough for calibration and selective prediction analysis?</p>
+              </article>
+            </div>
+          </section>
+
+          <section id="method" class="panel reveal">
+            <div class="panel-heading">
+              <p class="eyebrow">Method</p>
+              <h2>How the workflow is structured</h2>
+            </div>
+            <ol class="workflow">
+              <li>
+                <strong>Ingest and validate</strong>
+                <span>Unpack reports, align them to the label file, and confirm the SHA-256 join.</span>
+              </li>
+              <li>
+                <strong>Audit for leakage</strong>
+                <span>Check whether family names or related markers leak the answer into the input.</span>
+              </li>
+              <li>
+                <strong>Build evaluation splits</strong>
+                <span>Create random and chronology-aware splits for fair comparison.</span>
+              </li>
+              <li>
+                <strong>Extract feature views</strong>
+                <span>Derive API-token, artifact-token, behavioural-count, and static PE representations.</span>
+              </li>
+              <li>
+                <strong>Run baseline experiments</strong>
+                <span>Train linear or boosted baselines on single views or fused views and record the outputs.</span>
+              </li>
+              <li>
+                <strong>Analyse robustness</strong>
+                <span>Study temporal invariance, walk-forward behaviour, leakage ablation, and calibration.</span>
+              </li>
+            </ol>
+          </section>
+        </section>
+
+        <section id="data" class="panel wide reveal">
+          <div class="panel-heading">
+            <p class="eyebrow">Data and Reproducibility</p>
+            <h2>What is public and what stays local</h2>
+          </div>
+          <div class="two-column">
+            <div>
+              <h3>Public in the repository</h3>
+              <p>
+                The public repository contains the code, configuration, and
+                project notes needed to reproduce the workflow structure.
+              </p>
+              <ul class="plain-list">
+                <li>Pipeline scripts and experiment runner</li>
+                <li>Working notes and project plan</li>
+                <li>GitHub Pages site and deployment workflow</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Kept local</h3>
+              <p>
+                Raw archives, extracted reports, caches, and large result files
+                are kept outside version control.
+              </p>
+              <ul class="plain-list">
+                <li>Avast-CTU reduced archive</li>
+                <li>Extracted JSON reports</li>
+                <li>Feature caches and processed data</li>
+                <li>Local experiment outputs</li>
+              </ul>
+            </div>
+          </div>
+          <p class="note">
+            The reduced report archive is the current default because it keeps
+            the same label definitions while remaining much easier to handle
+            during baseline development and repeat runs.
+          </p>
+        </section>
+
+        <section id="progress" class="panel reveal">
+          <div class="panel-heading">
+            <p class="eyebrow">Progress</p>
+            <h2>Current project state</h2>
+          </div>
+          <div class="timeline">
+            <article>
+              <span class="timeline-tag">Completed</span>
+              <h3>Repository and project structure</h3>
+              <p>The research repo, local environment, and baseline experiment runner are in place.</p>
+            </article>
+            <article>
+              <span class="timeline-tag">Current</span>
+              <h3>Pipeline execution</h3>
+              <p>Leakage audit, split generation, and feature extraction are the next local runs before baseline tables are filled in.</p>
+            </article>
+            <article>
+              <span class="timeline-tag">Next</span>
+              <h3>Results for thesis chapters</h3>
+              <p>Once the caches exist, the first baseline experiments can be run and compared across random and temporal evaluation protocols.</p>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>Hosted with GitHub Pages. Research code and notes live in the public repository; raw dataset files remain local.</p>
+      </footer>
+    </div>
+  </body>
+</html>

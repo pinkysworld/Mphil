@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-03-21T17:39:46.551227",
+  "view_request": "api_tfidf",
+  "views": [
+    "api_tfidf"
+  ],
+  "split": "global_chronological",
+  "model": "sgd",
+  "train_scope": "train_plus_val",
+  "n_features": 33945,
+  "n_train": 35262,
+  "n_val": 3918,
+  "n_fit": 39180,
+  "n_test": 9796,
+  "accuracy": 0.9573,
+  "macro_f1": 0.9024,
+  "weighted_f1": 0.9602,
+  "report_csv": "artifacts/metrics/table_5_8_report.csv",
+  "confusion_csv": "artifacts/metrics/table_5_8_confusion.csv",
+  "confusion_png": "artifacts/metrics/table_5_8_confusion.png"
+}

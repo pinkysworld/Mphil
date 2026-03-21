@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-03-21T17:52:51.211366",
+  "view_request": "fusion",
+  "views": [
+    "api_tfidf",
+    "art_tfidf",
+    "counts",
+    "pe"
+  ],
+  "split": "per_family_chronological",
+  "model": "sgd",
+  "train_scope": "train_plus_val",
+  "n_features": 39321,
+  "n_train": 35263,
+  "n_val": 3914,
+  "n_fit": 39177,
+  "n_test": 9799,
+  "accuracy": 0.9665,
+  "macro_f1": 0.9607,
+  "weighted_f1": 0.9667,
+  "report_csv": "artifacts/metrics/table_5_12_fusion_per_family_sgd_report.csv",
+  "confusion_csv": "artifacts/metrics/table_5_12_fusion_per_family_sgd_confusion.csv",
+  "confusion_png": "artifacts/metrics/table_5_12_fusion_per_family_sgd_confusion.png"
+}

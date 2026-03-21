@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-03-21T18:44:10.380948",
+  "view_request": "fusion",
+  "views": [
+    "api_tfidf",
+    "art_tfidf",
+    "counts",
+    "pe"
+  ],
+  "split": "global_chronological",
+  "model": "lightgbm",
+  "train_scope": "train_plus_val",
+  "n_features": 40231,
+  "n_train": 35262,
+  "n_val": 3918,
+  "n_fit": 39180,
+  "n_test": 9796,
+  "accuracy": 0.9459,
+  "macro_f1": 0.9118,
+  "weighted_f1": 0.9496,
+  "report_csv": "artifacts/metrics/table_6_1_fusion_global_lightgbm_report.csv",
+  "confusion_csv": "artifacts/metrics/table_6_1_fusion_global_lightgbm_confusion.csv",
+  "confusion_png": "artifacts/metrics/table_6_1_fusion_global_lightgbm_confusion.png"
+}

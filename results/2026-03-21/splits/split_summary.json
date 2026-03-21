@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-03-21T16:59:50.136853",
+  "n_total": 48976,
+  "random_stratified": {
+    "n_train": 35262,
+    "n_val": 3918,
+    "n_test": 9796
+  },
+  "global_chronological": {
+    "n_train": 35262,
+    "n_val": 3918,
+    "n_test": 9796
+  },
+  "per_family_chronological": {
+    "n_train": 35263,
+    "n_val": 3914,
+    "n_test": 9799
+  }
+}

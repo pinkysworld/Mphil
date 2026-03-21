@@ -1,0 +1,6 @@
+run,split,model,accuracy,macro_f1,weighted_f1
+baseline_random_api_hash_sgd,random_stratified,sgd,0.9089,0.8718,0.9076
+table_5_8_api_tfidf_global_sgd,global_chronological,sgd,0.9573,0.9024,0.9602
+table_5_11_fusion_global_sgd,global_chronological,sgd,0.9606,0.9317,0.963
+table_5_12_fusion_per_family_sgd,per_family_chronological,sgd,0.9665,0.9607,0.9667
+table_6_1_fusion_global_lightgbm,global_chronological,lightgbm,0.9459,0.9118,0.9496

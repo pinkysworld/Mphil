@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-03-21T17:50:58.148317",
+  "view_request": "api_hash",
+  "views": [
+    "api_hash"
+  ],
+  "split": "random_stratified",
+  "model": "sgd",
+  "train_scope": "train_plus_val",
+  "n_features": 262144,
+  "n_train": 35262,
+  "n_val": 3918,
+  "n_fit": 39180,
+  "n_test": 9796,
+  "accuracy": 0.9089,
+  "macro_f1": 0.8718,
+  "weighted_f1": 0.9076,
+  "report_csv": "artifacts/metrics/baseline_random_api_hash_sgd_report.csv",
+  "confusion_csv": "artifacts/metrics/baseline_random_api_hash_sgd_confusion.csv",
+  "confusion_png": "artifacts/metrics/baseline_random_api_hash_sgd_confusion.png"
+}

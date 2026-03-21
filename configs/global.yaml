@@ -1,0 +1,32 @@
+random_seed: 42
+
+dataset:
+  labels_file: "data/raw/public_labels.csv"
+  archive_candidates:
+    - "data/raw/avast_ctu_reduced.zip"
+    - "data/raw/public_small_reports.zip"
+    - "data/raw/public_reports.zip"
+    - "data/raw/full_reports.zip"
+    - "data/raw/1.zip"
+    - "data/raw/2.zip"
+  reports_dir: "data/raw/reports/"
+
+splits:
+  global_chrono_train_frac: 0.80
+  per_family_train_frac: 0.80
+  validation_frac_of_train: 0.10
+
+features:
+  api:
+    ngram_range: [1, 2]
+    max_features_tfidf: 50000
+    hash_n_features: 262144
+    min_df: 2
+  artifacts:
+    max_tokens_per_sample: 400
+    min_df: 2
+  counts:
+    scaler: "maxabs"
+  pe:
+    scaler: "standard"
+    impute_strategy: "median"

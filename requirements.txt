@@ -1,0 +1,8 @@
+pandas==2.2.3
+numpy==1.24.0
+scipy
+scikit-learn==1.4.2
+matplotlib
+lightgbm
+joblib
+pyarrow

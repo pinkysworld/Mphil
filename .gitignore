@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Local environments
+.venv/
+venv/
+
+# macOS
+.DS_Store
+
+# Raw third-party data
+data/raw/*
+!data/raw/README.md
+
+# Generated extracted reports
+data/raw/reports/
+
+# Generated data
+data/processed/*
+!data/processed/.gitkeep
+data/cache/*
+!data/cache/.gitkeep
+data/splits/*
+!data/splits/.gitkeep
+
+# Generated artifacts
+artifacts/ingestion_log.json
+artifacts/leakage_audit/*
+!artifacts/leakage_audit/.gitkeep
+artifacts/splits/*
+!artifacts/splits/.gitkeep
+artifacts/metrics/*
+!artifacts/metrics/.gitkeep
+artifacts/confusion/*
+!artifacts/confusion/.gitkeep
+artifacts/calibration/*
+!artifacts/calibration/.gitkeep
+artifacts/walk_forward/*
+!artifacts/walk_forward/.gitkeep
+artifacts/invariance/*
+!artifacts/invariance/.gitkeep
+artifacts/models/*
+!artifacts/models/.gitkeep
+
+# Workspace folders
+experiments/*
+!experiments/.gitkeep
+notebooks/*
+!notebooks/.gitkeep
+tests/*
+!tests/.gitkeep

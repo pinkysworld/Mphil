@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Materials | MPhil Research Project</title>
+    <meta
+      name="description"
+      content="Data, repository structure, and reproducibility notes for the MPhil malware classification project."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="index.html">
+          <span class="brand-mark">MP</span>
+          <span class="brand-copy">
+            <strong>Malware Classification Study</strong>
+            <small>MPhil project website</small>
+          </span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary">
+          <a class="nav-link" href="index.html">Home</a>
+
+          <details class="nav-group">
+            <summary class="nav-summary">Study Design</summary>
+            <div class="nav-menu">
+              <a href="methods.html#questions">Research Questions</a>
+              <a href="methods.html#workflow">Workflow</a>
+              <a href="methods.html#features">Feature Views</a>
+              <a href="methods.html#evaluation">Evaluation</a>
+            </div>
+          </details>
+
+          <details class="nav-group">
+            <summary class="nav-summary">Experiments</summary>
+            <div class="nav-menu">
+              <a href="experiments.html#baseline">Baselines</a>
+              <a href="experiments.html#temporal">Temporal Analysis</a>
+              <a href="experiments.html#reliability">Reliability</a>
+            </div>
+          </details>
+
+          <details class="nav-group">
+            <summary class="nav-summary current">Materials</summary>
+            <div class="nav-menu">
+              <a href="#data">Data</a>
+              <a href="#repo">Repository</a>
+              <a href="#notes">Working Notes</a>
+            </div>
+          </details>
+
+          <a class="nav-link" href="results.html">Results</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="page-hero reveal">
+          <div>
+            <p class="eyebrow">Materials</p>
+            <h1>Data handling, repository structure, and reproducibility notes.</h1>
+            <p class="lead">
+              The project is public at the code level, but the raw malware
+              material and the larger generated outputs are intentionally kept
+              local. This page records how that boundary is handled.
+            </p>
+          </div>
+          <div class="jump-links">
+            <a href="#data">Data</a>
+            <a href="#repo">Repository</a>
+            <a href="#notes">Working notes</a>
+          </div>
+        </section>
+
+        <section id="data" class="panel wide reveal">
+          <div class="section-heading">
+            <p class="eyebrow">Data</p>
+            <h2>What is used and what stays local</h2>
+          </div>
+          <div class="card-grid two-up">
+            <article class="content-card">
+              <h3>Used in the project</h3>
+              <p>The current runs are based on the reduced Avast-CTU CAPEv2 dynamic-analysis release together with the public family labels.</p>
+            </article>
+            <article class="content-card">
+              <h3>Kept outside Git</h3>
+              <p>Raw archives, extracted reports, processed caches, and generated experiment outputs are stored locally and excluded from version control.</p>
+            </article>
+          </div>
+          <div class="card-grid two-up">
+            <article class="content-card tone-soft">
+              <h3>Why the reduced release is practical</h3>
+              <p>It preserves the label definitions needed for the core study while making ingestion, caching, and repeated experiments much easier to manage.</p>
+            </article>
+            <article class="content-card tone-soft">
+              <h3>Why the raw archive is not pushed</h3>
+              <p>The dataset is large, third-party, and not something that belongs inside a normal Git history. The repository is meant to hold the research code and notes, not the raw malware corpus.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="repo" class="panel wide reveal">
+          <div class="section-heading">
+            <p class="eyebrow">Repository</p>
+            <h2>How the project workspace is organised</h2>
+          </div>
+          <div class="table-card">
+            <pre class="code-block"><code>site/                GitHub Pages website
+scripts/             data pipeline and experiment scripts
+configs/             configuration files
+docs/                project notes and planning material
+data/raw/            local raw archive area (ignored)
+data/cache/          generated feature caches (ignored)
+data/splits/         generated split files (ignored)
+artifacts/           local experiment outputs (ignored)</code></pre>
+          </div>
+          <p class="section-note">
+            The public repository is therefore a lightweight research workspace:
+            code, notes, and the project website are visible, while the heavier
+            data products remain local.
+          </p>
+        </section>
+
+        <section id="notes" class="panel wide reveal">
+          <div class="section-heading">
+            <p class="eyebrow">Working Notes</p>
+            <h2>Current reproducibility approach</h2>
+          </div>
+          <ul class="status-list">
+            <li><strong>Environment:</strong> the project is run in a local Python virtual environment pinned to the required scientific stack.</li>
+            <li><strong>Dataset handling:</strong> the ingestion script unpacks the archive automatically and matches it to the public label file.</li>
+            <li><strong>Intermediate products:</strong> feature caches and experiment outputs are regenerated locally rather than tracked in Git.</li>
+            <li><strong>Website:</strong> the site is deployed with GitHub Pages and is intended to serve as a concise project record alongside the thesis writing.</li>
+          </ul>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>Hosted with GitHub Pages. Code and notes are public; raw dataset files and generated caches remain local.</p>
+        <p>Last site refresh: 21 March 2026.</p>
+      </footer>
+    </div>
+  </body>
+</html>

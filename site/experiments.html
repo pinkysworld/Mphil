@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Experiments | MPhil Research Project</title>
+    <meta
+      name="description"
+      content="Experiment set for the MPhil malware family classification project."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="index.html">
+          <span class="brand-mark">MP</span>
+          <span class="brand-copy">
+            <strong>Malware Classification Study</strong>
+            <small>MPhil project website</small>
+          </span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary">
+          <a class="nav-link" href="index.html">Home</a>
+
+          <details class="nav-group">
+            <summary class="nav-summary">Study Design</summary>
+            <div class="nav-menu">
+              <a href="methods.html#questions">Research Questions</a>
+              <a href="methods.html#workflow">Workflow</a>
+              <a href="methods.html#features">Feature Views</a>
+              <a href="methods.html#evaluation">Evaluation</a>
+            </div>
+          </details>
+
+          <details class="nav-group">
+            <summary class="nav-summary current">Experiments</summary>
+            <div class="nav-menu">
+              <a href="#baseline">Baselines</a>
+              <a href="#temporal">Temporal Analysis</a>
+              <a href="#reliability">Reliability</a>
+            </div>
+          </details>
+
+          <details class="nav-group">
+            <summary class="nav-summary">Materials</summary>
+            <div class="nav-menu">
+              <a href="materials.html#data">Data</a>
+              <a href="materials.html#repo">Repository</a>
+              <a href="materials.html#notes">Working Notes</a>
+            </div>
+          </details>
+
+          <a class="nav-link" href="results.html">Results</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="page-hero reveal">
+          <div>
+            <p class="eyebrow">Experiment Set</p>
+            <h1>How the project tests performance, robustness, and reliability.</h1>
+            <p class="lead">
+              The experiment suite moves from simple classification baselines to
+              stronger temporal and reliability checks. The aim is not only to
+              produce a high score, but to understand when that score is
+              trustworthy and when it begins to break down.
+            </p>
+          </div>
+          <div class="jump-links">
+            <a href="#baseline">Baselines</a>
+            <a href="#temporal">Temporal analysis</a>
+            <a href="#reliability">Reliability</a>
+          </div>
+        </section>
+
+        <section id="baseline" class="panel wide reveal">
+          <div class="section-heading">
+            <p class="eyebrow">Baselines</p>
+            <h2>Initial classification comparisons</h2>
+          </div>
+          <div class="card-grid three-up">
+            <article class="content-card">
+              <h3>Single-view baselines</h3>
+              <p>These runs ask what each feature family can do on its own. API-hash and API TF-IDF baselines provide the main reference points.</p>
+            </article>
+            <article class="content-card">
+              <h3>Fused baselines</h3>
+              <p>Fusion experiments combine several feature views to test whether mixed evidence is more useful than any individual representation.</p>
+            </article>
+            <article class="content-card">
+              <h3>Model comparison</h3>
+              <p>SGD, logistic regression, and LightGBM are used as practical baselines, with particular attention to how they behave under chronological evaluation.</p>
+            </article>
+          </div>
+          <div class="card-grid two-up">
+            <article class="content-card tone-soft">
+              <h3>What the baseline runner does</h3>
+              <p>It loads cached features for one selected view, applies a chosen split, trains the requested classifier, and writes the metrics, report tables, and confusion matrix outputs.</p>
+            </article>
+            <article class="content-card tone-soft">
+              <h3>Why the baselines matter</h3>
+              <p>They establish the first defensible result table. Every later analysis refers back to these runs when discussing drift, leakage, and calibration.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="temporal" class="panel wide reveal">
+          <div class="section-heading">
+            <p class="eyebrow">Temporal and Robustness Analysis</p>
+            <h2>Tests that go beyond a single headline score</h2>
+          </div>
+          <div class="card-grid three-up">
+            <article class="content-card">
+              <h3>Invariance vs discriminability</h3>
+              <p>This analysis asks whether a feature view is both predictive and reasonably stable across time. It is useful for separating strong but brittle signals from strong and durable ones.</p>
+            </article>
+            <article class="content-card">
+              <h3>Walk-forward evaluation</h3>
+              <p>Training moves forward in time and each model is tested on the next monthly window. This reveals where performance is stable and where it drops under drift.</p>
+            </article>
+            <article class="content-card">
+              <h3>Leakage ablation</h3>
+              <p>The ablation reruns the task with and without family-name filtering to see whether shortcut tokens are driving the result.</p>
+            </article>
+          </div>
+          <div class="step-grid compact">
+            <article class="step-card">
+              <span class="step-number">05</span>
+              <h3>Measure predictive strength</h3>
+              <p>Within-window macro-F1 provides the discriminability side of the trade-off.</p>
+            </article>
+            <article class="step-card">
+              <span class="step-number">06</span>
+              <h3>Measure temporal stability</h3>
+              <p>Rolling monthly windows and distribution-shift proxies show how the feature views behave as the data moves forward.</p>
+            </article>
+            <article class="step-card">
+              <span class="step-number">07</span>
+              <h3>Check for inflated scores</h3>
+              <p>The leakage ablation determines whether removing naming shortcuts changes the aggregate result.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="reliability" class="panel wide reveal">
+          <div class="section-heading">
+            <p class="eyebrow">Reliability</p>
+            <h2>Confidence, calibration, and abstention</h2>
+          </div>
+          <div class="card-grid two-up">
+            <article class="content-card">
+              <h3>Calibration analysis</h3>
+              <p>Calibration examines whether a confidence score of, for example, 90% actually behaves like 90% accuracy in practice. This matters if the system is intended to support downstream decisions.</p>
+            </article>
+            <article class="content-card">
+              <h3>Selective prediction</h3>
+              <p>Selective prediction asks whether the model becomes safer if it is allowed to defer on uncertain samples rather than always forcing a label.</p>
+            </article>
+          </div>
+          <div class="table-card">
+            <h3>Output set produced by the reliability script</h3>
+            <ul class="status-list compact-list">
+              <li><strong>Calibration metrics:</strong> summary JSON with uncalibrated and calibrated scores.</li>
+              <li><strong>Reliability plots:</strong> diagrams for the confidence distribution before and after calibration.</li>
+              <li><strong>Per-family ECE:</strong> a breakdown of confidence behaviour by predicted family.</li>
+              <li><strong>Risk-coverage plot:</strong> comparison of max-probability and margin-based selection rules.</li>
+            </ul>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>Hosted with GitHub Pages. Code and notes are public; raw dataset files and generated caches remain local.</p>
+        <p>Last site refresh: 21 March 2026.</p>
+      </footer>
+    </div>
+  </body>
+</html>

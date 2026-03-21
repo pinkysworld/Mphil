@@ -115,6 +115,11 @@ a {
   color: var(--muted);
 }
 
+.lead.compact {
+  max-width: 60ch;
+  font-size: 1rem;
+}
+
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -257,6 +262,46 @@ a {
   line-height: 1.65;
 }
 
+.term-grid,
+.explain-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.term-card,
+.explain-grid article,
+.experiment-card {
+  padding: 18px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.48);
+  border: 1px solid rgba(24, 34, 38, 0.08);
+}
+
+.term-card h3,
+.explain-grid h3,
+.experiment-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+  color: var(--accent-warm);
+}
+
+.term-card p,
+.explain-grid p,
+.experiment-card p {
+  margin: 0;
+}
+
+.experiment-stack {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.experiment-card p + p {
+  margin-top: 10px;
+}
+
 .two-column {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -327,7 +372,10 @@ a {
   .snapshot,
   .content-grid,
   .question-grid,
-  .two-column {
+  .two-column,
+  .term-grid,
+  .explain-grid,
+  .experiment-stack {
     grid-template-columns: 1fr;
   }
 

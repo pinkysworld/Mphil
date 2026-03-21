@@ -22,7 +22,9 @@
         <a class="brand" href="#top">MPhil Research Project</a>
         <nav class="site-nav" aria-label="Primary">
           <a href="#questions">Questions</a>
-          <a href="#method">Method</a>
+          <a href="#method">Workflow</a>
+          <a href="#terms">Terms</a>
+          <a href="#experiments">Experiments</a>
           <a href="#data">Data</a>
           <a href="#progress">Progress</a>
         </nav>
@@ -37,6 +39,11 @@
             more robust and interpretable family-classification pipeline when
             evaluation is aligned with time rather than relying only on random
             train/test splits.
+          </p>
+          <p class="lead compact">
+            In simple terms, the project asks: if we watch what malware does in
+            a sandbox, can we classify it fairly, explain the decision, and
+            still perform well when the malware changes over time?
           </p>
           <div class="hero-actions">
             <a class="button primary" href="https://github.com/pinkysworld/Mphil">View Repository</a>
@@ -90,36 +97,246 @@
 
           <section id="method" class="panel reveal">
             <div class="panel-heading">
-              <p class="eyebrow">Method</p>
-              <h2>How the workflow is structured</h2>
+              <p class="eyebrow">Workflow</p>
+              <h2>How the project works, step by step</h2>
             </div>
+            <p>
+              The workflow follows a simple logic: start with raw malware
+              reports, clean and check them, convert them into machine-learning
+              features, train a classifier, and then test whether the results
+              are still trustworthy when time, leakage, and confidence are taken
+              seriously.
+            </p>
             <ol class="workflow">
               <li>
                 <strong>Ingest and validate</strong>
-                <span>Unpack reports, align them to the label file, and confirm the SHA-256 join.</span>
+                <span>Unpack the report archive, match each report to the label file, and check that every sample has the correct SHA-256 identity.</span>
               </li>
               <li>
                 <strong>Audit for leakage</strong>
-                <span>Check whether family names or related markers leak the answer into the input.</span>
+                <span>Look for obvious shortcuts such as family names or detection strings that would let the model “cheat” instead of learning behaviour.</span>
               </li>
               <li>
                 <strong>Build evaluation splits</strong>
-                <span>Create random and chronology-aware splits for fair comparison.</span>
+                <span>Create random and time-aware train/test splits so the project can compare easy evaluation with more realistic evaluation.</span>
               </li>
               <li>
                 <strong>Extract feature views</strong>
-                <span>Derive API-token, artifact-token, behavioural-count, and static PE representations.</span>
+                <span>Turn the JSON reports into numeric inputs such as API-token text, artifact text, behaviour counts, and static PE values.</span>
               </li>
               <li>
                 <strong>Run baseline experiments</strong>
-                <span>Train linear or boosted baselines on single views or fused views and record the outputs.</span>
+                <span>Train baseline classifiers on one feature view at a time, or on fused views, and save the performance metrics and confusion matrices.</span>
               </li>
               <li>
                 <strong>Analyse robustness</strong>
-                <span>Study temporal invariance, walk-forward behaviour, leakage ablation, and calibration.</span>
+                <span>Check whether the results remain meaningful under time drift, leakage control, and probability calibration.</span>
               </li>
             </ol>
           </section>
+        </section>
+
+        <section id="terms" class="panel wide reveal">
+          <div class="panel-heading">
+            <p class="eyebrow">Key Terms</p>
+            <h2>Important ideas explained in plain language</h2>
+          </div>
+          <div class="term-grid">
+            <article class="term-card">
+              <h3>Dynamic malware report</h3>
+              <p>
+                A sandbox report is a record of what a file did while it was
+                executed in a controlled environment, such as which API calls it
+                made, which files it touched, and which registry keys it used.
+              </p>
+            </article>
+            <article class="term-card">
+              <h3>Feature</h3>
+              <p>
+                A feature is a number the model can learn from. The project
+                turns raw report content into features because models cannot work
+                directly on the original JSON structure.
+              </p>
+            </article>
+            <article class="term-card">
+              <h3>TF-IDF</h3>
+              <p>
+                TF-IDF is a way of converting text into numbers. It gives more
+                weight to tokens that matter for a sample but are not common in
+                every sample.
+              </p>
+            </article>
+            <article class="term-card">
+              <h3>SGDClassifier</h3>
+              <p>
+                This is a fast linear classifier that works well with large,
+                sparse text data. In this project it serves as one of the main
+                baselines for API-token and artifact-token features.
+              </p>
+            </article>
+            <article class="term-card">
+              <h3>Macro-F1</h3>
+              <p>
+                Macro-F1 gives equal importance to every malware family rather
+                than letting large classes dominate the score. It is therefore
+                more informative than accuracy on imbalanced class distributions.
+              </p>
+            </article>
+            <article class="term-card">
+              <h3>Leakage</h3>
+              <p>
+                Leakage happens when the input accidentally contains the answer.
+                For example, if a family name appears in a report string, a
+                model may learn that shortcut instead of real behaviour.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="content-grid">
+          <section class="panel reveal">
+            <div class="panel-heading">
+              <p class="eyebrow">Feature Views</p>
+              <h2>What the model actually sees</h2>
+            </div>
+            <div class="explain-grid">
+              <article>
+                <h3>API TF-IDF</h3>
+                <p>
+                  The model reads the names of API calls as text and learns
+                  which call patterns are associated with each malware family.
+                </p>
+              </article>
+              <article>
+                <h3>Artifact TF-IDF</h3>
+                <p>
+                  The model uses strings from files, registry activity, mutexes,
+                  commands, and related artifacts produced during execution.
+                </p>
+              </article>
+              <article>
+                <h3>Behaviour counts</h3>
+                <p>
+                  Instead of text, this view uses simple totals such as how many
+                  files were written or how many APIs were observed.
+                </p>
+              </article>
+              <article>
+                <h3>Static PE features</h3>
+                <p>
+                  This view uses numeric information from the executable itself,
+                  such as section counts, entropy values, imports, and exports.
+                </p>
+              </article>
+              <article>
+                <h3>Fusion</h3>
+                <p>
+                  Fusion combines several feature views into one larger input so
+                  the model can learn from multiple evidence sources at once.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section class="panel reveal">
+            <div class="panel-heading">
+              <p class="eyebrow">Evaluation Splits</p>
+              <h2>Why there is more than one way to test</h2>
+            </div>
+            <div class="explain-grid">
+              <article>
+                <h3>Random stratified split</h3>
+                <p>
+                  Samples are shuffled and divided while preserving family
+                  balance. This is useful, but it can make the task look easier
+                  than it really is.
+                </p>
+              </article>
+              <article>
+                <h3>Global chronological split</h3>
+                <p>
+                  Earlier samples are used for training and later samples for
+                  testing. This better reflects a real deployment setting in
+                  which future malware is not available during training.
+                </p>
+              </article>
+              <article>
+                <h3>Per-family chronological split</h3>
+                <p>
+                  Each family is split by time internally. This helps separate
+                  temporal effects from simple class-presence effects.
+                </p>
+              </article>
+            </div>
+          </section>
+        </section>
+
+        <section id="experiments" class="panel wide reveal">
+          <div class="panel-heading">
+            <p class="eyebrow">Experiments</p>
+            <h2>What each experiment is meant to show</h2>
+          </div>
+          <div class="experiment-stack">
+            <article class="experiment-card">
+              <h3>1. Baseline experiment</h3>
+              <p>
+                The baseline experiment trains a model on one chosen feature
+                view and evaluates how well it predicts malware families on the
+                test set. This is the step that produces the first table of
+                actual classification results.
+              </p>
+              <p>
+                In practical terms, this is where combinations such as
+                <em>API TF-IDF + SGDClassifier</em> or
+                <em>fusion + logistic regression</em> are compared.
+              </p>
+            </article>
+            <article class="experiment-card">
+              <h3>2. Invariance-discriminability analysis</h3>
+              <p>
+                This experiment asks two questions at the same time: how useful
+                is a feature view for classification, and how stable is that
+                view across time? A strong view should ideally be both
+                predictive and temporally stable.
+              </p>
+            </article>
+            <article class="experiment-card">
+              <h3>3. Walk-forward evaluation</h3>
+              <p>
+                Walk-forward testing repeatedly trains on earlier periods and
+                tests on the next period. It shows whether performance stays
+                steady as time moves forward or whether the model degrades as
+                malware behaviour changes.
+              </p>
+            </article>
+            <article class="experiment-card">
+              <h3>4. Leakage ablation</h3>
+              <p>
+                This compares performance when leakage controls are enabled
+                versus disabled. If scores drop sharply when leakage is removed,
+                then the earlier result was partly inflated by shortcuts in the
+                data.
+              </p>
+            </article>
+            <article class="experiment-card">
+              <h3>5. Calibration analysis</h3>
+              <p>
+                Calibration checks whether a model’s confidence scores are
+                trustworthy. For example, if the model says it is 90% confident,
+                calibration asks whether that level of confidence is actually
+                justified in practice.
+              </p>
+            </article>
+            <article class="experiment-card">
+              <h3>6. Selective prediction</h3>
+              <p>
+                Selective prediction studies whether the model can improve
+                reliability by abstaining on uncertain cases. This matters if a
+                later system is allowed to say “I am not confident enough” on
+                difficult samples.
+              </p>
+            </article>
+          </div>
         </section>
 
         <section id="data" class="panel wide reveal">
@@ -166,6 +383,12 @@
             <p class="eyebrow">Progress</p>
             <h2>Current project state</h2>
           </div>
+          <p>
+            The project website is intentionally written as a living summary.
+            As the pipeline runs locally and the result files grow, this section
+            can be updated with concrete findings, figures, and thesis-ready
+            tables.
+          </p>
           <div class="timeline">
             <article>
               <span class="timeline-tag">Completed</span>
@@ -188,6 +411,7 @@
 
       <footer class="site-footer">
         <p>Hosted with GitHub Pages. Research code and notes live in the public repository; raw dataset files remain local.</p>
+        <p>This site is meant to explain the project in accessible terms before full thesis chapters and final figures are added.</p>
       </footer>
     </div>
   </body>

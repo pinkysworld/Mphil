@@ -42,6 +42,8 @@ artifacts/walk_forward/*
 !artifacts/walk_forward/.gitkeep
 artifacts/invariance/*
 !artifacts/invariance/.gitkeep
+artifacts/leakage_ablation/*
+!artifacts/leakage_ablation/.gitkeep
 artifacts/models/*
 !artifacts/models/.gitkeep
 

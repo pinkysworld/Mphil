@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-04-01T10:06:05.308084",
+  "model": "sgd",
+  "view_requests": [
+    "api_tfidf"
+  ],
+  "target_known_retention": 0.95,
+  "n_families_evaluated": 9,
+  "aggregate": [
+    {
+      "view_request": "api_tfidf",
+      "score_method": "margin",
+      "mean_open_set_macro_f1": 0.8766,
+      "mean_unknown_rejection_rate": 0.7416,
+      "mean_known_acceptance_rate": 0.918,
+      "mean_unknown_detection_auroc": 0.9392
+    },
+    {
+      "view_request": "api_tfidf",
+      "score_method": "max_prob",
+      "mean_open_set_macro_f1": 0.8888,
+      "mean_unknown_rejection_rate": 0.8284,
+      "mean_known_acceptance_rate": 0.919,
+      "mean_unknown_detection_auroc": 0.9425
+    }
+  ]
+}

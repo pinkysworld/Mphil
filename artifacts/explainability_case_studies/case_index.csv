@@ -1,0 +1,25 @@
+run_name,case_label,sha256,date,true_family,predicted_family,correct,confidence,margin,view_request,split,model
+global_art_tfidf_sgd,high_confidence_correct,e1a94beaaf6f39dfabf4ea7eed5c47b59009e0be426156e8d0d986f763c42cb5,2019-11-11 00:00:00,emotet,emotet,True,0.984122,0.980306,art_tfidf,global_chronological,sgd
+global_art_tfidf_sgd,low_confidence_correct,e505ed734d2149c6596f2314840e37825555e99990e42e205607caa73d42e557,2019-09-17 00:00:00,swisyn,swisyn,True,0.184674,0.034753,art_tfidf,global_chronological,sgd
+global_art_tfidf_sgd,high_confidence_error,4a4a0b451a08883c491b083d0f6a281f09a4b184aa7b9f24647fb63d0c10f697,2019-09-23 00:00:00,trickbot,njrat,False,0.906693,0.88629,art_tfidf,global_chronological,sgd
+global_art_tfidf_sgd,borderline_case,270995c92bd208edd784555d54c8d508487a9e7fdd48cd6f053956ce3f74a07e,2019-10-25 00:00:00,swisyn,ursnif,False,0.159856,0.002272,art_tfidf,global_chronological,sgd
+per_family_api_tfidf_sgd,high_confidence_correct,8ac99b4dff975d9173b50d20d6000661c97bfa14678691fa11d25869f4ab426d,2019-11-08 00:00:00,emotet,emotet,True,0.988585,0.986068,api_tfidf,per_family_chronological,sgd
+per_family_api_tfidf_sgd,low_confidence_correct,0a2e32465434580b82bae447ac648d825080d5934c5ff4d1e25721e1963c08a4,2019-10-26 00:00:00,zeus,zeus,True,0.160929,0.006975,api_tfidf,per_family_chronological,sgd
+per_family_api_tfidf_sgd,high_confidence_error,ed256ea8995a49ef927041a1d976f3a27e28adcce8b809d80e24b5ab0391fefa,2019-09-29 00:00:00,njrat,swisyn,False,0.862194,0.810916,api_tfidf,per_family_chronological,sgd
+per_family_api_tfidf_sgd,borderline_case,32f75d4a63798dc132ad36560c7cd6447f363f1a4347359dc19f8e71f02aab7f,2019-11-29 00:00:00,trickbot,lokibot,False,0.253401,0.001312,api_tfidf,per_family_chronological,sgd
+per_family_art_tfidf_sgd,high_confidence_correct,e1a94beaaf6f39dfabf4ea7eed5c47b59009e0be426156e8d0d986f763c42cb5,2019-11-11 00:00:00,emotet,emotet,True,0.985818,0.98241,art_tfidf,per_family_chronological,sgd
+per_family_art_tfidf_sgd,low_confidence_correct,82011dae0f88539a743704874e3573d3a18f9b86ba0fde5d03eb55aa8abb8db8,2019-11-17 00:00:00,swisyn,swisyn,True,0.174522,0.006129,art_tfidf,per_family_chronological,sgd
+per_family_art_tfidf_sgd,high_confidence_error,8c4812ecae08c29702d22ca1617b3d2a9198d77fcd6229d5e473ffd61a7d19df,2019-10-24 00:00:00,emotet,trickbot,False,0.895607,0.872527,art_tfidf,per_family_chronological,sgd
+per_family_art_tfidf_sgd,borderline_case,f97156216ef9051fa4d199bc719434923f1645fa4a5f0738d36711bcdf105103,2019-05-02 00:00:00,zeus,zeus,True,0.211032,0.00029,art_tfidf,per_family_chronological,sgd
+table_5_11_fusion_global_sgd,high_confidence_correct,ad73cb1c533e99d22d30e36949aa1ebecd5be118315b8a713e6ae414ce3e1a0c,2019-11-12 00:00:00,emotet,emotet,True,0.992338,0.990833,fusion,global_chronological,sgd
+table_5_11_fusion_global_sgd,low_confidence_correct,a9b59bdf1395f7275793421158548494d92646662939550080fe325673fa81f3,2019-09-27 00:00:00,emotet,emotet,True,0.170738,0.00928,fusion,global_chronological,sgd
+table_5_11_fusion_global_sgd,high_confidence_error,3d8bc4aeb9ad4317f3e8bae4bcff3ef0f9ed3ddd7d79dbcadc4ff1c0e4842596,2019-10-26 00:00:00,harhar,njrat,False,0.862426,0.803486,fusion,global_chronological,sgd
+table_5_11_fusion_global_sgd,borderline_case,f1e2e1a9f542954c017e627cedb9ccde92ffe466e7bca9b37ac18f5d41abc495,2019-10-10 00:00:00,emotet,lokibot,False,0.267165,0.00038,fusion,global_chronological,sgd
+table_5_12_fusion_per_family_sgd,high_confidence_correct,ad73cb1c533e99d22d30e36949aa1ebecd5be118315b8a713e6ae414ce3e1a0c,2019-11-12 00:00:00,emotet,emotet,True,0.993815,0.992699,fusion,per_family_chronological,sgd
+table_5_12_fusion_per_family_sgd,low_confidence_correct,088759cfbe7232091e249d40c702b9cc8bde4421c5529fb509514351b9af005f,2019-11-06 00:00:00,emotet,emotet,True,0.205916,0.027674,fusion,per_family_chronological,sgd
+table_5_12_fusion_per_family_sgd,high_confidence_error,ff122bf4096e27d7490d98ffa49795735938294ed5955852ff2928001a3e9cc8,2019-07-14 00:00:00,lokibot,njrat,False,0.934591,0.904026,fusion,per_family_chronological,sgd
+table_5_12_fusion_per_family_sgd,borderline_case,9e423109191fab5cd1557b8772402d862125f5cd9e0034bee7e74d87d3e308ee,2019-10-25 00:00:00,emotet,emotet,True,0.37381,0.0,fusion,per_family_chronological,sgd
+table_5_8,high_confidence_correct,d322879374b6d4d57ae4a1d99db4b69ccf77adffa1ffd6c2fc587a065ebfed74,2019-10-06 00:00:00,emotet,emotet,True,0.990096,0.987956,api_tfidf,global_chronological,sgd
+table_5_8,low_confidence_correct,0a2e32465434580b82bae447ac648d825080d5934c5ff4d1e25721e1963c08a4,2019-10-26 00:00:00,zeus,zeus,True,0.197672,0.055757,api_tfidf,global_chronological,sgd
+table_5_8,high_confidence_error,ed256ea8995a49ef927041a1d976f3a27e28adcce8b809d80e24b5ab0391fefa,2019-09-29 00:00:00,njrat,swisyn,False,0.843953,0.795066,api_tfidf,global_chronological,sgd
+table_5_8,borderline_case,c1f3e58f1a5be8b856800fdd12d85195661f7fde5258c417b9a7a472ff1c37d0,2019-10-26 00:00:00,zeus,njrat,False,0.179976,7.2e-05,api_tfidf,global_chronological,sgd

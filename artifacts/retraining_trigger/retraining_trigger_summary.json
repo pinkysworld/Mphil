@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-04-01T09:51:13.316018",
+  "input_csv": "/Users/michelpicker/Library/Mobile Documents/com~apple~CloudDocs/Projekte/thesis_MPhil/github/artifacts/walk_forward/walk_forward_results.csv",
+  "trailing_window": 3,
+  "floor": 0.75,
+  "drop_margin": 0.1,
+  "n_windows": 19,
+  "n_trigger_windows": 7,
+  "n_trigger_episodes": 2,
+  "min_macro_f1": 0.669,
+  "max_macro_f1": 0.9289,
+  "mean_macro_f1": 0.7908,
+  "recommended_retrain_boundaries": [
+    "2018-08-30",
+    "2019-02-26"
+  ]
+}

@@ -1,0 +1,5 @@
+run,split,model,n_test,macro_f1_point,macro_f1_ci_lo,macro_f1_ci_hi,ci_width
+table_5_8_api_tfidf_global_sgd,global_chronological,sgd,9796,0.9024,0.8801,0.9306,0.0505
+table_5_11_fusion_global_sgd,global_chronological,sgd,9796,0.9317,0.9257,0.9376,0.0118
+table_5_12_fusion_per_family_sgd,per_family_chronological,sgd,9799,0.9607,0.9563,0.9651,0.0087
+table_6_1_fusion_global_lightgbm,global_chronological,lightgbm,9796,0.9118,0.9054,0.9183,0.0129

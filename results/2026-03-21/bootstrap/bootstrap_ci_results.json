@@ -1,0 +1,75 @@
+{
+  "timestamp": "2026-04-19T07:40:00Z",
+  "method": "confusion_matrix_multinomial_bootstrap",
+  "replicates": 10000,
+  "seed": 2026,
+  "notes": "Bootstrap is applied to archived confusion matrices. This estimates finite-per-class-support uncertainty under in-row independence. Paired comparisons between runs are reported by overlap/non-overlap of marginal CIs; overlapping intervals require sample-level paired bootstrap (scripts/10_paired_bootstrap.py) for resolution, which is only possible for runs with archived per-sample predictions (see run_experiment.py patch).",
+  "runs": [
+    {
+      "name": "table_5_8_api_tfidf_global_sgd",
+      "split": "global_chronological",
+      "views": ["api_tfidf"],
+      "model": "sgd",
+      "n_test": 9796,
+      "macro_f1_point": 0.9024,
+      "macro_f1_ci_95": [0.8801, 0.9306],
+      "ci_width": 0.0505
+    },
+    {
+      "name": "table_5_11_fusion_global_sgd",
+      "split": "global_chronological",
+      "views": ["api_tfidf", "art_tfidf", "counts", "pe"],
+      "model": "sgd",
+      "n_test": 9796,
+      "macro_f1_point": 0.9317,
+      "macro_f1_ci_95": [0.9257, 0.9376],
+      "ci_width": 0.0118
+    },
+    {
+      "name": "table_5_12_fusion_per_family_sgd",
+      "split": "per_family_chronological",
+      "views": ["api_tfidf", "art_tfidf", "counts", "pe"],
+      "model": "sgd",
+      "n_test": 9799,
+      "macro_f1_point": 0.9607,
+      "macro_f1_ci_95": [0.9563, 0.9651],
+      "ci_width": 0.0087
+    },
+    {
+      "name": "table_6_1_fusion_global_lightgbm",
+      "split": "global_chronological",
+      "views": ["api_tfidf", "art_tfidf", "counts", "pe"],
+      "model": "lightgbm",
+      "n_test": 9796,
+      "macro_f1_point": 0.9118,
+      "macro_f1_ci_95": [0.9054, 0.9183],
+      "ci_width": 0.0129
+    }
+  ],
+  "pairwise_ci_comparisons": [
+    {
+      "a": "table_5_8_api_tfidf_global_sgd",
+      "b": "table_5_11_fusion_global_sgd",
+      "a_ci": [0.8801, 0.9306],
+      "b_ci": [0.9257, 0.9376],
+      "intervals_overlap": true,
+      "conclusion": "indeterminate from marginal CIs; sample-level paired bootstrap needed"
+    },
+    {
+      "a": "table_5_11_fusion_global_sgd",
+      "b": "table_6_1_fusion_global_lightgbm",
+      "a_ci": [0.9257, 0.9376],
+      "b_ci": [0.9054, 0.9183],
+      "intervals_overlap": false,
+      "conclusion": "SGD fusion reliably exceeds LightGBM fusion on this bundle"
+    },
+    {
+      "a": "table_5_11_fusion_global_sgd",
+      "b": "table_5_12_fusion_per_family_sgd",
+      "a_ci": [0.9257, 0.9376],
+      "b_ci": [0.9563, 0.9651],
+      "intervals_overlap": false,
+      "conclusion": "per-family split reliably easier than global split for same model"
+    }
+  ]
+}

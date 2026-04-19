@@ -359,6 +359,20 @@ def main():
 
     report_df.to_csv(side_paths["report_csv"])
     cm_df.to_csv(side_paths["confusion_csv"])
+
+    # Archive per-sample predictions for paired bootstrap and McNemar tests.
+    # See scripts/10_paired_bootstrap.py and results/<date>/bootstrap/README.md.
+    predictions_dir = PROJECT_ROOT / "artifacts" / "predictions"
+    predictions_dir.mkdir(parents=True, exist_ok=True)
+    prediction_path = predictions_dir / (output_path.stem + ".npz")
+    np.savez_compressed(
+        prediction_path,
+        y_true=y_test,
+        y_pred=y_pred,
+        test_indices=np.asarray(test_idx),
+        label_classes=label_encoder.classes_,
+    )
+
     plot_confusion(
         cm,
         label_encoder.classes_.tolist(),
@@ -384,6 +398,7 @@ def main():
         "report_csv": str(side_paths["report_csv"]),
         "confusion_csv": str(side_paths["confusion_csv"]),
         "confusion_png": str(side_paths["confusion_png"]),
+        "predictions_npz": str(prediction_path),
     }
 
     with open(output_path, "w", encoding="utf-8") as f:

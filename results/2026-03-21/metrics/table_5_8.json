@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-21T17:39:46.551227",
+  "timestamp": "2026-05-06T19:18:31.777887",
   "view_request": "api_tfidf",
   "views": [
     "api_tfidf"
@@ -17,5 +17,6 @@
   "weighted_f1": 0.9602,
   "report_csv": "artifacts/metrics/table_5_8_report.csv",
   "confusion_csv": "artifacts/metrics/table_5_8_confusion.csv",
-  "confusion_png": "artifacts/metrics/table_5_8_confusion.png"
+  "confusion_png": "artifacts/metrics/table_5_8_confusion.png",
+  "predictions_npz": "artifacts/predictions/table_5_8.npz"
 }

@@ -18,7 +18,7 @@ uncertainty due to finite per-class test support under an in-row
 independence assumption.
 
 **Sample-level paired bootstrap with McNemar's test** (used for runs with
-per-sample predictions archived to `../../artifacts/predictions/*.npz`).
+per-sample predictions archived to `artifacts/predictions/*.npz`).
 This is the correct test for paired-model claims and is run via
 `scripts/10_paired_bootstrap.py`.
 
@@ -55,7 +55,7 @@ python scripts/10_paired_bootstrap.py \
 ## Files
 
 - `bootstrap_ci_results.json` — headline CIs for all four tracked runs and
-  the three pairwise overlap comparisons used in the thesis.
+  the LightGBM sensitivity run.
 - `bootstrap_ci_summary.csv` — flat CSV for convenience.
-- (after sample-level re-runs) `paired_*.json` — true paired bootstrap
-  results with McNemar p-values.
+- `paired_fusion_global_vs_api_global.json` — true paired bootstrap result
+  with McNemar p-value for fused global SGD versus API-only global SGD.

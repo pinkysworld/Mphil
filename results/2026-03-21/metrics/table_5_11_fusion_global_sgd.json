@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-21T17:52:34.276551",
+  "timestamp": "2026-05-06T19:19:07.613623",
   "view_request": "fusion",
   "views": [
     "api_tfidf",
@@ -20,5 +20,6 @@
   "weighted_f1": 0.963,
   "report_csv": "artifacts/metrics/table_5_11_fusion_global_sgd_report.csv",
   "confusion_csv": "artifacts/metrics/table_5_11_fusion_global_sgd_confusion.csv",
-  "confusion_png": "artifacts/metrics/table_5_11_fusion_global_sgd_confusion.png"
+  "confusion_png": "artifacts/metrics/table_5_11_fusion_global_sgd_confusion.png",
+  "predictions_npz": "artifacts/predictions/table_5_11_fusion_global_sgd.npz"
 }

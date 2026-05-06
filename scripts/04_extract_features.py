@@ -47,6 +47,8 @@ FAMILY_NAMES = {
     "njrat", "zeus", "ursnif", "adload", "harhar"
 }
 
+SEGMENT_SPLIT_RE = re.compile(r"([A-Za-z0-9]+)")
+
 # Volatile identifier patterns (Rule 3)
 GUID_PATTERN = re.compile(
     r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
@@ -90,10 +92,17 @@ def normalise_mutex(mutex_str: str) -> str:
 
 
 def filter_family_names(token: str) -> str:
-    """Remove family-name segments (Rule 1)."""
-    for fam in FAMILY_NAMES:
-        token = token.replace(fam, "")
-    return token.strip()
+    """Remove exact family-name segments without mutating other words.
+
+    The earlier conservative implementation used substring replacement, which
+    could distort legitimate API names such as kernel32.dll.createremotethread
+    because that string contains the letters "emotet". Exact alphanumeric
+    segment filtering removes tokens like "Global\\TrickBot" while preserving
+    ordinary API/function names.
+    """
+    parts = SEGMENT_SPLIT_RE.split(token or "")
+    filtered = [part for part in parts if part.lower() not in FAMILY_NAMES]
+    return "".join(filtered).strip()
 
 
 # ── View extractors ────────────────────────────────────────

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-21T18:44:10.380948",
+  "timestamp": "2026-05-06T19:54:20.416282",
   "view_request": "fusion",
   "views": [
     "api_tfidf",
@@ -20,5 +20,6 @@
   "weighted_f1": 0.9496,
   "report_csv": "artifacts/metrics/table_6_1_fusion_global_lightgbm_report.csv",
   "confusion_csv": "artifacts/metrics/table_6_1_fusion_global_lightgbm_confusion.csv",
-  "confusion_png": "artifacts/metrics/table_6_1_fusion_global_lightgbm_confusion.png"
+  "confusion_png": "artifacts/metrics/table_6_1_fusion_global_lightgbm_confusion.png",
+  "predictions_npz": "artifacts/predictions/table_6_1_fusion_global_lightgbm.npz"
 }

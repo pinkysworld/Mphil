@@ -1,6 +1,6 @@
-run,split,model,accuracy,macro_f1,weighted_f1
-baseline_random_api_hash_sgd,random_stratified,sgd,0.9089,0.8718,0.9076
-table_5_8_api_tfidf_global_sgd,global_chronological,sgd,0.9573,0.9024,0.9602
-table_5_11_fusion_global_sgd,global_chronological,sgd,0.9606,0.9317,0.963
-table_5_12_fusion_per_family_sgd,per_family_chronological,sgd,0.9665,0.9607,0.9667
-table_6_1_fusion_global_lightgbm,global_chronological,lightgbm,0.9459,0.9118,0.9496
+run,view_request,views,split,model,accuracy,macro_f1,weighted_f1,n_train,n_val,n_test
+baseline_random_api_hash_sgd,api_hash,api_hash,random_stratified,sgd,0.9089,0.8718,0.9076,35262,3918,9796
+table_5_11_fusion_global_sgd,fusion,api_tfidf+art_tfidf+counts+pe,global_chronological,sgd,0.9606,0.9317,0.963,35262,3918,9796
+table_5_12_fusion_per_family_sgd,fusion,api_tfidf+art_tfidf+counts+pe,per_family_chronological,sgd,0.9665,0.9607,0.9667,35263,3914,9799
+table_5_8,api_tfidf,api_tfidf,global_chronological,sgd,0.9573,0.9024,0.9602,35262,3918,9796
+table_6_1_fusion_global_lightgbm,fusion,api_tfidf+art_tfidf+counts+pe,global_chronological,lightgbm,0.9459,0.9118,0.9496,35262,3918,9796

@@ -10,6 +10,7 @@ Output:
 """
 
 import json
+import re
 from pathlib import Path
 from datetime import datetime
 
@@ -34,6 +35,14 @@ FAMILY_NAMES = {
     "njrat", "zeus", "ursnif", "adload", "harhar"
 }
 
+SEGMENT_SPLIT_RE = re.compile(r"([A-Za-z0-9]+)")
+
+
+def filter_family_name_segments(token: str) -> str:
+    """Remove exact family-name segments while preserving ordinary API names."""
+    parts = SEGMENT_SPLIT_RE.split(token or "")
+    return "".join(part for part in parts if part.lower() not in FAMILY_NAMES).strip()
+
 
 def extract_api_tokens(report_path, filter_families=True):
     """Extract API tokens, optionally filtering family names."""
@@ -48,8 +57,7 @@ def extract_api_tokens(report_path, filter_families=True):
             if isinstance(api, str):
                 t = api.lower().strip()
                 if filter_families:
-                    for fam in FAMILY_NAMES:
-                        t = t.replace(fam, "")
+                    t = filter_family_name_segments(t)
                 if t.strip():
                     tokens.append(t.strip())
 
@@ -59,8 +67,7 @@ def extract_api_tokens(report_path, filter_families=True):
                 if isinstance(item, str):
                     t = item.lower()
                     if filter_families:
-                        for fam in FAMILY_NAMES:
-                            t = t.replace(fam, "")
+                        t = filter_family_name_segments(t)
                     if t.strip():
                         tokens.append(f"ART:{t.strip()[:80]}")
 

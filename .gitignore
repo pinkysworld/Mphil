@@ -46,6 +46,7 @@ artifacts/leakage_ablation/*
 !artifacts/leakage_ablation/.gitkeep
 artifacts/models/*
 !artifacts/models/.gitkeep
+artifacts/reproducibility/*
 
 # Workspace folders
 experiments/*
@@ -54,3 +55,4 @@ notebooks/*
 !notebooks/.gitkeep
 tests/*
 !tests/.gitkeep
+!tests/test_leakage_filters.py

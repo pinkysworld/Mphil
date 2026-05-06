@@ -1,6 +1,6 @@
 # Retraining-trigger analysis
 
-Input walk-forward file: `/Users/michelpicker/Library/Mobile Documents/com~apple~CloudDocs/Projekte/thesis_MPhil/github/artifacts/walk_forward/walk_forward_results.csv`
+Input walk-forward file: `artifacts/walk_forward/walk_forward_results.csv`
 Windows analysed: `19`
 Trigger windows: `7`
 Trigger episodes: `2`

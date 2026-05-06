@@ -398,7 +398,7 @@ def main():
         "report_csv": str(side_paths["report_csv"]),
         "confusion_csv": str(side_paths["confusion_csv"]),
         "confusion_png": str(side_paths["confusion_png"]),
-        "predictions_npz": str(prediction_path),
+        "predictions_npz": str(prediction_path.relative_to(PROJECT_ROOT)),
     }
 
     with open(output_path, "w", encoding="utf-8") as f:

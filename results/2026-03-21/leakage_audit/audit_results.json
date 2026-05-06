@@ -1,32 +1,30 @@
 {
-  "timestamp": "2026-03-21T16:29:26.855471",
+  "timestamp": "2026-05-06T19:00:34.452476",
   "n_scanned": 48976,
-  "n_total_hits": 17544,
-  "n_flagged_samples": 11840,
-  "hit_rate": 0.24175106174452793,
+  "n_total_hits": 100435,
+  "n_flagged_samples": 3301,
+  "hit_rate": 0.06740035935968637,
   "summary_by_term": {
-    "family_name:emotet": 7918,
-    "detection_indicator:signature": 7971,
+    "detection_indicator:sig": 97804,
     "detection_indicator:yara": 1031,
-    "detection_indicator:detection": 202,
-    "family_name:njrat": 364,
+    "detection_indicator:signature": 911,
+    "detection_indicator:detection": 93,
+    "family_name:njrat": 338,
+    "family_name:emotet": 33,
     "family_name:trickbot": 35,
-    "family_name:zeus": 13,
-    "family_name:lokibot": 8,
-    "detection_indicator:classification": 2
+    "detection_indicator:malware": 190
   },
   "family_name_hits": {
-    "emotet": 7918,
-    "njrat": 364,
-    "trickbot": 35,
-    "zeus": 13,
-    "lokibot": 8
+    "njrat": 338,
+    "emotet": 33,
+    "trickbot": 35
   },
   "detection_indicator_hits": {
-    "signature": 7971,
+    "sig": 97804,
     "yara": 1031,
-    "detection": 202,
-    "classification": 2
+    "signature": 911,
+    "detection": 93,
+    "malware": 190
   },
   "families_scanned": [
     "emotet",
@@ -45,9 +43,9 @@
     "signature",
     "detection",
     "avclass",
-    "malware_name",
+    "malware",
     "classification",
-    "sig_"
+    "sig"
   ],
   "fields_scanned": [
     "files",
@@ -67,5 +65,6 @@
     "hosts",
     "urls",
     "ips"
-  ]
+  ],
+  "matching_policy": "exact_alphanumeric_segments"
 }

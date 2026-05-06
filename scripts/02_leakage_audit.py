@@ -29,11 +29,17 @@ FAMILY_NAMES = [
     "njrat", "zeus", "ursnif", "adload", "harhar"
 ]
 
-# Detection-indicator terms
+# Detection-indicator terms. These are checked as exact alphanumeric
+# segments, not substrings, to avoid false positives such as
+# CryptVerifySignatureW -> "signature".
 DETECTION_TERMS = [
     "yara", "signature", "detection", "avclass",
-    "malware_name", "classification", "sig_"
+    "malware", "classification", "sig"
 ]
+
+SEGMENT_RE = re.compile(r"[a-z0-9]+", re.IGNORECASE)
+FAMILY_NAME_SET = set(FAMILY_NAMES)
+DETECTION_TERM_SET = set(DETECTION_TERMS)
 
 # Allowed behavioral string fields to scan
 ALLOWED_STRING_FIELDS = [
@@ -67,33 +73,43 @@ def extract_strings_from_report(report: dict) -> list:
     return strings
 
 
+def alphanumeric_segments(value: str) -> set:
+    """Return exact alphanumeric segments for leakage matching.
+
+    Exact segment matching prevents accidental hits where a family name or
+    detection word is embedded inside an unrelated API/function name. For
+    example, CreateRemoteThread contains the letters "emotet" across an
+    internal boundary, and CryptVerifySignatureW contains "signature"; neither
+    should be treated as a confirmed leakage hit.
+    """
+    return {segment.lower() for segment in SEGMENT_RE.findall(value or "")}
+
+
 def scan_for_leakage(sha256: str, report: dict) -> list:
-    """Scan a single report for leakage indicators."""
+    """Scan a single report for exact-segment leakage indicators."""
     hits = []
     strings = extract_strings_from_report(report)
 
     for field, value in strings:
-        value_lower = value.lower()
-        # Check family names
-        for fam in FAMILY_NAMES:
-            if fam in value_lower:
-                hits.append({
-                    "sha256": sha256,
-                    "field": field,
-                    "value": value[:200],  # truncate for storage
-                    "match_type": "family_name",
-                    "matched_term": fam,
-                })
-        # Check detection indicators
-        for term in DETECTION_TERMS:
-            if term in value_lower:
-                hits.append({
-                    "sha256": sha256,
-                    "field": field,
-                    "value": value[:200],
-                    "match_type": "detection_indicator",
-                    "matched_term": term,
-                })
+        segments = alphanumeric_segments(value)
+
+        for fam in sorted(FAMILY_NAME_SET & segments):
+            hits.append({
+                "sha256": sha256,
+                "field": field,
+                "value": value[:200],  # truncate for storage
+                "match_type": "family_name",
+                "matched_term": fam,
+            })
+
+        for term in sorted(DETECTION_TERM_SET & segments):
+            hits.append({
+                "sha256": sha256,
+                "field": field,
+                "value": value[:200],
+                "match_type": "detection_indicator",
+                "matched_term": term,
+            })
     return hits
 
 
@@ -165,6 +181,7 @@ def main():
         "families_scanned": FAMILY_NAMES,
         "detection_terms_scanned": DETECTION_TERMS,
         "fields_scanned": ALLOWED_STRING_FIELDS,
+        "matching_policy": "exact_alphanumeric_segments",
     }
 
     with open(AUDIT_DIR / "audit_results.json", "w") as f:

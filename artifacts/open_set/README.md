@@ -1,7 +1,7 @@
 # Held-out-family open-set evaluation
 
 Model: `sgd`
-Views: `api_tfidf`
+Views: `api_tfidf, fusion`
 Validation known-retention target: `0.95`
 
 Files:
@@ -14,3 +14,4 @@ Files:
 Mean results for max-probability thresholding:
 
 - `api_tfidf`: open-set macro-F1=0.8888, unknown rejection=0.8284, known acceptance=0.919
+- `fusion`: open-set macro-F1=0.8674, unknown rejection=0.8328, known acceptance=0.915

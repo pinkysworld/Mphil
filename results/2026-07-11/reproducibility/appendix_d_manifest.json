@@ -1,0 +1,54 @@
+{
+  "api_table_definition": "Exact leakage-filtered resolved_apis entries; each entry contributes at most once per report.",
+  "artifact_analyzer": {
+    "analyzer": "word",
+    "counting_unit": "number_of_family_reports_containing_token",
+    "lowercase": true,
+    "ngram_range": [
+      1,
+      1
+    ],
+    "token_pattern": "(?u)\\b\\w\\w+\\b"
+  },
+  "artifact_analyzer_sha256": "33f2e8db4bc8800057ba8aa08f2b7dbb08b6629d40a511a9a12141c33d815e42",
+  "artifact_table_definition": "Unigram components produced by the explicit model word analyzer from the shared artifact extractor; each component contributes at most once per report.",
+  "extractor": {
+    "api_source": "behavior.summary.resolved_apis",
+    "artifact_token_cap": 400,
+    "family_names": [
+      "adload",
+      "emotet",
+      "harhar",
+      "lokibot",
+      "njrat",
+      "qakbot",
+      "swisyn",
+      "trickbot",
+      "ursnif",
+      "zeus"
+    ],
+    "leakage_matching_policy": "exact_alphanumeric_segments",
+    "schema_version": "2026-07-11.1"
+  },
+  "inputs": {
+    "metadata": {
+      "bytes": 6375837,
+      "path": "data/processed/metadata.parquet",
+      "sha256": "0638acf74b83e5e6c8f7045bd9c36ffa02505ca172dc98d06fe38de721249d2f"
+    }
+  },
+  "outputs": [
+    {
+      "bytes": 10372,
+      "path": "artifacts/reproducibility/appendix_d/api_entry_report_prevalence.csv",
+      "sha256": "396e11e9319d2c9030774fca1e5663bf2aab5120c071fad123641ea53be1fb05"
+    },
+    {
+      "bytes": 9717,
+      "path": "artifacts/reproducibility/appendix_d/artifact_component_report_prevalence.csv",
+      "sha256": "7942b6ecbced77f50bb57ff6d25d2a107689459050d5e2236a7a7d1f983ba59c"
+    }
+  ],
+  "schema_version": "1.0",
+  "top_n": 20
+}

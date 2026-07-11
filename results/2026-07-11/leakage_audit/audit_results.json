@@ -1,0 +1,70 @@
+{
+  "timestamp": "2026-07-11T15:43:23.922888",
+  "n_scanned": 48976,
+  "n_total_hits": 100435,
+  "n_flagged_samples": 3301,
+  "hit_rate": 0.06740035935968637,
+  "summary_by_term": {
+    "detection_indicator:sig": 97804,
+    "detection_indicator:yara": 1031,
+    "detection_indicator:signature": 911,
+    "detection_indicator:detection": 93,
+    "family_name:njrat": 338,
+    "family_name:emotet": 33,
+    "family_name:trickbot": 35,
+    "detection_indicator:malware": 190
+  },
+  "family_name_hits": {
+    "njrat": 338,
+    "emotet": 33,
+    "trickbot": 35
+  },
+  "detection_indicator_hits": {
+    "sig": 97804,
+    "yara": 1031,
+    "signature": 911,
+    "detection": 93,
+    "malware": 190
+  },
+  "families_scanned": [
+    "emotet",
+    "swisyn",
+    "qakbot",
+    "trickbot",
+    "lokibot",
+    "njrat",
+    "zeus",
+    "ursnif",
+    "adload",
+    "harhar"
+  ],
+  "detection_terms_scanned": [
+    "yara",
+    "signature",
+    "detection",
+    "avclass",
+    "malware",
+    "classification",
+    "sig"
+  ],
+  "fields_scanned": [
+    "files",
+    "read_files",
+    "write_files",
+    "delete_files",
+    "keys",
+    "read_keys",
+    "write_keys",
+    "delete_keys",
+    "mutexes",
+    "executed_commands",
+    "resolved_apis",
+    "started_services",
+    "created_services",
+    "domains",
+    "hosts",
+    "urls",
+    "ips"
+  ],
+  "matching_policy": "exact_alphanumeric_segments"
+}

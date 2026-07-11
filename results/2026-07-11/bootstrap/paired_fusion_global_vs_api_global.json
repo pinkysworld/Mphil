@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-05-06T20:32:57.700254",
+  "run_a": "artifacts/predictions/table_5_11_fusion_global_sgd.npz",
+  "run_b": "artifacts/predictions/table_5_8.npz",
+  "n_test": 9796,
+  "replicates": 10000,
+  "seed": 2026,
+  "run_a_macro_f1_point": 0.9316918836538353,
+  "run_a_macro_f1_ci_95": [
+    0.9227955096593083,
+    0.938690834423214
+  ],
+  "run_b_macro_f1_point": 0.9024446383547359,
+  "run_b_macro_f1_ci_95": [
+    0.8290733035856185,
+    0.9309033077300514
+  ],
+  "delta_macro_f1_point": 0.02924724529909939,
+  "delta_macro_f1_ci_95": [
+    0.0020977161271714174,
+    0.09578631665383738
+  ],
+  "delta_ci_excludes_zero": true,
+  "mcnemar": {
+    "b": 96,
+    "c": 64,
+    "n_discordant": 160,
+    "p_value": 0.014001016159629487
+  }
+}

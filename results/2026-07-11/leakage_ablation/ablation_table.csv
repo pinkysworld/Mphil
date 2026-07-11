@@ -1,0 +1,5 @@
+label,split,filter_families,accuracy,macro_f1,weighted_f1,n_train,n_test
+Controlled + Random,random_stratified,True,0.9163,0.8792,0.9157,39180,9796
+Permitted + Random,random_stratified,False,0.9163,0.8792,0.9157,39180,9796
+Controlled + Chrono,global_chronological,True,0.8948,0.783,0.8926,39180,9796
+Permitted + Chrono,global_chronological,False,0.8948,0.783,0.8926,39180,9796

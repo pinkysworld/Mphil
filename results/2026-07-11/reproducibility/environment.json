@@ -1,0 +1,29 @@
+{
+  "git": {
+    "branch": "codex/walk-forward-reproducibility",
+    "commit": "11011b7fc1fcbb9c19f99137ec65d9ebd24b315f",
+    "dirty": false
+  },
+  "packages": {
+    "joblib": "1.5.3",
+    "lightgbm": "4.6.0",
+    "matplotlib": "3.10.9",
+    "numpy": "1.24.0",
+    "pandas": "2.2.3",
+    "pyarrow": "24.0.0",
+    "scikit-learn": "1.4.2",
+    "scipy": "1.15.3"
+  },
+  "platform": {
+    "machine": "x86_64",
+    "platform": "Linux-6.12.47-x86_64-with-glibc2.39",
+    "release": "6.12.47",
+    "system": "Linux"
+  },
+  "python": {
+    "executable": "/workspace/scratch/8bccfb4ace23/work/python-3.11.2-ffi/bin/python3.11",
+    "implementation": "CPython",
+    "version": "3.11.2"
+  },
+  "schema_version": "1.0"
+}

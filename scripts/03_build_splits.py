@@ -13,25 +13,104 @@ Output:
   - artifacts/splits/split_summary.json
 """
 
-import json
 from pathlib import Path
 from datetime import datetime
 
-import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
+
+from reproducibility import (
+    file_record,
+    ordered_rows_sha256,
+    sha256_bytes,
+    write_deterministic_gzip,
+    write_json,
+)
 
 # ── Configuration ──────────────────────────────────────────
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 SPLITS_DIR = PROJECT_ROOT / "data" / "splits"
 ARTIFACTS_DIR = PROJECT_ROOT / "artifacts" / "splits"
+REPRO_DIR = PROJECT_ROOT / "artifacts" / "reproducibility" / "splits"
 SPLITS_DIR.mkdir(parents=True, exist_ok=True)
 ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
 
 SEED = 42
 TRAIN_FRAC = 0.80
 VAL_FRAC_OF_TRAIN = 0.10  # for fusion/calibration tuning
+
+
+def write_split_manifests(meta: pd.DataFrame, splits: dict) -> Path:
+    """Write exact sample-hash assignments for every defended split."""
+    REPRO_DIR.mkdir(parents=True, exist_ok=True)
+
+    catalog = meta[["sha256", "family", "date"]].copy()
+    catalog.insert(0, "index", catalog.index.astype(int))
+    catalog["date"] = pd.to_datetime(catalog["date"]).dt.strftime("%Y-%m-%d")
+    catalog_payload = catalog.to_csv(index=False, lineterminator="\n").encode("utf-8")
+    catalog_path = REPRO_DIR / "sample_catalog.csv.gz"
+    write_deterministic_gzip(catalog_path, catalog_payload)
+
+    assignment_rows = []
+    split_records = {}
+    for split_name, split in splits.items():
+        role_indices = {role: list(split.get(role, [])) for role in ["train", "val", "test"]}
+        flattened = [index for indices in role_indices.values() for index in indices]
+        if len(flattened) != len(set(flattened)):
+            raise ValueError(f"Split {split_name} contains overlapping assignments.")
+        if set(flattened) != set(range(len(meta))):
+            raise ValueError(f"Split {split_name} does not cover the complete sample set.")
+
+        membership_rows = []
+        for role in ["train", "val", "test"]:
+            for index in role_indices[role]:
+                row = catalog.loc[index]
+                record = {
+                    "split": split_name,
+                    "role": role,
+                    "index": int(index),
+                    "sha256": row["sha256"],
+                    "family": row["family"],
+                    "date": row["date"],
+                }
+                assignment_rows.append(record)
+                membership_rows.append(
+                    f"{role},{index},{row['sha256']},{row['family']},{row['date']}"
+                )
+
+        split_records[split_name] = {
+            "n_train": len(role_indices["train"]),
+            "n_val": len(role_indices["val"]),
+            "n_test": len(role_indices["test"]),
+            "ordered_membership_sha256": ordered_rows_sha256(membership_rows),
+            "split_json": file_record(SPLITS_DIR / f"{split_name}.json", PROJECT_ROOT),
+        }
+
+    assignments = pd.DataFrame(assignment_rows)
+    assignments_payload = assignments.to_csv(index=False, lineterminator="\n").encode("utf-8")
+    assignments_path = REPRO_DIR / "split_assignments.csv.gz"
+    write_deterministic_gzip(assignments_path, assignments_payload)
+
+    manifest = {
+        "schema_version": "1.0",
+        "index_semantics": (
+            "Zero-based row index after filtering metadata to has_report == True "
+            "and resetting the index."
+        ),
+        "sample_catalog": {
+            **file_record(catalog_path, PROJECT_ROOT),
+            "uncompressed_sha256": sha256_bytes(catalog_payload),
+        },
+        "split_assignments": {
+            **file_record(assignments_path, PROJECT_ROOT),
+            "uncompressed_sha256": sha256_bytes(assignments_payload),
+        },
+        "splits": split_records,
+    }
+    manifest_path = REPRO_DIR / "split_manifest.json"
+    write_json(manifest_path, manifest)
+    return manifest_path
 
 
 def build_random_stratified(meta: pd.DataFrame) -> dict:
@@ -124,7 +203,7 @@ def main():
     print("=" * 60)
 
     meta = pd.read_parquet(PROCESSED_DIR / "metadata.parquet")
-    meta = meta[meta["has_report"] == True].reset_index(drop=True)
+    meta = meta[meta["has_report"]].reset_index(drop=True)
     print(f"Building splits for {len(meta)} samples.")
 
     splits = {}
@@ -152,8 +231,7 @@ def main():
     # Save each split
     for name, split_data in splits.items():
         path = SPLITS_DIR / f"{name}.json"
-        with open(path, "w") as f:
-            json.dump(split_data, f)
+        write_json(path, split_data)
         print(f"\n  Saved: {path}")
         summary[name] = {
             "n_train": len(split_data["train"]),
@@ -162,10 +240,12 @@ def main():
         }
 
     # Save summary
-    with open(ARTIFACTS_DIR / "split_summary.json", "w") as f:
-        json.dump(summary, f, indent=2)
+    write_json(ARTIFACTS_DIR / "split_summary.json", summary)
+
+    manifest_path = write_split_manifests(meta, splits)
 
     print(f"\nSplit summary saved to: {ARTIFACTS_DIR / 'split_summary.json'}")
+    print(f"Split/hash manifest saved to: {manifest_path}")
     print("\n✓ All splits written.")
 
 

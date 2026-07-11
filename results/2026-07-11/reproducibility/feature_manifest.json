@@ -1,0 +1,399 @@
+{
+  "common_cache_files": [
+    {
+      "bytes": 3129710,
+      "path": "data/cache/labels.parquet",
+      "sha256": "2105a0bf2143995e4bd4efc52176a61f558307d7e0faf12c2b9c0b050a30d467"
+    },
+    {
+      "bytes": 557206,
+      "path": "data/cache/counts_raw.parquet",
+      "sha256": "38847f965475210953abbca80bd27843f3ad116485d909893dda8af4f8d04f2a"
+    },
+    {
+      "bytes": 139027,
+      "path": "data/cache/pe_raw.parquet",
+      "sha256": "e6005d1e3999b2a34bea2796c081ff411cf5d323c39b43a2a085128fd63d5863"
+    }
+  ],
+  "environment": {
+    "git": {
+      "branch": "codex/walk-forward-reproducibility",
+      "commit": "c73c6f094d17e717118f2d9e543fee0429daa871",
+      "dirty": false
+    },
+    "packages": {
+      "joblib": "1.5.3",
+      "lightgbm": "4.6.0",
+      "matplotlib": "3.10.9",
+      "numpy": "1.24.0",
+      "pandas": "2.2.3",
+      "pyarrow": "24.0.0",
+      "scikit-learn": "1.4.2",
+      "scipy": "1.15.3"
+    },
+    "platform": {
+      "machine": "x86_64",
+      "platform": "Linux-6.12.47-x86_64-with-glibc2.39",
+      "release": "6.12.47",
+      "system": "Linux"
+    },
+    "python": {
+      "executable": "/workspace/scratch/8bccfb4ace23/work/python-3.11.2-ffi/bin/python3.11",
+      "implementation": "CPython",
+      "version": "3.11.2"
+    },
+    "schema_version": "1.0"
+  },
+  "extractor": {
+    "api_source": "behavior.summary.resolved_apis",
+    "artifact_token_cap": 400,
+    "family_names": [
+      "adload",
+      "emotet",
+      "harhar",
+      "lokibot",
+      "njrat",
+      "qakbot",
+      "swisyn",
+      "trickbot",
+      "ursnif",
+      "zeus"
+    ],
+    "leakage_matching_policy": "exact_alphanumeric_segments",
+    "schema_version": "2026-07-11.1"
+  },
+  "inputs": {
+    "api_documents_sha256": "6f204c49c9b1aff169c6200cd578e7a9d17924c6b56e90d392669fad0fb2ec2f",
+    "artifact_documents_sha256": "b82c4a971d2592cb959d1a65ff39a5f5e5ded6e515e6d8d66684ff87b05afd1a",
+    "metadata": {
+      "bytes": 6375837,
+      "path": "data/processed/metadata.parquet",
+      "sha256": "0638acf74b83e5e6c8f7045bd9c36ffa02505ca172dc98d06fe38de721249d2f"
+    },
+    "ordered_samples_sha256": "0ba106733727acfffe12bd01b8b156acae4e546de83d08c0940aad5a8967df18"
+  },
+  "raw_feature_checkpoints": [
+    {
+      "bytes": 11761133,
+      "path": "data/cache/raw_feature_chunks/features_00000_05000.parquet",
+      "sha256": "4a795f75bc6d4b711c10d719ac0da7b60027d6aca510410c36c6912931942d8c"
+    },
+    {
+      "bytes": 11753380,
+      "path": "data/cache/raw_feature_chunks/features_05000_10000.parquet",
+      "sha256": "a556a90af219a3d100b424ef733fa77a2346cd72f60bae6f3b7a9759662273a3"
+    },
+    {
+      "bytes": 11620106,
+      "path": "data/cache/raw_feature_chunks/features_10000_15000.parquet",
+      "sha256": "1e4500a72737ddd99238c5cd14b8fcb7ec1be110c6d2bcadae32eea278097c38"
+    },
+    {
+      "bytes": 11582996,
+      "path": "data/cache/raw_feature_chunks/features_15000_20000.parquet",
+      "sha256": "e4b4e22c615a627a6fd8691be0a19fb7767568724aecbc81cd47c915996a8bd0"
+    },
+    {
+      "bytes": 11705355,
+      "path": "data/cache/raw_feature_chunks/features_20000_25000.parquet",
+      "sha256": "63ae0fdc11e4bf3770d998a1483b3c0fe05977cf4e10e0f578ebde26828ef1c5"
+    },
+    {
+      "bytes": 11593706,
+      "path": "data/cache/raw_feature_chunks/features_25000_30000.parquet",
+      "sha256": "fbc34e5f381a90bcc7a779850e79ad0baf0ae9dff27d6f2a5571ee6ba559e9ea"
+    },
+    {
+      "bytes": 11651559,
+      "path": "data/cache/raw_feature_chunks/features_30000_35000.parquet",
+      "sha256": "83ad81d3cf34f34da8ccbac6ce95b931f4523cc63352487c06b6d1dfdb23fa61"
+    },
+    {
+      "bytes": 11746468,
+      "path": "data/cache/raw_feature_chunks/features_35000_40000.parquet",
+      "sha256": "5b338e8b4c6bce4d57b3ad7e4919a83e628e2d33c1becb3e03b93674f1a2a33b"
+    },
+    {
+      "bytes": 11833371,
+      "path": "data/cache/raw_feature_chunks/features_40000_45000.parquet",
+      "sha256": "8f5c9316c78c7efdd12e69b76c5d1c662d9cd6619da5ffd9e81bef8fd41f4fc5"
+    },
+    {
+      "bytes": 9190290,
+      "path": "data/cache/raw_feature_chunks/features_45000_48976.parquet",
+      "sha256": "c7f0e0bb0dc8010d356bbb04ed7829c397f7c0ae454ed0d50eb6eae98567d39d"
+    }
+  ],
+  "schema_version": "1.0",
+  "splits": {
+    "global_chronological": {
+      "api_hash": {
+        "kind": "stateless_hashing",
+        "parameters": {
+          "alternate_sign": false,
+          "analyzer": "word",
+          "binary": false,
+          "decode_error": "strict",
+          "encoding": "utf-8",
+          "input": "content",
+          "lowercase": true,
+          "n_features": 262144,
+          "ngram_range": [
+            1,
+            2
+          ],
+          "norm": "l2",
+          "stop_words": null,
+          "strip_accents": null,
+          "token_pattern": "(?u)\\b\\w\\w+\\b"
+        },
+        "parameters_sha256": "7c8b0a2ed154f6b59503fa631f4a143ce90555e80dbb333646f511e41b5846fc",
+        "vocabulary_sha256": null
+      },
+      "api_tfidf": {
+        "idf_float64_le_sha256": "4fc1ff7bbbaec93e818fc50f7efa1ee450c2a2291a2b1ef79a6d3744deb57466",
+        "kind": "learned_vocabulary",
+        "n_features": 33945,
+        "vocabulary_sha256": "efb6e2baac54fce3e843ef49bea3aca11af384a006b41e1dc07e644b273302ee"
+      },
+      "artifact_tfidf": {
+        "idf_float64_le_sha256": "19ceba59447a5581b81229ab6c7dafac8ce2fd3636944ec9bd2af3f66fa71381",
+        "kind": "learned_vocabulary",
+        "n_features": 6269,
+        "vocabulary_sha256": "833d97af75c6633e8d2531f6a414746714860d2dbe0a5351bb5d51793e43e94e"
+      },
+      "cache_files": [
+        {
+          "bytes": 136135186,
+          "path": "data/cache/api_tfidf_global_chronological.npz",
+          "sha256": "ca77fbf17f007ee0c64ad6b486126e5cce4ac2ef9b666f4932d40fbb4a4d4d43"
+        },
+        {
+          "bytes": 2581442,
+          "path": "data/cache/api_tfidf_vectorizer_global_chronological.pkl",
+          "sha256": "92a5e769b24387bc17c9dee384980b276e6a7d90d55b6a6de87862ec82e5671e"
+        },
+        {
+          "bytes": 41458173,
+          "path": "data/cache/api_hash_global_chronological.npz",
+          "sha256": "49a60f6c0600b45394b052f86158d26243ce95422014e8eaf17b8ff593e1b343"
+        },
+        {
+          "bytes": 19851522,
+          "path": "data/cache/art_tfidf_global_chronological.npz",
+          "sha256": "6d66bc7078a411d35d20ea60d7b2263c4205221e8cf690883f6d53e406f49aa2"
+        },
+        {
+          "bytes": 713100,
+          "path": "data/cache/art_tfidf_vectorizer_global_chronological.pkl",
+          "sha256": "8e219f3cbb4216a61bb06704d251fe31a4103553729600c8bd37fdf38fd4adb3"
+        },
+        {
+          "bytes": 5093632,
+          "path": "data/cache/counts_scaled_global_chronological.npy",
+          "sha256": "37af31769759237d010a62187d2b3b62752c4169189f9ee4590c322770fec8ba"
+        },
+        {
+          "bytes": 1151,
+          "path": "data/cache/counts_scaler_global_chronological.pkl",
+          "sha256": "d6b9558e760a8ba96d4fd2d33bde96200a293ebd5b1d6c90a8a9af54f99baa21"
+        },
+        {
+          "bytes": 1567360,
+          "path": "data/cache/pe_scaled_global_chronological.npy",
+          "sha256": "f6354f2af3a3e86b732bee8161d2548bcc897e2cec4c08904140192d7c267c22"
+        },
+        {
+          "bytes": 1031,
+          "path": "data/cache/pe_scaler_global_chronological.pkl",
+          "sha256": "07dcedaa99866b6cd451d6808b22af641227720a0887bd36fc45e9a82d956742"
+        }
+      ],
+      "split_file": {
+        "bytes": 527822,
+        "path": "data/splits/global_chronological.json",
+        "sha256": "682751752244d7749ebdde10024fbd26c5cd271ff1869f5b751dd247c9c5e9d3"
+      }
+    },
+    "per_family_chronological": {
+      "api_hash": {
+        "kind": "stateless_hashing",
+        "parameters": {
+          "alternate_sign": false,
+          "analyzer": "word",
+          "binary": false,
+          "decode_error": "strict",
+          "encoding": "utf-8",
+          "input": "content",
+          "lowercase": true,
+          "n_features": 262144,
+          "ngram_range": [
+            1,
+            2
+          ],
+          "norm": "l2",
+          "stop_words": null,
+          "strip_accents": null,
+          "token_pattern": "(?u)\\b\\w\\w+\\b"
+        },
+        "parameters_sha256": "7c8b0a2ed154f6b59503fa631f4a143ce90555e80dbb333646f511e41b5846fc",
+        "vocabulary_sha256": null
+      },
+      "api_tfidf": {
+        "idf_float64_le_sha256": "01689e70d0a72c688069417a8e1a921b23ff48ea9b65a03dda9d028b19b40d21",
+        "kind": "learned_vocabulary",
+        "n_features": 33346,
+        "vocabulary_sha256": "184bda0ecf5f16e9db05342b1e64ac1ffe248fce13d700b03d60d091719c1c7d"
+      },
+      "artifact_tfidf": {
+        "idf_float64_le_sha256": "e86079b7b17f9413e51c23175d800b0a8706fe9500bdf00a54cd2b5a8bb58635",
+        "kind": "learned_vocabulary",
+        "n_features": 5958,
+        "vocabulary_sha256": "42f86180e42c28ee54c60fa26e39c80618acfb07c4393facc1712ec26a05635c"
+      },
+      "cache_files": [
+        {
+          "bytes": 135658043,
+          "path": "data/cache/api_tfidf_per_family_chronological.npz",
+          "sha256": "e52c2aa486750b287342b148b228e8e7ebc8e72a83f3309b0248a64084084533"
+        },
+        {
+          "bytes": 2540504,
+          "path": "data/cache/api_tfidf_vectorizer_per_family_chronological.pkl",
+          "sha256": "f9ea625c5761eb377381c0d2275e635a8b076ff1472e82395e04f46b9f458478"
+        },
+        {
+          "bytes": 41458173,
+          "path": "data/cache/api_hash_per_family_chronological.npz",
+          "sha256": "49a60f6c0600b45394b052f86158d26243ce95422014e8eaf17b8ff593e1b343"
+        },
+        {
+          "bytes": 19810626,
+          "path": "data/cache/art_tfidf_per_family_chronological.npz",
+          "sha256": "17c94484abd3880c72d519ccc200e6ecd34c8185d52731fea432648c56933d6d"
+        },
+        {
+          "bytes": 670190,
+          "path": "data/cache/art_tfidf_vectorizer_per_family_chronological.pkl",
+          "sha256": "7d66a9e888474b3073820af846165a8ca7618ff99d8e81b3a5435cebd257849e"
+        },
+        {
+          "bytes": 5093632,
+          "path": "data/cache/counts_scaled_per_family_chronological.npy",
+          "sha256": "37af31769759237d010a62187d2b3b62752c4169189f9ee4590c322770fec8ba"
+        },
+        {
+          "bytes": 1151,
+          "path": "data/cache/counts_scaler_per_family_chronological.pkl",
+          "sha256": "671c5ca84d4ea664f737150c85d30115ac97633c9fa8be625394a2e18ff531a3"
+        },
+        {
+          "bytes": 1567360,
+          "path": "data/cache/pe_scaled_per_family_chronological.npy",
+          "sha256": "24ec43826593606c2faf998ec6dad8818c475e9e8a86911085862580aeb4b4f6"
+        },
+        {
+          "bytes": 1031,
+          "path": "data/cache/pe_scaler_per_family_chronological.pkl",
+          "sha256": "0260a4de55f4c8838dd7859ae9c7f8f1c1eb66ed862837af6718ac961867ba45"
+        }
+      ],
+      "split_file": {
+        "bytes": 527784,
+        "path": "data/splits/per_family_chronological.json",
+        "sha256": "3307705e2059457bc30bd7136cb67cd20769161219600dec06585945ea80b621"
+      }
+    },
+    "random_stratified": {
+      "api_hash": {
+        "kind": "stateless_hashing",
+        "parameters": {
+          "alternate_sign": false,
+          "analyzer": "word",
+          "binary": false,
+          "decode_error": "strict",
+          "encoding": "utf-8",
+          "input": "content",
+          "lowercase": true,
+          "n_features": 262144,
+          "ngram_range": [
+            1,
+            2
+          ],
+          "norm": "l2",
+          "stop_words": null,
+          "strip_accents": null,
+          "token_pattern": "(?u)\\b\\w\\w+\\b"
+        },
+        "parameters_sha256": "7c8b0a2ed154f6b59503fa631f4a143ce90555e80dbb333646f511e41b5846fc",
+        "vocabulary_sha256": null
+      },
+      "api_tfidf": {
+        "idf_float64_le_sha256": "da93925c254f756d2cfedf0c543f9f17b804fb1abf99ab65fd67b48044414158",
+        "kind": "learned_vocabulary",
+        "n_features": 34166,
+        "vocabulary_sha256": "ebac73709ac1905e31bb80196f041fd76ea5e62560925c6dd68c4deff4d9441e"
+      },
+      "artifact_tfidf": {
+        "idf_float64_le_sha256": "95b4f3cb72a99878f393cc88bc59a0fad94d66c9eadb79b5995aa3399fcb80be",
+        "kind": "learned_vocabulary",
+        "n_features": 5799,
+        "vocabulary_sha256": "337b54bf624b44f798c6599271d33a7f513b0fe1d77e13ff032903973df80cf0"
+      },
+      "cache_files": [
+        {
+          "bytes": 136323771,
+          "path": "data/cache/api_tfidf_random_stratified.npz",
+          "sha256": "20c0b89123111649e77b95ec02d59666c6dac1f04e6156eea4b6d0e7d49b6f74"
+        },
+        {
+          "bytes": 2599431,
+          "path": "data/cache/api_tfidf_vectorizer_random_stratified.pkl",
+          "sha256": "276a1c32aeb0257106412d88829ddc6adf9efcc62eb7f73e8e48b66958ea9de1"
+        },
+        {
+          "bytes": 41458173,
+          "path": "data/cache/api_hash_random_stratified.npz",
+          "sha256": "49a60f6c0600b45394b052f86158d26243ce95422014e8eaf17b8ff593e1b343"
+        },
+        {
+          "bytes": 19885478,
+          "path": "data/cache/art_tfidf_random_stratified.npz",
+          "sha256": "e6e9ce29358e839f024bed88b625ed13bb9a22bd05fe04232ca0176310279584"
+        },
+        {
+          "bytes": 649529,
+          "path": "data/cache/art_tfidf_vectorizer_random_stratified.pkl",
+          "sha256": "19437a8a30f44bc559ccbdafd33b4e057f97cb78da1feca0dc50dcbee50893e9"
+        },
+        {
+          "bytes": 5093632,
+          "path": "data/cache/counts_scaled_random_stratified.npy",
+          "sha256": "d83e494d47f1cecb3fdfe03af075a56cfbaee1fff350eeec2c47aca1b33e3724"
+        },
+        {
+          "bytes": 1151,
+          "path": "data/cache/counts_scaler_random_stratified.pkl",
+          "sha256": "300aed7c5a349895461ee36f73534b8cddffc15cd56748c8af8e3c2f470826a4"
+        },
+        {
+          "bytes": 1567360,
+          "path": "data/cache/pe_scaled_random_stratified.npy",
+          "sha256": "825b1807b248a9b8cf6a713568e76a3d4d01c38b0bddb89330bd1a45244b756d"
+        },
+        {
+          "bytes": 1031,
+          "path": "data/cache/pe_scaler_random_stratified.pkl",
+          "sha256": "81fec6b4fc364fada549e1e1a993112762baa3350a700a3d0fd3f99cde840b12"
+        }
+      ],
+      "split_file": {
+        "bytes": 527722,
+        "path": "data/splits/random_stratified.json",
+        "sha256": "5cfd8b11b3412af3939aa8e7a47025db18a51b56640b6e76898757f931c761b0"
+      }
+    }
+  },
+  "vectorizer_note": "TF-IDF and hashing use scikit-learn's explicit default word token pattern. Punctuation-delimited API and artifact strings are therefore represented as alphanumeric components and component bigrams, not as indivisible dotted API-name tokens."
+}

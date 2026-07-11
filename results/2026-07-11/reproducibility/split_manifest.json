@@ -1,0 +1,51 @@
+{
+  "index_semantics": "Zero-based row index after filtering metadata to has_report == True and resetting the index.",
+  "sample_catalog": {
+    "bytes": 2150637,
+    "path": "artifacts/reproducibility/splits/sample_catalog.csv.gz",
+    "sha256": "016b9f7b340e5b75c0488dc98425f1797232e9e0d931a0a173fbd896c6d42a8f",
+    "uncompressed_sha256": "bac623021987dc71bcde9a31964a0690736df7e2d5d46f5d0b97442f1d058ed3"
+  },
+  "schema_version": "1.0",
+  "split_assignments": {
+    "bytes": 6588675,
+    "path": "artifacts/reproducibility/splits/split_assignments.csv.gz",
+    "sha256": "8bc3e80f4beed6746f0ec879e4c8bb046658d5d68e8402f4ea9166ee8cc8e648",
+    "uncompressed_sha256": "9d8632ccd442479c353431c0e5697e3732164991be96a879e58ec83a976e5f5a"
+  },
+  "splits": {
+    "global_chronological": {
+      "n_test": 9796,
+      "n_train": 35262,
+      "n_val": 3918,
+      "ordered_membership_sha256": "f2ec81dd3f1234cde05679ab7f9750d7e7f42a3197fc1c124051402e59772ea4",
+      "split_json": {
+        "bytes": 527822,
+        "path": "data/splits/global_chronological.json",
+        "sha256": "682751752244d7749ebdde10024fbd26c5cd271ff1869f5b751dd247c9c5e9d3"
+      }
+    },
+    "per_family_chronological": {
+      "n_test": 9799,
+      "n_train": 35263,
+      "n_val": 3914,
+      "ordered_membership_sha256": "645e9b625ce9bd571b0764ddddd7f93deb94bf48b4e4f2780d8d66f1b9ef7981",
+      "split_json": {
+        "bytes": 527784,
+        "path": "data/splits/per_family_chronological.json",
+        "sha256": "3307705e2059457bc30bd7136cb67cd20769161219600dec06585945ea80b621"
+      }
+    },
+    "random_stratified": {
+      "n_test": 9796,
+      "n_train": 35262,
+      "n_val": 3918,
+      "ordered_membership_sha256": "06e33d2b5429c4fe6fbb7341a38c0c83df73f5830615927dffbea0228fff8409",
+      "split_json": {
+        "bytes": 527722,
+        "path": "data/splits/random_stratified.json",
+        "sha256": "5cfd8b11b3412af3939aa8e7a47025db18a51b56640b6e76898757f931c761b0"
+      }
+    }
+  }
+}

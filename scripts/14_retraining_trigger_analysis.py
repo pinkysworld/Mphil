@@ -13,8 +13,6 @@ Outputs:
 """
 
 import argparse
-import json
-from datetime import datetime
 from pathlib import Path
 
 import matplotlib
@@ -25,6 +23,7 @@ import numpy as np
 import pandas as pd
 
 from run_experiment import PROJECT_ROOT
+from reproducibility import write_json
 
 
 OUT_DIR = PROJECT_ROOT / "artifacts" / "retraining_trigger"
@@ -131,6 +130,10 @@ def main():
     input_csv = Path(args.input_csv).resolve()
     if not input_csv.exists():
         raise FileNotFoundError(f"Walk-forward CSV not found: {input_csv}")
+    try:
+        input_display = input_csv.relative_to(PROJECT_ROOT).as_posix()
+    except ValueError:
+        input_display = str(input_csv)
 
     df = pd.read_csv(input_csv)
     df["boundary"] = pd.to_datetime(df["boundary"])
@@ -187,12 +190,15 @@ def main():
     csv_df = trigger_df.copy()
     for column in ("boundary", "test_start", "test_end"):
         csv_df[column] = csv_df[column].dt.strftime("%Y-%m-%d")
-    csv_df.to_csv(OUT_DIR / "retraining_trigger_windows.csv", index=False)
-    episode_df.to_csv(OUT_DIR / "retraining_trigger_episodes.csv", index=False)
+    csv_df.to_csv(
+        OUT_DIR / "retraining_trigger_windows.csv", index=False, lineterminator="\n"
+    )
+    episode_df.to_csv(
+        OUT_DIR / "retraining_trigger_episodes.csv", index=False, lineterminator="\n"
+    )
 
     summary = {
-        "timestamp": datetime.now().isoformat(),
-        "input_csv": str(input_csv),
+        "input_csv": input_display,
         "trailing_window": args.trailing_window,
         "floor": args.floor,
         "drop_margin": args.drop_margin,
@@ -206,8 +212,7 @@ def main():
             csv_df["retrain_recommended"], "boundary"
         ].tolist(),
     }
-    with open(OUT_DIR / "retraining_trigger_summary.json", "w", encoding="utf-8") as handle:
-        json.dump(summary, handle, indent=2)
+    write_json(OUT_DIR / "retraining_trigger_summary.json", summary)
 
     fig, ax = plt.subplots(1, 1, figsize=(12, 5))
     ax.plot(
@@ -250,7 +255,7 @@ def main():
     fig.savefig(OUT_DIR / "retraining_trigger_plot.png", dpi=200)
     plt.close(fig)
 
-    build_readme(OUT_DIR / "README.md", input_csv, summary)
+    build_readme(OUT_DIR / "README.md", input_display, summary)
     print(f"[ok] retraining-trigger outputs written to {OUT_DIR}")
 
 

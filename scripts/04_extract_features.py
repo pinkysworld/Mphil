@@ -11,21 +11,21 @@ Views:
   D: Static PE numeric
 
 Output (per split):
-  - data/cache/api_tfidf_{split}.npz + vocab
+  - data/cache/api_tfidf_{split}.npz + fitted vectorizer
   - data/cache/api_hash_{split}.npz
-  - data/cache/artifacts_tfidf_{split}.npz + vocab
-  - data/cache/artifacts_hash_{split}.npz
-  - data/cache/counts_{split}.parquet
-  - data/cache/pe_{split}.parquet
-  - data/cache/labels_{split}.parquet
+  - data/cache/art_tfidf_{split}.npz + fitted vectorizer
+  - data/cache/counts_scaled_{split}.npy + fitted scaler
+  - data/cache/pe_scaled_{split}.npy + fitted scaler
+
+Shared outputs:
+  - data/cache/labels.parquet
+  - data/cache/counts_raw.parquet
+  - data/cache/pe_raw.parquet
 """
 
+import argparse
 import json
-import re
-import os
 from pathlib import Path
-from datetime import datetime
-from collections import Counter
 
 import numpy as np
 import pandas as pd
@@ -34,265 +34,208 @@ from sklearn.feature_extraction.text import TfidfVectorizer, HashingVectorizer
 from sklearn.preprocessing import MaxAbsScaler, StandardScaler
 import joblib
 
+from feature_extraction import (
+    extract_api_tokens,
+    extract_artifact_tokens,
+    extract_counts,
+    extract_pe_features,
+    extractor_policy,
+)
+from reproducibility import (
+    environment_manifest,
+    file_record,
+    hashing_vectorizer_manifest,
+    ordered_rows_sha256,
+    vocabulary_manifest,
+    write_json,
+)
+
 # ── Configuration ──────────────────────────────────────────
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 SPLITS_DIR = PROJECT_ROOT / "data" / "splits"
 CACHE_DIR = PROJECT_ROOT / "data" / "cache"
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
-
-# Family names for leakage filtering (Rule 1)
-FAMILY_NAMES = {
-    "emotet", "swisyn", "qakbot", "trickbot", "lokibot",
-    "njrat", "zeus", "ursnif", "adload", "harhar"
-}
-
-SEGMENT_SPLIT_RE = re.compile(r"([A-Za-z0-9]+)")
-
-# Volatile identifier patterns (Rule 3)
-GUID_PATTERN = re.compile(
-    r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
-    re.IGNORECASE
-)
-HEX_PATTERN = re.compile(r'[0-9a-f]{8,}', re.IGNORECASE)
-NUMERIC_PATTERN = re.compile(r'^\d+$')
+RAW_FEATURE_DIR = CACHE_DIR / "raw_feature_chunks"
+RAW_FEATURE_DIR.mkdir(parents=True, exist_ok=True)
+REPRO_DIR = PROJECT_ROOT / "artifacts" / "reproducibility"
+DEFAULT_WORD_TOKEN_PATTERN = r"(?u)\b\w\w+\b"
+RAW_FEATURE_CHUNK_SIZE = 5000
 
 
-# ── Normalisation helpers ──────────────────────────────────
-
-def normalise_path(path_str: str) -> str:
-    """Normalise a file path for tokenisation."""
-    s = path_str.lower().replace("\\", "/")
-    # Replace user profile paths
-    s = re.sub(r'c:/users/[^/]+', 'c:/users/<user>', s)
-    # Replace temp dirs
-    s = re.sub(r'/temp/[^/]+', '/temp/<tmp>', s)
-    # Replace GUIDs
-    s = GUID_PATTERN.sub('<guid>', s)
-    # Replace long hex
-    s = HEX_PATTERN.sub('<hex>', s)
-    return s
+def _stable_json(value: dict) -> str:
+    return json.dumps(
+        value,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    )
 
 
-def normalise_registry(key_str: str) -> str:
-    """Normalise a registry key path (keep prefix to depth 3)."""
-    s = key_str.lower().replace("\\", "/")
-    s = GUID_PATTERN.sub('<guid>', s)
-    s = re.sub(r'/s-1-[0-9-]+', '/<sid>', s)
-    parts = s.split("/")
-    return "/".join(parts[:4])  # hive + 3 levels
-
-
-def normalise_mutex(mutex_str: str) -> str:
-    """Normalise a mutex name."""
-    s = mutex_str.lower()
-    s = GUID_PATTERN.sub('<guid>', s)
-    s = HEX_PATTERN.sub('<hex>', s)
-    return s
-
-
-def filter_family_names(token: str) -> str:
-    """Remove exact family-name segments without mutating other words.
-
-    The earlier conservative implementation used substring replacement, which
-    could distort legitimate API names such as kernel32.dll.createremotethread
-    because that string contains the letters "emotet". Exact alphanumeric
-    segment filtering removes tokens like "Global\\TrickBot" while preserving
-    ordinary API/function names.
-    """
-    parts = SEGMENT_SPLIT_RE.split(token or "")
-    filtered = [part for part in parts if part.lower() not in FAMILY_NAMES]
-    return "".join(filtered).strip()
-
-
-# ── View extractors ────────────────────────────────────────
-
-def extract_api_tokens(report: dict) -> str:
-    """Extract resolved API call names as a space-separated string."""
-    behavior = report.get("behavior", {})
-    summary = behavior.get("summary", {})
-    apis = summary.get("resolved_apis", [])
-    if not isinstance(apis, list):
-        return ""
-    # Normalise: lowercase, filter family names
-    tokens = []
-    for api in apis:
-        if isinstance(api, str):
-            t = filter_family_names(api.lower().strip())
-            if t:
-                tokens.append(t)
-    return " ".join(tokens)
-
-
-def extract_artifact_tokens(report: dict) -> str:
-    """Extract normalised artifact tokens from files, registry, mutexes, etc."""
-    behavior = report.get("behavior", {})
-    summary = behavior.get("summary", {})
-    tokens = []
-
-    # File artifacts
-    for field in ["files", "read_files", "write_files", "delete_files"]:
-        for item in summary.get(field, []):
-            if isinstance(item, str):
-                normed = normalise_path(item)
-                normed = filter_family_names(normed)
-                # Extract basename and extension
-                parts = normed.rsplit("/", 1)
-                basename = parts[-1] if len(parts) > 1 else normed
-                ext = ""
-                if "." in basename:
-                    ext = basename.rsplit(".", 1)[-1]
-                    tokens.append(f"FILE_EXT:{ext}")
-                tokens.append(f"FILE:{basename[:80]}")
-
-    # Registry artifacts
-    for field in ["keys", "read_keys", "write_keys", "delete_keys"]:
-        for item in summary.get(field, []):
-            if isinstance(item, str):
-                normed = normalise_registry(item)
-                normed = filter_family_names(normed)
-                tokens.append(f"REG:{normed}")
-
-    # Mutex artifacts
-    for item in summary.get("mutexes", []):
-        if isinstance(item, str):
-            normed = normalise_mutex(item)
-            normed = filter_family_names(normed)
-            tokens.append(f"MUTEX:{normed}")
-
-    # Command artifacts
-    for item in summary.get("executed_commands", []):
-        if isinstance(item, str):
-            exe = item.lower().split()[0] if item.split() else item.lower()
-            exe = filter_family_names(exe)
-            tokens.append(f"CMD:{exe[:80]}")
-
-    # Service artifacts
-    for field in ["started_services", "created_services"]:
-        for item in summary.get(field, []):
-            if isinstance(item, str):
-                normed = filter_family_names(item.lower().strip())
-                tokens.append(f"SVC:{normed[:80]}")
-
-    return " ".join(tokens[:400])  # cap to 400 tokens per sample
-
-
-def extract_counts(report: dict) -> dict:
-    """Extract low-dimensional behavioral count features."""
-    behavior = report.get("behavior", {})
-    summary = behavior.get("summary", {})
-    counts = {}
-    for field in ["files", "read_files", "write_files", "delete_files",
-                   "keys", "read_keys", "write_keys", "delete_keys",
-                   "mutexes", "executed_commands", "resolved_apis",
-                   "started_services", "created_services"]:
-        val = summary.get(field, [])
-        counts[f"count_{field}"] = len(val) if isinstance(val, list) else 0
-    return counts
-
-
-def extract_pe_features(report: dict) -> dict:
-    """Extract numeric PE features from static.pe."""
-    static = report.get("static", {})
-    pe = static.get("pe", {})
-    if not isinstance(pe, dict):
-        return {}
-
-    features = {}
-    # Direct numeric fields
-    for key in ["timestamp", "imagebase", "entrypoint"]:
-        val = pe.get(key)
-        if isinstance(val, (int, float)):
-            features[f"pe_{key}"] = float(val)
-
-    # Sections
-    sections = pe.get("sections", [])
-    if isinstance(sections, list):
-        features["pe_n_sections"] = len(sections)
-        entropies = []
-        sizes = []
-        for sec in sections:
-            if isinstance(sec, dict):
-                e = sec.get("entropy")
-                s = sec.get("size_of_data") or sec.get("virtual_size")
-                if isinstance(e, (int, float)):
-                    entropies.append(float(e))
-                if isinstance(s, (int, float)):
-                    sizes.append(float(s))
-        if entropies:
-            features["pe_mean_entropy"] = np.mean(entropies)
-            features["pe_max_entropy"] = max(entropies)
-            features["pe_std_entropy"] = np.std(entropies) if len(entropies) > 1 else 0
-        if sizes:
-            features["pe_total_size"] = sum(sizes)
-
-    # Imports
-    imports = pe.get("imports", [])
-    if isinstance(imports, list):
-        features["pe_n_import_dlls"] = len(imports)
-        total_funcs = 0
-        for imp in imports:
-            if isinstance(imp, dict):
-                funcs = imp.get("imports", [])
-                if isinstance(funcs, list):
-                    total_funcs += len(funcs)
-        features["pe_n_import_funcs"] = total_funcs
-
-    # Exports
-    exports = pe.get("exports", [])
-    features["pe_n_exports"] = len(exports) if isinstance(exports, list) else 0
-
-    return features
-
-
-def main():
-    print("=" * 60)
-    print("MPhil Feature Extraction")
-    print("=" * 60)
-
-    meta = pd.read_parquet(PROCESSED_DIR / "metadata.parquet")
-    meta = meta[meta["has_report"] == True].reset_index(drop=True)
-    n = len(meta)
-    print(f"Extracting features from {n} reports...")
-
-    # Collect raw features for all samples
+def _load_or_extract_raw_features(meta: pd.DataFrame):
+    """Extract raw views in restart-safe chunks without changing feature logic."""
     api_docs = []
     art_docs = []
     count_rows = []
     pe_rows = []
 
-    for i, row in meta.iterrows():
-        report_path = Path(row["report_path"])
-        try:
-            with open(report_path, "r", encoding="utf-8", errors="replace") as f:
-                report = json.load(f)
-        except (json.JSONDecodeError, OSError):
-            report = {}
+    for start in range(0, len(meta), RAW_FEATURE_CHUNK_SIZE):
+        stop = min(start + RAW_FEATURE_CHUNK_SIZE, len(meta))
+        chunk_path = RAW_FEATURE_DIR / f"features_{start:05d}_{stop:05d}.parquet"
+        expected_sha256 = meta.iloc[start:stop]["sha256"].astype(str).tolist()
 
-        api_docs.append(extract_api_tokens(report))
-        art_docs.append(extract_artifact_tokens(report))
-        count_rows.append(extract_counts(report))
-        pe_rows.append(extract_pe_features(report))
+        if chunk_path.exists():
+            chunk = pd.read_parquet(chunk_path)
+            required = {"sha256", "api_doc", "art_doc", "counts_json", "pe_json"}
+            if required.issubset(chunk.columns) and (
+                chunk["sha256"].astype(str).tolist() == expected_sha256
+            ):
+                print(f"  Reusing checkpoint {start + 1}-{stop} / {len(meta)}")
+            else:
+                raise RuntimeError(
+                    f"Raw-feature checkpoint does not match metadata: {chunk_path}"
+                )
+        else:
+            rows = []
+            for position in range(start, stop):
+                row = meta.iloc[position]
+                report_path = Path(row["report_path"])
+                try:
+                    with open(
+                        report_path, "r", encoding="utf-8", errors="replace"
+                    ) as handle:
+                        report = json.load(handle)
+                except (json.JSONDecodeError, OSError):
+                    report = {}
 
-        if (i + 1) % 5000 == 0:
-            print(f"  Processed {i + 1} / {n}")
+                rows.append(
+                    {
+                        "sha256": str(row["sha256"]),
+                        "api_doc": extract_api_tokens(report),
+                        "art_doc": extract_artifact_tokens(report),
+                        "counts_json": _stable_json(extract_counts(report)),
+                        "pe_json": _stable_json(extract_pe_features(report)),
+                    }
+                )
 
-    print(f"\nExtraction complete. Vectorising and caching...")
+                processed = position + 1
+                if processed % 5000 == 0 or processed == len(meta):
+                    print(f"  Processed {processed} / {len(meta)}")
 
-    # Save labels
-    meta[["sha256", "family", "date"]].to_parquet(CACHE_DIR / "labels.parquet")
+            chunk = pd.DataFrame(rows)
+            temporary_path = chunk_path.with_suffix(".parquet.tmp")
+            chunk.to_parquet(temporary_path, index=False)
+            temporary_path.replace(chunk_path)
+
+        api_docs.extend(chunk["api_doc"].astype(str).tolist())
+        art_docs.extend(chunk["art_doc"].astype(str).tolist())
+        count_rows.extend(json.loads(value) for value in chunk["counts_json"])
+        pe_rows.extend(json.loads(value) for value in chunk["pe_json"])
+
+    return api_docs, art_docs, count_rows, pe_rows
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--extract-only",
+        action="store_true",
+        help="Create restart-safe raw-feature checkpoints and shared caches only.",
+    )
+    parser.add_argument(
+        "--split",
+        action="append",
+        choices=[
+            "global_chronological",
+            "per_family_chronological",
+            "random_stratified",
+        ],
+        help="Vectorise only the named split; repeat to select multiple splits.",
+    )
+    args = parser.parse_args()
+
+    print("=" * 60)
+    print("MPhil Feature Extraction")
+    print("=" * 60)
+
+    metadata_path = PROCESSED_DIR / "metadata.parquet"
+    meta = pd.read_parquet(metadata_path)
+    meta = meta[meta["has_report"]].reset_index(drop=True)
+    n = len(meta)
+    print(f"Extracting features from {n} reports...")
+
+    api_docs, art_docs, count_rows, pe_rows = _load_or_extract_raw_features(meta)
+
+    print("\nExtraction complete. Vectorising and caching...")
+
+    feature_manifest = {
+        "schema_version": "1.0",
+        "extractor": extractor_policy(),
+        "environment": environment_manifest(PROJECT_ROOT),
+        "inputs": {
+            "metadata": file_record(metadata_path, PROJECT_ROOT),
+            "ordered_samples_sha256": ordered_rows_sha256(
+                f"{i},{row.sha256},{row.family},{row.date}"
+                for i, row in meta.iterrows()
+            ),
+            "api_documents_sha256": ordered_rows_sha256(api_docs),
+            "artifact_documents_sha256": ordered_rows_sha256(art_docs),
+        },
+        "vectorizer_note": (
+            "TF-IDF and hashing use scikit-learn's explicit default word "
+            "token pattern. Punctuation-delimited API and artifact strings are "
+            "therefore represented as alphanumeric components and component "
+            "bigrams, not as indivisible dotted API-name tokens."
+        ),
+        "raw_feature_checkpoints": [
+            file_record(path, PROJECT_ROOT)
+            for path in sorted(RAW_FEATURE_DIR.glob("features_*.parquet"))
+        ],
+        "splits": {},
+    }
+
+    # Save shared cache inputs.
+    labels_path = CACHE_DIR / "labels.parquet"
+    counts_path = CACHE_DIR / "counts_raw.parquet"
+    pe_path = CACHE_DIR / "pe_raw.parquet"
+    meta[["sha256", "family", "date"]].to_parquet(labels_path)
 
     # Counts
     counts_df = pd.DataFrame(count_rows).fillna(0)
-    counts_df.to_parquet(CACHE_DIR / "counts_raw.parquet")
+    counts_df.to_parquet(counts_path)
 
     # PE
     pe_df = pd.DataFrame(pe_rows)
-    pe_df.to_parquet(CACHE_DIR / "pe_raw.parquet")
+    pe_df.to_parquet(pe_path)
+    feature_manifest["common_cache_files"] = [
+        file_record(path, PROJECT_ROOT) for path in [labels_path, counts_path, pe_path]
+    ]
+
+    manifest_path = REPRO_DIR / "feature_manifest.json"
+    if manifest_path.exists():
+        previous_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        same_documents = (
+            previous_manifest.get("inputs", {}).get("api_documents_sha256")
+            == feature_manifest["inputs"]["api_documents_sha256"]
+            and previous_manifest.get("inputs", {}).get("artifact_documents_sha256")
+            == feature_manifest["inputs"]["artifact_documents_sha256"]
+        )
+        if same_documents:
+            feature_manifest["splits"] = previous_manifest.get("splits", {})
+
+    if args.extract_only:
+        write_json(manifest_path, feature_manifest)
+        print(f"\n✓ Raw features and shared caches ready in {CACHE_DIR}")
+        print(f"  Reproducibility manifest: {manifest_path}")
+        return
 
     # Now vectorise per split
-    for split_name in ["global_chronological", "per_family_chronological",
-                       "random_stratified"]:
+    split_names = args.split or [
+        "global_chronological",
+        "per_family_chronological",
+        "random_stratified",
+    ]
+    for split_name in split_names:
         split_path = SPLITS_DIR / f"{split_name}.json"
         if not split_path.exists():
             print(f"  Skip {split_name} (split file not found)")
@@ -306,8 +249,14 @@ def main():
 
         # API TF-IDF (vocabulary model)
         tfidf = TfidfVectorizer(
-            ngram_range=(1, 2), max_features=50000, min_df=2,
-            sublinear_tf=True
+            analyzer="word",
+            lowercase=True,
+            token_pattern=DEFAULT_WORD_TOKEN_PATTERN,
+            ngram_range=(1, 2),
+            max_features=50000,
+            min_df=2,
+            sublinear_tf=True,
+            norm="l2",
         )
         train_api = [api_docs[i] for i in train_idx]
         tfidf.fit(train_api)
@@ -317,15 +266,27 @@ def main():
 
         # API Hashing (scalable)
         hasher = HashingVectorizer(
-            n_features=262144, ngram_range=(1, 2), alternate_sign=False
+            analyzer="word",
+            lowercase=True,
+            token_pattern=DEFAULT_WORD_TOKEN_PATTERN,
+            n_features=262144,
+            ngram_range=(1, 2),
+            alternate_sign=False,
+            norm="l2",
         )
         all_api_hash = hasher.transform(api_docs)
         sp.save_npz(CACHE_DIR / f"api_hash_{split_name}.npz", all_api_hash)
 
         # Artifact TF-IDF
         art_tfidf = TfidfVectorizer(
-            ngram_range=(1, 1), max_features=50000, min_df=2,
-            sublinear_tf=True
+            analyzer="word",
+            lowercase=True,
+            token_pattern=DEFAULT_WORD_TOKEN_PATTERN,
+            ngram_range=(1, 1),
+            max_features=50000,
+            min_df=2,
+            sublinear_tf=True,
+            norm="l2",
         )
         train_art = [art_docs[i] for i in train_idx]
         art_tfidf.fit(train_art)
@@ -348,7 +309,29 @@ def main():
         np.save(CACHE_DIR / f"pe_scaled_{split_name}.npy", pe_scaled)
         joblib.dump(scaler_pe, CACHE_DIR / f"pe_scaler_{split_name}.pkl")
 
+        cache_paths = [
+            CACHE_DIR / f"api_tfidf_{split_name}.npz",
+            CACHE_DIR / f"api_tfidf_vectorizer_{split_name}.pkl",
+            CACHE_DIR / f"api_hash_{split_name}.npz",
+            CACHE_DIR / f"art_tfidf_{split_name}.npz",
+            CACHE_DIR / f"art_tfidf_vectorizer_{split_name}.pkl",
+            CACHE_DIR / f"counts_scaled_{split_name}.npy",
+            CACHE_DIR / f"counts_scaler_{split_name}.pkl",
+            CACHE_DIR / f"pe_scaled_{split_name}.npy",
+            CACHE_DIR / f"pe_scaler_{split_name}.pkl",
+        ]
+        feature_manifest["splits"][split_name] = {
+            "split_file": file_record(split_path, PROJECT_ROOT),
+            "api_tfidf": vocabulary_manifest(tfidf),
+            "api_hash": hashing_vectorizer_manifest(hasher),
+            "artifact_tfidf": vocabulary_manifest(art_tfidf),
+            "cache_files": [file_record(path, PROJECT_ROOT) for path in cache_paths],
+        }
+
+    write_json(manifest_path, feature_manifest)
+
     print(f"\n✓ All features cached in {CACHE_DIR}")
+    print(f"  Reproducibility manifest: {manifest_path}")
 
 
 if __name__ == "__main__":

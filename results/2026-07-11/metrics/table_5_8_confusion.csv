@@ -1,0 +1,11 @@
+,adload,emotet,harhar,lokibot,njrat,qakbot,swisyn,trickbot,ursnif,zeus
+adload,3,0,0,0,0,0,0,0,0,0
+emotet,0,3242,0,90,7,0,0,49,0,136
+harhar,0,0,68,0,1,0,0,0,0,0
+lokibot,0,2,0,478,22,0,10,0,0,0
+njrat,0,0,0,1,368,0,2,1,0,5
+qakbot,0,3,0,0,0,344,0,0,0,0
+swisyn,0,1,0,5,28,0,3218,0,0,1
+trickbot,0,28,0,0,11,0,2,1066,0,0
+ursnif,2,0,0,1,1,0,0,0,473,0
+zeus,0,2,0,3,4,0,0,0,0,118

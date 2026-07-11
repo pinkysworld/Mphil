@@ -1,9 +1,8 @@
 # Malware Family Classification
 
-Working repository for the experimental part of the MPhil thesis. The current
-focus is on ingesting the Avast-CTU CAPEv2 reports, checking label/report
-alignment, building evaluation splits, and extracting the baseline feature
-views used in the first round of experiments.
+Working repository for the experimental part of the MPhil thesis. It contains
+the defended ingestion, leakage audit, split, feature, modelling, walk-forward,
+and reproducibility pipelines for the Avast-CTU CAPEv2 reports.
 
 ## Repository Layout
 
@@ -19,8 +18,11 @@ views used in the first round of experiments.
 
 ```bash
 python3.11 -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python -m pip install --require-hashes -r requirements-lock.txt
 ```
+
+The uncompiled `requirements.txt` remains the human-readable input. The lock
+file and `.python-version` are the defended environment specification.
 
 ## Data
 
@@ -41,7 +43,15 @@ Running `scripts/01_ingest.py` extracts report JSON files to
 .venv/bin/python scripts/02_leakage_audit.py
 .venv/bin/python scripts/03_build_splits.py
 .venv/bin/python scripts/04_extract_features.py
+.venv/bin/python scripts/06_walk_forward.py
 ```
+
+`03_build_splits.py` writes exact sample-hash split manifests.
+`04_extract_features.py` writes fitted vocabulary, IDF, hashing-configuration,
+and cache checksums. `06_walk_forward.py` uses the same shared leakage-filtered
+API extractor and writes per-window membership hashes and predictions. See
+[`docs/reproducibility.md`](docs/reproducibility.md) for the submission bundle
+and checksum procedure.
 
 ## Baseline Run
 
@@ -52,4 +62,3 @@ Running `scripts/01_ingest.py` extracts report JSON files to
   --model sgd \
   --output artifacts/metrics/table_5_8.json
 ```
-

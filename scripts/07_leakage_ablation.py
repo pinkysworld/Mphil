@@ -10,18 +10,17 @@ Output:
 """
 
 import json
-import re
 from pathlib import Path
 from datetime import datetime
 
-import numpy as np
 import pandas as pd
-import scipy.sparse as sp
 from sklearn.feature_extraction.text import HashingVectorizer
 from sklearn.linear_model import SGDClassifier
 from sklearn.metrics import (
-    f1_score, accuracy_score, classification_report
+    f1_score, accuracy_score
 )
+
+from feature_extraction import filter_family_names
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
@@ -30,18 +29,6 @@ OUT_DIR = PROJECT_ROOT / "artifacts" / "leakage_ablation"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 SEED = 42
-FAMILY_NAMES = {
-    "emotet", "swisyn", "qakbot", "trickbot", "lokibot",
-    "njrat", "zeus", "ursnif", "adload", "harhar"
-}
-
-SEGMENT_SPLIT_RE = re.compile(r"([A-Za-z0-9]+)")
-
-
-def filter_family_name_segments(token: str) -> str:
-    """Remove exact family-name segments while preserving ordinary API names."""
-    parts = SEGMENT_SPLIT_RE.split(token or "")
-    return "".join(part for part in parts if part.lower() not in FAMILY_NAMES).strip()
 
 
 def extract_api_tokens(report_path, filter_families=True):
@@ -57,7 +44,7 @@ def extract_api_tokens(report_path, filter_families=True):
             if isinstance(api, str):
                 t = api.lower().strip()
                 if filter_families:
-                    t = filter_family_name_segments(t)
+                    t = filter_family_names(t)
                 if t.strip():
                     tokens.append(t.strip())
 
@@ -67,7 +54,7 @@ def extract_api_tokens(report_path, filter_families=True):
                 if isinstance(item, str):
                     t = item.lower()
                     if filter_families:
-                        t = filter_family_name_segments(t)
+                        t = filter_family_names(t)
                     if t.strip():
                         tokens.append(f"ART:{t.strip()[:80]}")
 
@@ -91,7 +78,13 @@ def run_experiment(meta, split_name, filter_families, label):
         texts.append(extract_api_tokens(row["report_path"], filter_families))
 
     hasher = HashingVectorizer(
-        n_features=262144, ngram_range=(1, 2), alternate_sign=False
+        analyzer="word",
+        lowercase=True,
+        token_pattern=r"(?u)\b\w\w+\b",
+        n_features=262144,
+        ngram_range=(1, 2),
+        alternate_sign=False,
+        norm="l2",
     )
     X = hasher.transform(texts)
     y = meta["family"].values
@@ -128,7 +121,7 @@ def main():
     print("=" * 60)
 
     meta = pd.read_parquet(PROCESSED_DIR / "metadata.parquet")
-    meta = meta[meta["has_report"] == True].reset_index(drop=True)
+    meta = meta[meta["has_report"]].reset_index(drop=True)
 
     results = []
 

@@ -1,0 +1,155 @@
+{
+  "copied_reproducibility_artifacts": [
+    {
+      "bytes": 7,
+      "path": "results/2026-07-11/reproducibility/python-version.txt",
+      "sha256": "ed5d8a4bfa50433e2be65693d0ab6a59b3fb2886769f5e9e4c3e44ba3ad1dcc3"
+    },
+    {
+      "bytes": 89,
+      "path": "results/2026-07-11/reproducibility/requirements.txt",
+      "sha256": "5a8ed39e988d259480596f0a16c5e1e8185b8304080e85a5e60f9b3d63747bc9"
+    },
+    {
+      "bytes": 50674,
+      "path": "results/2026-07-11/reproducibility/requirements-lock.txt",
+      "sha256": "79e4fde8f136341f13387853577ccb8ab12a88695ef51fbb872cf54ccce94165"
+    },
+    {
+      "bytes": 2512,
+      "path": "results/2026-07-11/reproducibility/EXACT_REPRODUCIBILITY.md",
+      "sha256": "450992b02f535b37dc35e39b1ba12ed38b08d2a43f2f3c7ce4adbd0b7f1160ad"
+    },
+    {
+      "bytes": 2150637,
+      "path": "results/2026-07-11/reproducibility/sample_catalog.csv.gz",
+      "sha256": "016b9f7b340e5b75c0488dc98425f1797232e9e0d931a0a173fbd896c6d42a8f"
+    },
+    {
+      "bytes": 6588675,
+      "path": "results/2026-07-11/reproducibility/split_assignments.csv.gz",
+      "sha256": "8bc3e80f4beed6746f0ec879e4c8bb046658d5d68e8402f4ea9166ee8cc8e648"
+    },
+    {
+      "bytes": 1975,
+      "path": "results/2026-07-11/reproducibility/split_manifest.json",
+      "sha256": "be5fb44c2ec005eef8bf7a4a420c70d03e85a5ca4959681bde16fb14cf34eb7d"
+    },
+    {
+      "bytes": 14704,
+      "path": "results/2026-07-11/reproducibility/feature_manifest.json",
+      "sha256": "52b37a878bcedf62248cc66132d84efc8e194f9a495bc2ff09b68e9e0f1908c6"
+    },
+    {
+      "bytes": 10167,
+      "path": "results/2026-07-11/reproducibility/walk_forward_manifest.json",
+      "sha256": "c13f3c08ed32ab1d825353c6ec19b2002f9656f49231f37c811af50fd251247c"
+    },
+    {
+      "bytes": 1636570,
+      "path": "results/2026-07-11/reproducibility/walk_forward_predictions.csv.gz",
+      "sha256": "cfb95f002be93ad01f96c21adb1e31d62e80b951e7fd234484cefb80eb3c9952"
+    },
+    {
+      "bytes": 2058543,
+      "path": "results/2026-07-11/reproducibility/walk_forward_sample_catalog.csv.gz",
+      "sha256": "ab532bd01353d4bf0a6a6e035c9613c767248d6df680e3361ed4fa0a5dbca92b"
+    },
+    {
+      "bytes": 10372,
+      "path": "results/2026-07-11/reproducibility/api_entry_report_prevalence.csv",
+      "sha256": "396e11e9319d2c9030774fca1e5663bf2aab5120c071fad123641ea53be1fb05"
+    },
+    {
+      "bytes": 9717,
+      "path": "results/2026-07-11/reproducibility/artifact_component_report_prevalence.csv",
+      "sha256": "7942b6ecbced77f50bb57ff6d25d2a107689459050d5e2236a7a7d1f983ba59c"
+    },
+    {
+      "bytes": 1707,
+      "path": "results/2026-07-11/reproducibility/appendix_d_manifest.json",
+      "sha256": "5d36a1ec56ae96848e24192f68cd0af271ed07e015090f390ff97e2bf77b5c2a"
+    }
+  ],
+  "environment": {
+    "bytes": 710,
+    "path": "results/2026-07-11/reproducibility/environment.json",
+    "sha256": "666bdc218d6b33906daee6c5c3cfc8eebb3eb0ecc845fedb1614229a06c58940"
+  },
+  "inputs": {
+    "labels": {
+      "bytes": 4391379,
+      "path": "data/raw/public_labels.csv",
+      "sha256": "e4be954df724aa05d2df7b0d38fbb5e6c33f5bfa289274105ab14fd224375b1e"
+    },
+    "metadata": {
+      "bytes": 6375837,
+      "path": "data/processed/metadata.parquet",
+      "sha256": "0638acf74b83e5e6c8f7045bd9c36ffa02505ca172dc98d06fe38de721249d2f"
+    },
+    "reduced_report_archive": {
+      "bytes": 592988050,
+      "path": "data/raw/avast_ctu_reduced.zip",
+      "sha256": "1ea1706019547d0fa2a268ce783725d6090bb3acf992726d08f4637c46531433"
+    }
+  },
+  "locked_code_and_environment_files": [
+    {
+      "bytes": 7,
+      "path": ".python-version",
+      "sha256": "ed5d8a4bfa50433e2be65693d0ab6a59b3fb2886769f5e9e4c3e44ba3ad1dcc3"
+    },
+    {
+      "bytes": 89,
+      "path": "requirements.txt",
+      "sha256": "5a8ed39e988d259480596f0a16c5e1e8185b8304080e85a5e60f9b3d63747bc9"
+    },
+    {
+      "bytes": 50674,
+      "path": "requirements-lock.txt",
+      "sha256": "79e4fde8f136341f13387853577ccb8ab12a88695ef51fbb872cf54ccce94165"
+    },
+    {
+      "bytes": 8990,
+      "path": "scripts/03_build_splits.py",
+      "sha256": "15f0fc6e1205b3cb1325a01710271a4d22f9070fc3849a39ea3112a303dcd84f"
+    },
+    {
+      "bytes": 12520,
+      "path": "scripts/04_extract_features.py",
+      "sha256": "acc2620a0910ae910648b05dd917abde8b4c6245dc916cd7caac8874bd22bedc"
+    },
+    {
+      "bytes": 11554,
+      "path": "scripts/06_walk_forward.py",
+      "sha256": "53ea85cbcc9205c9a64bcfa29ec591cf9db4bbdb0766e5fd932ab2aa1505edc0"
+    },
+    {
+      "bytes": 7391,
+      "path": "scripts/15_build_reproducibility_bundle.py",
+      "sha256": "4006405af852906014d0d7396fd40d60b69b7539f03fd6270d31226bff04f1cc"
+    },
+    {
+      "bytes": 4945,
+      "path": "scripts/16_appendix_token_frequencies.py",
+      "sha256": "aa558e8fe0a61b05e04db7f1284cf85cad6480218f8dde8213faca059e69f8b5"
+    },
+    {
+      "bytes": 7519,
+      "path": "scripts/feature_extraction.py",
+      "sha256": "f958b0ed39759061bdbd81013d879feb6d57090b49c34c8cf5495760323253f8"
+    },
+    {
+      "bytes": 5624,
+      "path": "scripts/reproducibility.py",
+      "sha256": "4905dda74f178047721f39a8823d9d044b8be5e1740f4c79cf2489d14399af8c"
+    }
+  ],
+  "report_content_manifest": {
+    "bytes": 3821039,
+    "path": "results/2026-07-11/reproducibility/report_content_checksums.csv.gz",
+    "sha256": "3eadb5bf0f6cadb9af52e11d353af7843781030c01466037cffe2028266fb55b"
+  },
+  "schema_version": "1.0",
+  "scope": "Exact input, split, feature, vocabulary or hashing configuration, environment, prediction, and result checksums for the defended run."
+}

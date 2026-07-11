@@ -1,0 +1,19 @@
+{
+  "global_chronological": {
+    "n_test": 9796,
+    "n_train": 35262,
+    "n_val": 3918
+  },
+  "n_total": 48976,
+  "per_family_chronological": {
+    "n_test": 9799,
+    "n_train": 35263,
+    "n_val": 3914
+  },
+  "random_stratified": {
+    "n_test": 9796,
+    "n_train": 35262,
+    "n_val": 3918
+  },
+  "timestamp": "2026-07-11T15:35:09.319900"
+}

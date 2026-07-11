@@ -47,6 +47,10 @@ artifacts/leakage_ablation/*
 artifacts/models/*
 !artifacts/models/.gitkeep
 artifacts/reproducibility/*
+!artifacts/reproducibility/README.md
+
+# Build the dated defended bundle locally, then force-add it after verification.
+results/2026-07-11/
 
 # Workspace folders
 experiments/*
@@ -55,4 +59,4 @@ notebooks/*
 !notebooks/.gitkeep
 tests/*
 !tests/.gitkeep
-!tests/test_leakage_filters.py
+!tests/test_*.py

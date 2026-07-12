@@ -1,0 +1,21 @@
+comparison,family,support,model_a_correct,model_b_correct,a_wrong_b_correct,a_correct_b_wrong,net_correct_change_b_minus_a
+API-only SGD to fused SGD,adload,3,3,3,0,0,0
+API-only SGD to fused SGD,emotet,3524,3242,3240,51,53,-2
+API-only SGD to fused SGD,harhar,69,68,68,0,0,0
+API-only SGD to fused SGD,lokibot,512,478,486,13,5,8
+API-only SGD to fused SGD,njrat,377,368,368,0,0,0
+API-only SGD to fused SGD,qakbot,347,344,344,0,0,0
+API-only SGD to fused SGD,swisyn,3253,3218,3238,22,2,20
+API-only SGD to fused SGD,trickbot,1107,1066,1063,1,4,-3
+API-only SGD to fused SGD,ursnif,477,473,476,3,0,3
+API-only SGD to fused SGD,zeus,127,118,124,6,0,6
+fused SGD to fused LightGBM,adload,3,3,3,0,0,0
+fused SGD to fused LightGBM,emotet,3524,3240,3083,26,183,-157
+fused SGD to fused LightGBM,harhar,69,68,68,0,0,0
+fused SGD to fused LightGBM,lokibot,512,486,483,19,22,-3
+fused SGD to fused LightGBM,njrat,377,368,372,6,2,4
+fused SGD to fused LightGBM,qakbot,347,344,345,1,0,1
+fused SGD to fused LightGBM,swisyn,3253,3238,3251,13,0,13
+fused SGD to fused LightGBM,trickbot,1107,1063,1074,12,1,11
+fused SGD to fused LightGBM,ursnif,477,476,466,0,10,-10
+fused SGD to fused LightGBM,zeus,127,124,121,1,4,-3

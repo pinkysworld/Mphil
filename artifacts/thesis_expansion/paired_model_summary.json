@@ -1,0 +1,52 @@
+{
+  "alignment": {
+    "label_classes": [
+      "adload",
+      "emotet",
+      "harhar",
+      "lokibot",
+      "njrat",
+      "qakbot",
+      "swisyn",
+      "trickbot",
+      "ursnif",
+      "zeus"
+    ],
+    "label_classes_equal": true,
+    "n_samples": 9796,
+    "reference_labels_equal": true,
+    "test_indices_equal": true
+  },
+  "comparisons": {
+    "API-only SGD to fused SGD": {
+      "a_correct_b_wrong": 64,
+      "a_wrong_b_correct": 96,
+      "discordant_pairs": 160,
+      "model_a": "api_sgd",
+      "model_b": "fusion_sgd",
+      "two_sided_exact_p": 0.01400101615962956
+    },
+    "fused SGD to fused LightGBM": {
+      "a_correct_b_wrong": 222,
+      "a_wrong_b_correct": 78,
+      "discordant_pairs": 300,
+      "model_a": "fusion_sgd",
+      "model_b": "fusion_lightgbm",
+      "two_sided_exact_p": 3.6245449484664685e-17
+    }
+  },
+  "sources": {
+    "api_sgd": {
+      "path": "artifacts/predictions/table_5_8.npz",
+      "sha256": "423bd5f53126434dd1496e182578a1061f9e08bcfa3eec41686743ed06d0ab93"
+    },
+    "fusion_lightgbm": {
+      "path": "artifacts/predictions/table_6_1_fusion_global_lightgbm.npz",
+      "sha256": "ed61a85c0f7fc295e6e805edcb7883a6335f98f45ccc9422e1b12eb487aabad7"
+    },
+    "fusion_sgd": {
+      "path": "artifacts/predictions/table_5_11_fusion_global_sgd.npz",
+      "sha256": "6ee744d938414311ebeeade900cad7ffaba7e530b68743d8ebff70f9ef2cd167"
+    }
+  }
+}

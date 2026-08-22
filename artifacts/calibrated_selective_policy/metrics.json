@@ -1,0 +1,90 @@
+{
+  "claim_boundary": {
+    "analyst_outcome_validation": false,
+    "prospective_external_validation": false,
+    "single_corpus": true,
+    "strict_date_order_after_boundary_tie_exclusion": true,
+    "threshold_selected_without_test_labels": true
+  },
+  "methods": {
+    "sigmoid_calibrated": {
+      "future_test_policy": {
+        "coverage": 0.8941404654961209,
+        "n_deferred": 1037,
+        "n_selected": 8759,
+        "selective_accuracy": 0.9744263043726453,
+        "selective_error": 0.02557369562735472,
+        "selective_macro_f1": 0.9687899002639959
+      },
+      "policy_selection_reliability": {
+        "accuracy": 0.9701417004048583,
+        "ece_10_equal_width": 0.01884882396127743,
+        "log_loss": 0.094262144847584,
+        "macro_f1": 0.8596256874768369,
+        "multiclass_brier": 0.04681797530766192
+      },
+      "selected_threshold": {
+        "coverage": 0.944838056680162,
+        "n_selected": 1867,
+        "selective_accuracy": 0.9903588644884842,
+        "selective_error": 0.0096411355115158,
+        "threshold": 0.6559957325353322
+      },
+      "test_reliability": {
+        "accuracy": 0.9244589628419763,
+        "ece_10_equal_width": 0.03178049142527335,
+        "log_loss": 0.321126794092415,
+        "macro_f1": 0.9014390078171161,
+        "multiclass_brier": 0.11956086027077564
+      }
+    },
+    "uncalibrated": {
+      "future_test_policy": {
+        "coverage": 0.9031237239689669,
+        "n_deferred": 949,
+        "n_selected": 8847,
+        "selective_accuracy": 0.996609020006782,
+        "selective_error": 0.00339097999321804,
+        "selective_macro_f1": 0.9919250951367647
+      },
+      "policy_selection_reliability": {
+        "accuracy": 0.9660931174089069,
+        "ece_10_equal_width": 0.07952471859731511,
+        "log_loss": 0.17415035873062962,
+        "macro_f1": 0.8582290174335883,
+        "multiclass_brier": 0.06668096278949934
+      },
+      "selected_threshold": {
+        "coverage": 0.9190283400809717,
+        "n_selected": 1816,
+        "selective_accuracy": 0.9900881057268722,
+        "selective_error": 0.009911894273127754,
+        "threshold": 0.5913746963076103
+      },
+      "test_reliability": {
+        "accuracy": 0.9559003674969375,
+        "ece_10_equal_width": 0.10305972959803897,
+        "log_loss": 0.2326729472392155,
+        "macro_f1": 0.8995734656286407,
+        "multiclass_brier": 0.08416129829556922
+      }
+    }
+  },
+  "minimum_policy_selection_cases": 100,
+  "roles": {
+    "calibration_end": "2019-07-25",
+    "calibration_start": "2019-06-23",
+    "excluded_validation_boundary_ties": 64,
+    "n_calibration": 1878,
+    "n_model_train": 35262,
+    "n_policy_selection": 1976,
+    "n_test": 9796,
+    "policy_selection_end": "2019-09-08",
+    "policy_selection_start": "2019-07-26",
+    "test_start": "2019-09-09",
+    "train_end": "2019-06-22"
+  },
+  "schema_version": "1.0",
+  "seed": 42,
+  "target_selective_error": 0.01
+}

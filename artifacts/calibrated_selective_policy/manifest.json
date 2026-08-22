@@ -1,0 +1,31 @@
+{
+  "inputs": [
+    {
+      "path": "artifacts/calibrated_selective_policy/replay_inputs.csv.gz",
+      "sha256": "c2488a3cb323f331a765b12029aac00dab903535ba1264f55c71c4b2e74933fa"
+    },
+    {
+      "path": "artifacts/calibrated_selective_policy/replay_inputs_metadata.json",
+      "sha256": "10e558675197e9a7d94c8beb96748497354051de840fc5d37c68d2a77ee54196"
+    },
+    {
+      "path": "scripts/20_calibrated_selective_policy.py",
+      "sha256": "ab37bbe8db55d22b9e3210d8a06594def3b69933279cceaa3e8fd70f6981db55"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "artifacts/calibrated_selective_policy/metrics.json",
+      "sha256": "7189fdb8ad3344cf73ea6dd3538708155992cd36539342e6b29b2e1898e4e2ca"
+    },
+    {
+      "path": "artifacts/calibrated_selective_policy/policy_thresholds.csv",
+      "sha256": "74405d16723a287b7ebd2fa1beadf10ccc2495d91884aaa4064fcf73708ed89f"
+    },
+    {
+      "path": "artifacts/calibrated_selective_policy/test_policy_predictions.csv.gz",
+      "sha256": "8ebc638cdd7a61058b05abc8c43993f67da0aebfd36df947f45029235b698eab"
+    }
+  ],
+  "schema_version": "1.0"
+}

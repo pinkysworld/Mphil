@@ -1,0 +1,47 @@
+{
+  "base_evidence_commit": "8174d6bacd675f28a2c3fe3f7cde9f186001d841",
+  "claim_boundary": {
+    "analyst_usability_study": false,
+    "production_readiness": false,
+    "prospective_validation": false,
+    "state_a_empirically_observed": false
+  },
+  "experiments": {
+    "confidence_gate": {
+      "interpretation": "aggregate replay of archived uncalibrated selective-prediction evidence",
+      "samples": 9796,
+      "state_counts": {
+        "B": 8840,
+        "C": 956
+      }
+    },
+    "contract": {
+      "passed": 8,
+      "state_counts": {
+        "A": 1,
+        "B": 2,
+        "C": 3,
+        "D": 2
+      },
+      "total": 8
+    },
+    "open_set_gate": {
+      "families": 9,
+      "interpretation": "family-experiment capability replay, not sample-level novelty decisions",
+      "state_counts": {
+        "C": 2,
+        "D": 7
+      }
+    },
+    "temporal_gate": {
+      "interpretation": "window-level retrospective replay; trigger uses labelled outcomes",
+      "state_counts": {
+        "B": 12,
+        "C": 7
+      },
+      "windows": 19
+    }
+  },
+  "policy_version": "1.1.0",
+  "schema_version": "1.0"
+}

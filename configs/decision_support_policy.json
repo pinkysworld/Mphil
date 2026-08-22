@@ -1,0 +1,25 @@
+{
+  "policy_version": "1.1.0",
+  "policy_name": "Conservative malware triage output policy",
+  "intended_user": "malware triage analyst",
+  "decision_context": "retrospective research demonstrator; not an autonomous production decision system",
+  "design_lineage": {
+    "methodological_principle": "Separates observed record, retained schema, feature representation, supplied label, model output, and analyst decision, consistent with Pradeep and Morris (2022).",
+    "decision_support_principle": "Makes the analyst role, decision consequence, evidence, uncertainty, and retained human authority explicit; this is a technical design requirement, not evidence of usability or operational benefit."
+  },
+  "thresholds": {
+    "supported_confidence": 0.8,
+    "defer_below_confidence": 0.6,
+    "minimum_unknown_rejection_rate": 0.8
+  },
+  "temporal_review_statuses": [
+    "triggered",
+    "failed"
+  ],
+  "states": {
+    "A": "supported enrichment",
+    "B": "assisted triage",
+    "C": "deferred investigation",
+    "D": "possible unknown or out of scope"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "base_evidence_commit": "8174d6bacd675f28a2c3fe3f7cde9f186001d841",
+  "outputs": [
+    {
+      "path": "artifacts/decision_support/contract_cases.csv",
+      "sha256": "eeb4c41f43441e9888fe1a0a60de89c431b4001c423ca7c40b986607e9a03824"
+    },
+    {
+      "path": "artifacts/decision_support/confidence_gate_replay.csv",
+      "sha256": "89fd4f2a3341f9a3b4e0c153ea90baf64fe59a9d5ff60b8cfc5f7786a49a0d37"
+    },
+    {
+      "path": "artifacts/decision_support/temporal_gate_replay.csv",
+      "sha256": "10faebfa16d6a176530ec30905d81905ee5d6be1c870ae562e10d17c4c8e49d2"
+    },
+    {
+      "path": "artifacts/decision_support/open_set_gate_replay.csv",
+      "sha256": "c44024d118fff6aa339e07fe587abac1ee195aa95b2f11ac165a5ef13462f908"
+    },
+    {
+      "path": "artifacts/decision_support/experiment_summary.json",
+      "sha256": "66cbe3eac48914075d2fa43b911588b55be717b5e005d1e5c0eb488ab48d615b"
+    },
+    {
+      "path": "artifacts/decision_support/README.md",
+      "sha256": "95df98d0c300e538dec98cb442bd1862413a403e1f157e0d98166245c408214f"
+    }
+  ],
+  "schema_version": "1.0",
+  "sources": [
+    {
+      "path": "configs/decision_support_policy.json",
+      "sha256": "7d5c49789193acd40a2a06f8f9de990ad403c72d2878f837f1d7b5931eb10a65"
+    },
+    {
+      "path": "results/2026-07-11/calibration/selective_prediction.csv",
+      "sha256": "5d9c68339f930a09f22e35672326a863f35ab7c0bb8d3ed2da7657953eaae040"
+    },
+    {
+      "path": "results/2026-07-11/retraining_trigger/retraining_trigger_windows.csv",
+      "sha256": "42851ca30f55dedb6ca8df42a5cac3cc379f314ad28e7d022bfd05c0578fda15"
+    },
+    {
+      "path": "artifacts/open_set/heldout_family_summary.csv",
+      "sha256": "0ce110867960e28c1fa9c34068c2b27b0a6799f36b227653e81eaa217a910bb0"
+    },
+    {
+      "path": "scripts/18_decision_support_demonstrator.py",
+      "sha256": "4273c16d8b2d28d43461da33e80a0483183a444bef77f75b2e209b2389b4c64c"
+    },
+    {
+      "path": "scripts/19_decision_support_experiments.py",
+      "sha256": "1105a4f28cea0a4d9a30d1ac1d5cffa97ae25b7461f77be3ad8a336a8f8b07b2"
+    },
+    {
+      "path": "scripts/decision_support_policy.py",
+      "sha256": "488ceab7bf8cf32e9cfdcea15e32786b30e3a570b09ed041a516ef302e0caed1"
+    },
+    {
+      "path": "tests/test_decision_support_policy.py",
+      "sha256": "c0892b79a74c4817e810427be18047905d69e6948d807f765a6698f7ecb655cb"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+case_id,expected_state,observed_state,passed,reason_codes
+contract_a_calibrated_support,A,A,True,all_support_gates_passed
+contract_b_uncalibrated_high,B,B,True,confidence_not_calibrated|threshold_not_independently_validated
+contract_b_calibrated_mid,B,B,True,confidence_below_support_gate
+contract_c_low_confidence,C,C,True,confidence_below_deferral_gate
+contract_c_temporal_trigger,C,C,True,temporal_review_trigger
+contract_c_missing_evidence,C,C,True,evidence_unavailable
+contract_d_novelty,D,D,True,novelty_signal
+contract_d_unsupported_schema,D,D,True,unsupported_schema

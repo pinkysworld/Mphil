@@ -1,0 +1,136 @@
+{
+  "base_evidence_commit": "8174d6bacd675f28a2c3fe3f7cde9f186001d841",
+  "bundle": {
+    "decision_score_columns": [
+      "decision__adload",
+      "decision__emotet",
+      "decision__harhar",
+      "decision__lokibot",
+      "decision__njrat",
+      "decision__qakbot",
+      "decision__swisyn",
+      "decision__trickbot",
+      "decision__ursnif",
+      "decision__zeus"
+    ],
+    "path": "artifacts/calibrated_selective_policy/replay_inputs.csv.gz",
+    "rows": 13650,
+    "sha256": "c2488a3cb323f331a765b12029aac00dab903535ba1264f55c71c4b2e74933fa",
+    "uncalibrated_probability_columns": [
+      "probability__adload",
+      "probability__emotet",
+      "probability__harhar",
+      "probability__lokibot",
+      "probability__njrat",
+      "probability__qakbot",
+      "probability__swisyn",
+      "probability__trickbot",
+      "probability__ursnif",
+      "probability__zeus"
+    ]
+  },
+  "calibration": {
+    "method": "one-vs-rest sigmoid",
+    "parameters": [
+      {
+        "a": -1.1586374561047506,
+        "b": 1.5496882511909513,
+        "class": "adload"
+      },
+      {
+        "a": -1.0212502726011847,
+        "b": 3.0305306560055527,
+        "class": "emotet"
+      },
+      {
+        "a": -1.1652048204905432,
+        "b": 1.2676579501181873,
+        "class": "harhar"
+      },
+      {
+        "a": -1.5615057333277447,
+        "b": -1.0209907907876818,
+        "class": "lokibot"
+      },
+      {
+        "a": -1.5340485678440483,
+        "b": 0.09076627852565075,
+        "class": "njrat"
+      },
+      {
+        "a": -1.360876300259777,
+        "b": 0.7240533223882404,
+        "class": "qakbot"
+      },
+      {
+        "a": -1.7424351933909696,
+        "b": -2.0661653172226613,
+        "class": "swisyn"
+      },
+      {
+        "a": -2.3251198870293996,
+        "b": -2.7974401362305064,
+        "class": "trickbot"
+      },
+      {
+        "a": -0.9946490361675785,
+        "b": 2.6460868387015304,
+        "class": "ursnif"
+      },
+      {
+        "a": -2.56577411895064,
+        "b": -2.6743073311747465,
+        "class": "zeus"
+      }
+    ],
+    "reference_maximum_absolute_difference": 5.551115123125783e-16
+  },
+  "classes": [
+    "adload",
+    "emotet",
+    "harhar",
+    "lokibot",
+    "njrat",
+    "qakbot",
+    "swisyn",
+    "trickbot",
+    "ursnif",
+    "zeus"
+  ],
+  "model": {
+    "class_weight": "balanced",
+    "loss": "log_loss",
+    "max_iter": 1000,
+    "random_state": 42,
+    "sklearn_version": "1.4.2",
+    "type": "sklearn.linear_model.SGDClassifier"
+  },
+  "roles": {
+    "calibration_end": "2019-07-25",
+    "calibration_start": "2019-06-23",
+    "excluded_validation_boundary_ties": 64,
+    "n_calibration": 1878,
+    "n_model_train": 35262,
+    "n_policy_selection": 1976,
+    "n_test": 9796,
+    "policy_selection_end": "2019-09-08",
+    "policy_selection_start": "2019-07-26",
+    "test_start": "2019-09-09",
+    "train_end": "2019-06-22"
+  },
+  "schema_version": "1.0",
+  "source_cache": [
+    {
+      "path": "data/splits/global_chronological.json",
+      "sha256": "103af8862abe3098898159567fb0f50d93984efa135484b55100ba63522b3cbb"
+    },
+    {
+      "path": "data/cache/labels.parquet",
+      "sha256": "e0f81adfdb4a7fe1e8f766e37a5a861beb573f8aecb98f75a37d56ed45298a33"
+    },
+    {
+      "path": "data/cache/api_tfidf_global_chronological.npz",
+      "sha256": "595eef3ce01c150de9b184a6c9b8d697a75db7da7a555eb9bfb83b7c7af41016"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+heldout_family,unknown_test_n,unknown_rejection_rate,minimum_required_rate,capability_gate_passed,policy_state,reason_codes
+emotet,3524,0.962,0.8,True,D,novelty_signal
+harhar,69,0.9855,0.8,True,D,novelty_signal
+lokibot,457,0.965,0.8,True,D,novelty_signal
+njrat,349,0.6562,0.8,False,C,open_set_capability_below_gate
+qakbot,315,0.9905,0.8,True,D,novelty_signal
+swisyn,4305,0.0007,0.8,False,C,open_set_capability_below_gate
+trickbot,1124,0.9769,0.8,True,D,novelty_signal
+ursnif,489,0.9898,0.8,True,D,novelty_signal
+zeus,126,0.9683,0.8,True,D,novelty_signal

@@ -1,0 +1,4 @@
+evidence_group,n_samples,fraction,archived_selective_accuracy,confidence_provenance,policy_state,reason_codes
+score_at_or_above_0.80,7625,0.778379,0.9996,uncalibrated,B,confidence_not_calibrated|threshold_not_independently_validated
+score_at_or_above_0.60_and_below_0.80,1215,0.12403,not_reported_for_band,uncalibrated,B,confidence_not_calibrated|threshold_not_independently_validated
+score_below_0.60,956,0.097591,not_reported_for_band,uncalibrated,C,confidence_below_deferral_gate

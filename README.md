@@ -62,3 +62,48 @@ and checksum procedure.
   --model sgd \
   --output artifacts/metrics/table_5_8.json
 ```
+
+## Decision-support demonstrator
+
+The four-state analyst-facing policy is machine-readable in
+`configs/decision_support_policy.json` and implemented by
+`scripts/18_decision_support_demonstrator.py`. Its bounded contract,
+confidence-gate, temporal-gate, and open-set capability experiments are
+reproduced with:
+
+```bash
+.venv/bin/python scripts/19_decision_support_experiments.py
+.venv/bin/python -m unittest tests/test_decision_support_policy.py
+```
+
+See `artifacts/decision_support/README.md` for the results and their claim
+boundary. The demonstrator is a research artifact, not a production control or
+an analyst-usability validation.
+
+## Time-ordered calibration and selective policy
+
+The calibration-policy sensitivity experiment separates model fitting,
+calibration fitting, threshold selection, and future testing at strict date
+boundaries. It freezes a confidence threshold on the later validation segment
+before evaluating the subsequent test period:
+
+```bash
+.venv/bin/python scripts/20_calibrated_selective_policy.py --input-mode replay-bundle
+.venv/bin/python -m unittest tests/test_calibrated_selective_policy.py
+```
+
+Outputs and their checksums are stored in
+`artifacts/calibrated_selective_policy/`. The experiment distinguishes an
+improvement in calibration error from an improvement in selective-routing
+safety; the two are not treated as equivalent. A tracked 13,650-row replay
+bundle contains the exact base-model decision scores and uncalibrated
+probabilities needed for calibration fitting, threshold selection, and future
+testing. Its metadata records the hashes of the larger defended source caches.
+Use `--input-mode source-cache` only when those local cache files are available
+and the public replay bundle needs to be regenerated.
+
+Run all policy tests with:
+
+```bash
+.venv/bin/python -m unittest discover -s tests -p 'test_*policy.py' -v
+```

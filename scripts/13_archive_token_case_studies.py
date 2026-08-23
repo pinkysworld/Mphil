@@ -4,6 +4,10 @@
 Curates vocabulary-based local explanation cases from the archived explanation
 folders into a compact bundle that is easier to cite in the thesis.
 
+The source explanation matrices are not distributed in this repository. A
+caller must therefore supply their local export directory explicitly. Public
+outputs record a descriptive provenance label instead of a workstation path.
+
 Outputs:
   - artifacts/explainability_case_studies/case_index.csv
   - artifacts/explainability_case_studies/token_case_studies.csv
@@ -13,6 +17,7 @@ Outputs:
 """
 
 import argparse
+import hashlib
 import json
 from datetime import datetime
 from pathlib import Path
@@ -27,15 +32,12 @@ OUT_DIR.mkdir(parents=True, exist_ok=True)
 TOKEN_PREFIXES = ("api::", "artifact::")
 
 
-def default_source_dir():
-    candidates = [
-        PROJECT_ROOT / "results" / "2026-03-22_verified" / "explainability",
-        PROJECT_ROOT / "artifacts" / "explainability",
-    ]
-    for candidate in candidates:
-        if candidate.exists() and any(candidate.iterdir()):
-            return candidate
-    raise FileNotFoundError("No explanation source directory was found.")
+def file_sha256(path):
+    digest = hashlib.sha256()
+    with open(path, "rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def parse_args():
@@ -44,8 +46,16 @@ def parse_args():
     )
     parser.add_argument(
         "--source-dir",
-        default=str(default_source_dir()),
-        help="Explanation directory to scan. Defaults to the verified results bundle.",
+        required=True,
+        help="Local explanation directory to scan; the source files are not distributed.",
+    )
+    parser.add_argument(
+        "--source-label",
+        default=(
+            "Defended local explanation export; source feature matrices are not "
+            "distributed in the public repository."
+        ),
+        help="Repository-safe provenance label written to the public output files.",
     )
     parser.add_argument(
         "--top-k-per-side",
@@ -76,11 +86,11 @@ def token_case_rows(contrib_df, top_k_per_side):
     return pd.concat(rows, ignore_index=True) if rows else token_df.iloc[0:0]
 
 
-def build_casebook(path, case_index_df, token_df, source_dir):
+def build_casebook(path, case_index_df, token_df, source_label):
     lines = [
         "# Token-level case studies",
         "",
-        f"Source directory: `{source_dir}`",
+        f"Source provenance: {source_label}",
         "",
     ]
 
@@ -136,11 +146,11 @@ def build_casebook(path, case_index_df, token_df, source_dir):
         handle.write("\n".join(lines) + "\n")
 
 
-def build_readme(path, source_dir, manifest):
+def build_readme(path, source_label, manifest):
     lines = [
         "# Archived token-level case studies",
         "",
-        f"Source directory: `{source_dir}`",
+        f"Source provenance: {source_label}",
         f"Runs included: `{manifest['runs_included']}`",
         f"Cases exported: `{manifest['cases_exported']}`",
         "",
@@ -150,6 +160,10 @@ def build_readme(path, source_dir, manifest):
         "- `token_case_studies.csv`",
         "- `casebook.md`",
         "- `manifest.json`",
+        "",
+        "The case index and token rows are archived evidence, not a claim that these",
+        "examples are representative of future malware or analyst outcomes. Integrity",
+        "hashes for the four exported files are recorded in `manifest.json`.",
     ]
     with open(path, "w", encoding="utf-8") as handle:
         handle.write("\n".join(lines) + "\n")
@@ -158,6 +172,9 @@ def build_readme(path, source_dir, manifest):
 def main():
     args = parse_args()
     source_dir = Path(args.source_dir).resolve()
+    source_label = args.source_label.strip()
+    if not source_label:
+        raise ValueError("--source-label must not be empty.")
     if not source_dir.exists():
         raise FileNotFoundError(f"Source explanation directory not found: {source_dir}")
 
@@ -236,16 +253,27 @@ def main():
 
     manifest = {
         "timestamp": datetime.now().isoformat(),
-        "source_dir": str(source_dir),
+        "source_provenance": source_label,
         "runs_included": len(sorted(set(runs_included))),
         "cases_exported": int(len(case_index_df)),
         "token_rows_exported": int(len(token_df)),
     }
+    build_casebook(OUT_DIR / "casebook.md", case_index_df, token_df, source_label)
+    build_readme(OUT_DIR / "README.md", source_label, manifest)
+    manifest["outputs"] = [
+        {
+            "path": path.relative_to(PROJECT_ROOT).as_posix(),
+            "sha256": file_sha256(path),
+        }
+        for path in (
+            OUT_DIR / "case_index.csv",
+            OUT_DIR / "token_case_studies.csv",
+            OUT_DIR / "casebook.md",
+            OUT_DIR / "README.md",
+        )
+    ]
     with open(OUT_DIR / "manifest.json", "w", encoding="utf-8") as handle:
         json.dump(manifest, handle, indent=2)
-
-    build_casebook(OUT_DIR / "casebook.md", case_index_df, token_df, source_dir)
-    build_readme(OUT_DIR / "README.md", source_dir, manifest)
     print(f"[ok] token-level case studies written to {OUT_DIR}")
 
 

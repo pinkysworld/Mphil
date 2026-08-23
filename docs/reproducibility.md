@@ -55,7 +55,7 @@ After the full run, create the final self-checking bundle:
 
 The command checksums every reduced JSON report, relevant input archive,
 environment file, script, split catalog, vocabulary manifest, prediction file,
-and result artifact. It writes `SHA256SUMS` at the root of the reproducibility
+and result artefact. It writes `SHA256SUMS` at the root of the reproducibility
 folder. Verify it from the dated result directory with:
 
 ```bash

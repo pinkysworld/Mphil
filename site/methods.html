@@ -91,19 +91,19 @@
           <div class="card-grid two-up">
             <article class="content-card">
               <h3>RQ1</h3>
-              <p>Which feature views remain informative when the evaluation is time-aware rather than random?</p>
+              <p>What empirical relationship exists between temporal invariance and discriminability for features derived from leakage-controlled reduced CAPEv2 reports?</p>
             </article>
             <article class="content-card">
               <h3>RQ2</h3>
-              <p>How sensitive are the results to leakage controls and naming shortcuts in the reports?</p>
+              <p>To what extent does token-level leakage inflate apparent discriminability under random splits, and how does leakage removal change the estimated trade-off under strict chronological evaluation?</p>
             </article>
             <article class="content-card">
               <h3>RQ3</h3>
-              <p>Does combining multiple evidence sources outperform single-view models under more realistic test settings?</p>
+              <p>How do the four feature views—API-call patterns, behavioural artefact tokens, behavioural summary counts, and compact static PE counts—compare under view-appropriate invariance and discriminability diagnostics, and does four-view feature-level fusion improve predictive performance over an aligned API-only baseline under chronological and forecast-horizon evaluation?</p>
             </article>
             <article class="content-card">
               <h3>RQ4</h3>
-              <p>How reliable are the model probabilities once calibration and selective prediction are considered?</p>
+              <p>Can calibration and selective prediction provide a stable and technically defensible risk-coverage trade-off across time, and how does this relate to feature invariance?</p>
             </article>
           </div>
         </section>
@@ -132,12 +132,12 @@
             <article class="step-card">
               <span class="step-number">04</span>
               <h3>Extract features</h3>
-              <p>Convert sandbox content into feature matrices covering API text, artifact text, behaviour counts, and PE metadata.</p>
+              <p>Convert sandbox content into feature matrices covering API text, artefact text, behaviour counts, and PE metadata.</p>
             </article>
             <article class="step-card">
               <span class="step-number">05</span>
               <h3>Train baseline models</h3>
-              <p>Run the first classification experiments across single-view and fused feature settings.</p>
+              <p>Run the defended classification comparisons across single-view and fused feature settings.</p>
             </article>
             <article class="step-card">
               <span class="step-number">06</span>
@@ -158,7 +158,7 @@
               <p>Resolved API names are treated as text and converted into sparse vectors. This captures calling patterns in the dynamic reports.</p>
             </article>
             <article class="content-card">
-              <h3>Artifact TF-IDF</h3>
+              <h3>Artefact TF-IDF</h3>
               <p>File paths, mutexes, registry activity, and related strings provide another text-based view of the execution trace.</p>
             </article>
             <article class="content-card">
@@ -234,15 +234,15 @@
             </article>
             <article class="content-card">
               <h3>Selective prediction</h3>
-              <p>Selective prediction studies whether a system can become safer by abstaining on low-confidence samples.</p>
+              <p>Selective prediction measures the observed error-coverage trade-off when low-confidence samples are deferred; safety requires separate validation.</p>
             </article>
           </div>
         </section>
       </main>
 
       <footer class="site-footer">
-        <p>Hosted with GitHub Pages. Code and notes are public; raw dataset files and generated caches remain local.</p>
-        <p>Last site refresh: 21 March 2026.</p>
+        <p>Hosted with GitHub Pages. Code and defended evidence are public; raw dataset files and large generated caches remain local.</p>
+        <p>Last site refresh: 23 August 2026.</p>
       </footer>
     </div>
   </body>

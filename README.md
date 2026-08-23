@@ -1,42 +1,69 @@
-# Malware Family Classification
+# Leakage-controlled, time-aware malware family classification
 
-Working repository for the experimental part of the MPhil thesis. It contains
-the defended ingestion, leakage audit, split, feature, modelling, walk-forward,
-and reproducibility pipelines for the Avast-CTU CAPEv2 reports.
+This repository contains the executable research supplement for the MPhil
+thesis *Explainable and Time-Aware Malware Family Classification from CAPEv2
+Sandbox Reports Using Leakage-Controlled Multi-View Features*. It provides the
+defended pipeline, the final archived results, and the bounded decision-support
+methodology.
 
-## Repository Layout
+## Authoritative release contents
 
-- `scripts/` pipeline scripts
-- `configs/` project settings
-- `data/raw/` local dataset files
-- `data/processed/`, `data/cache/`, `data/splits/` derived data
-- `artifacts/` logs, figures, and result files
-- `docs/` working notes
-- `site/` public project website for GitHub Pages
+- `results/2026-07-11/` — defended result bundle and checksum manifest
+- `artifacts/decision_support/` — four-state policy contract and replay outputs
+- `artifacts/calibrated_selective_policy/` — strictly date-ordered calibration
+  and threshold-transfer sensitivity experiment
+- `artifacts/thesis_expansion/` — derived statistical analyses used in the
+  expanded thesis
+- `artifacts/open_set/`, `artifacts/explainability_case_studies/`, and
+  `artifacts/retraining_trigger/` — bounded supporting analyses
+- `scripts/` — ingestion, feature, modelling, validation, and policy code
+- `tests/` — executable regression and policy-contract tests
+- `site/` — public project summary for GitHub Pages
 
-## Local Setup
+The earlier duplicate result snapshot has been removed. Some files inside
+`results/2026-07-11/reproducibility/` intentionally duplicate files elsewhere
+in the same dated bundle: they form a self-contained, checksum-verifiable
+archive. Historical input paths embedded in the immutable bootstrap metadata
+are provenance records, not active directories. See
+[`docs/release_inventory.md`](docs/release_inventory.md).
+
+## Evidence boundaries
+
+- Four-view fused SGD reaches macro-F1 0.9317 on the aligned global
+  chronological test; the API-only baseline reaches 0.9024.
+- The API-only rolling-origin proxy ranges from 0.6690 to 0.9289 across 19
+  monthly windows (mean 0.7908). One split is therefore not treated as a
+  deployment estimate.
+- The matched exact-segment leakage ablation is null within the evaluated
+  allow-listed fields. It does not exclude every indirect shortcut.
+- In the strictly ordered sensitivity experiment, sigmoid calibration reduces
+  ECE from 0.1031 to 0.0318 but does not improve validation-selected selective
+  routing: future error is 2.56% calibrated versus 0.34% uncalibrated.
+- The four-state demonstrator passes all eight deterministic contract cases,
+  but no archived replay reaches State A. It is not evidence of analyst
+  benefit, production readiness, or transport beyond the archived
+  Avast-CTU/CAPEv2 corpus.
+
+## Environment
+
+Python 3.11.2 and all direct and transitive packages are pinned:
 
 ```bash
 python3.11 -m venv .venv
 .venv/bin/python -m pip install --require-hashes -r requirements-lock.txt
 ```
 
-The uncompiled `requirements.txt` remains the human-readable input. The lock
-file and `.python-version` are the defended environment specification.
+The readable dependency input is `requirements.txt`; the defended lock is
+`requirements-lock.txt`.
 
-## Data
+## Data boundary
 
-Place the Avast-CTU files in `data/raw/`. The ingestion script accepts:
+Raw third-party malware archives, extracted reports, and generated feature
+caches are intentionally excluded. Place the Avast-CTU public labels and
+reduced CAPEv2 archive under `data/raw/` before running the full pipeline. The
+ingestion script documents the accepted filenames.
 
-- `public_labels.csv`
-- `public_small_reports.zip`
-- `avast_ctu_reduced.zip`
-- `1.zip` and `2.zip` if using a locally split archive
-
-Running `scripts/01_ingest.py` extracts report JSON files to
-`data/raw/reports/`.
-
-## First Run
+## Defended pipeline
 
 ```bash
 .venv/bin/python scripts/01_ingest.py
@@ -46,64 +73,33 @@ Running `scripts/01_ingest.py` extracts report JSON files to
 .venv/bin/python scripts/06_walk_forward.py
 ```
 
-`03_build_splits.py` writes exact sample-hash split manifests.
-`04_extract_features.py` writes fitted vocabulary, IDF, hashing-configuration,
-and cache checksums. `06_walk_forward.py` uses the same shared leakage-filtered
-API extractor and writes per-window membership hashes and predictions. See
-[`docs/reproducibility.md`](docs/reproducibility.md) for the submission bundle
-and checksum procedure.
+The split, feature, environment, report-content, and walk-forward manifests are
+archived under `results/2026-07-11/reproducibility/`. Follow
+[`docs/reproducibility.md`](docs/reproducibility.md) for the exact acceptance
+checks.
 
-## Baseline Run
-
-```bash
-.venv/bin/python scripts/run_experiment.py \
-  --view api_tfidf \
-  --split global_chronological \
-  --model sgd \
-  --output artifacts/metrics/table_5_8.json
-```
-
-## Decision-support demonstrator
-
-The four-state analyst-facing policy is machine-readable in
-`configs/decision_support_policy.json` and implemented by
-`scripts/18_decision_support_demonstrator.py`. Its bounded contract,
-confidence-gate, temporal-gate, and open-set capability experiments are
-reproduced with:
+## Decision-support experiments
 
 ```bash
 .venv/bin/python scripts/19_decision_support_experiments.py
-.venv/bin/python -m unittest tests/test_decision_support_policy.py
-```
-
-See `artifacts/decision_support/README.md` for the results and their claim
-boundary. The demonstrator is a research artifact, not a production control or
-an analyst-usability validation.
-
-## Time-ordered calibration and selective policy
-
-The calibration-policy sensitivity experiment separates model fitting,
-calibration fitting, threshold selection, and future testing at strict date
-boundaries. It freezes a confidence threshold on the later validation segment
-before evaluating the subsequent test period:
-
-```bash
 .venv/bin/python scripts/20_calibrated_selective_policy.py --input-mode replay-bundle
-.venv/bin/python -m unittest tests/test_calibrated_selective_policy.py
+.venv/bin/python -m unittest discover -s tests -p 'test_*.py' -v
+.venv/bin/python tests/test_leakage_filters.py
+.venv/bin/python tests/test_reproducibility.py
 ```
 
-Outputs and their checksums are stored in
-`artifacts/calibrated_selective_policy/`. The experiment distinguishes an
-improvement in calibration error from an improvement in selective-routing
-safety; the two are not treated as equivalent. A tracked 13,650-row replay
-bundle contains the exact base-model decision scores and uncalibrated
-probabilities needed for calibration fitting, threshold selection, and future
-testing. Its metadata records the hashes of the larger defended source caches.
-Use `--input-mode source-cache` only when those local cache files are available
-and the public replay bundle needs to be regenerated.
+The calibration script uses the tracked 13,650-row replay bundle, so its
+four-way date separation can be reproduced without the larger local feature
+caches. The explanation-case archive requires the original local explanation
+exports and therefore accepts an explicit `--source-dir`; its public curated
+outputs remain independently hash-verifiable.
 
-Run all policy tests with:
+## Release verification
 
 ```bash
-.venv/bin/python -m unittest discover -s tests -p 'test_*policy.py' -v
+.venv/bin/python scripts/verify_release.py --require-clean
 ```
+
+This checks the dated release inventory, forbidden local paths, defended
+`SHA256SUMS`, policy manifests, and explanation-archive hashes. A passing check
+confirms repository integrity; it does not extend the empirical claims above.

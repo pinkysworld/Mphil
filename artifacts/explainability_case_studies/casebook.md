@@ -1,6 +1,6 @@
 # Token-level case studies
 
-Source directory: `/Users/michelpicker/Library/Mobile Documents/com~apple~CloudDocs/Projekte/thesis_MPhil/github/results/2026-03-22_verified/explainability`
+Source provenance: Defended local explanation export; source feature matrices are not distributed in the public repository.
 
 ## global_art_tfidf_sgd / high_confidence_correct
 
@@ -605,4 +605,3 @@ Opposing tokens:
 - `api::virtualprotect kernel32` (api_tfidf, contribution=-0.0100)
 - `api::virtualprotect` (api_tfidf, contribution=-0.0088)
 - `api::dll virtualprotect` (api_tfidf, contribution=-0.0088)
-

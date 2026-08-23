@@ -32,12 +32,12 @@ OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 def default_walk_forward_path():
     candidates = [
-        PROJECT_ROOT / "artifacts" / "walk_forward" / "walk_forward_results.csv",
         PROJECT_ROOT
         / "results"
-        / "2026-03-22_verified"
+        / "2026-07-11"
         / "walk_forward"
         / "walk_forward_results.csv",
+        PROJECT_ROOT / "artifacts" / "walk_forward" / "walk_forward_results.csv",
     ]
     for candidate in candidates:
         if candidate.exists():
@@ -52,7 +52,7 @@ def parse_args():
     parser.add_argument(
         "--input-csv",
         default=str(default_walk_forward_path()),
-        help="Walk-forward results CSV. Defaults to artifacts/ or the verified bundle.",
+        help="Walk-forward results CSV. Defaults to the authoritative dated bundle.",
     )
     parser.add_argument(
         "--trailing-window",

@@ -69,8 +69,9 @@
             <h1>Data handling, repository structure, and reproducibility notes.</h1>
             <p class="lead">
               The project is public at the code level, but the raw malware
-              material and the larger generated outputs are intentionally kept
-              local. This page records how that boundary is handled.
+              material and large feature caches are intentionally kept local.
+              The defended result bundle, bounded derived artefacts, tests, and
+              checksum manifests are public.
             </p>
           </div>
           <div class="jump-links">
@@ -92,7 +93,7 @@
             </article>
             <article class="content-card">
               <h3>Kept outside Git</h3>
-              <p>Raw archives, extracted reports, processed caches, and generated experiment outputs are stored locally and excluded from version control.</p>
+              <p>Raw archives, extracted reports, processed feature caches, and fitted model caches are stored locally and excluded from version control.</p>
             </article>
           </div>
           <div class="card-grid two-up">
@@ -116,16 +117,18 @@
             <pre class="code-block"><code>site/                GitHub Pages website
 scripts/             data pipeline and experiment scripts
 configs/             configuration files
-docs/                project notes and planning material
+docs/                reproducibility and release inventory
 data/raw/            local raw archive area (ignored)
 data/cache/          generated feature caches (ignored)
 data/splits/         generated split files (ignored)
-artifacts/           local experiment outputs (ignored)</code></pre>
+results/2026-07-11/  defended checksum-verifiable result bundle
+artifacts/           selected public derived evidence bundles
+tests/               regression and policy-contract tests</code></pre>
           </div>
           <p class="section-note">
-            The public repository is therefore a lightweight research workspace:
-            code, notes, and the project website are visible, while the heavier
-            data products remain local.
+            The public repository separates auditable research evidence from
+            non-distributable or heavy inputs. The release inventory identifies
+            the one authoritative dated bundle and all intentional archive copies.
           </p>
         </section>
 
@@ -137,15 +140,16 @@ artifacts/           local experiment outputs (ignored)</code></pre>
           <ul class="status-list">
             <li><strong>Environment:</strong> the project is run in a local Python virtual environment pinned to the required scientific stack.</li>
             <li><strong>Dataset handling:</strong> the ingestion script unpacks the archive automatically and matches it to the public label file.</li>
-            <li><strong>Intermediate products:</strong> feature caches and experiment outputs are regenerated locally rather than tracked in Git.</li>
-            <li><strong>Website:</strong> the site is deployed with GitHub Pages and is intended to serve as a concise project record alongside the thesis writing.</li>
+            <li><strong>Intermediate products:</strong> large feature caches remain local; selected results and replay inputs needed for public verification are tracked.</li>
+            <li><strong>Integrity:</strong> the dated evidence, policy outputs, and curated explanation archive are checked by <code>scripts/verify_release.py</code>.</li>
+            <li><strong>Website:</strong> the site is deployed with GitHub Pages as a bounded public summary alongside the thesis and executable supplement.</li>
           </ul>
         </section>
       </main>
 
       <footer class="site-footer">
-        <p>Hosted with GitHub Pages. Code and notes are public; raw dataset files and generated caches remain local.</p>
-        <p>Last site refresh: 21 March 2026.</p>
+        <p>Hosted with GitHub Pages. Code and defended evidence are public; raw dataset files and large generated caches remain local.</p>
+        <p>Last site refresh: 23 August 2026.</p>
       </footer>
     </div>
   </body>

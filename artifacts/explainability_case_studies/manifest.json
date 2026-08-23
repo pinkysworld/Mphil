@@ -1,7 +1,26 @@
 {
   "timestamp": "2026-04-01T09:51:13.328424",
-  "source_dir": "/Users/michelpicker/Library/Mobile Documents/com~apple~CloudDocs/Projekte/thesis_MPhil/github/results/2026-03-22_verified/explainability",
+  "source_provenance": "Defended local explanation export; source feature matrices are not distributed in the public repository.",
+  "archive_commit": "e2c4d10a84783017bc6facab70040aff5b0164a1",
   "runs_included": 6,
   "cases_exported": 24,
-  "token_rows_exported": 264
+  "token_rows_exported": 264,
+  "outputs": [
+    {
+      "path": "artifacts/explainability_case_studies/case_index.csv",
+      "sha256": "3209ec944d36412b49320683585648b2352aa76e89666e54e3c15a39cd5bb9ed"
+    },
+    {
+      "path": "artifacts/explainability_case_studies/token_case_studies.csv",
+      "sha256": "48e982550b688a39f018724f10141913d8ff97499f16cdc572cdcdfdd02cb849"
+    },
+    {
+      "path": "artifacts/explainability_case_studies/casebook.md",
+      "sha256": "4bffe51d28ff100d36c4e016e408178c25b6c5fffbde7f6c412382d6ee96946b"
+    },
+    {
+      "path": "artifacts/explainability_case_studies/README.md",
+      "sha256": "4b2acaafff50fcbd4dc10056509d00ed2fb8d3b83390d0a94e4e59524846c9ad"
+    }
+  ]
 }

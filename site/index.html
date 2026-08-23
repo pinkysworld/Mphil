@@ -74,9 +74,9 @@
               probability calibration.
             </p>
             <p class="lead secondary">
-              The current version reflects the first complete round of pipeline
-              runs completed on 21 March 2026 and serves as a compact record of
-              the study design, experiment set, and early findings.
+              The current version reflects the defended 11 July 2026 evidence
+              bundle and the subsequent decision-support and calibration-policy
+              experiments. Claims are stated with their empirical limits.
             </p>
             <div class="hero-actions">
               <a class="button primary" href="https://github.com/pinkysworld/Mphil">View Repository</a>
@@ -119,9 +119,9 @@
             <p>Mean across 19 monthly rolling-origin windows.</p>
           </article>
           <article class="metric-card">
-            <span class="metric-label">Calibration shift</span>
-            <strong>ECE 0.103 → 0.033</strong>
-            <p>Sigmoid calibration materially improved confidence reliability.</p>
+            <span class="metric-label">Strictly ordered calibration check</span>
+            <strong>ECE 0.103 → 0.032</strong>
+            <p>ECE improved, but calibrated selective-routing error worsened.</p>
           </article>
         </section>
 
@@ -134,19 +134,19 @@
             <div class="card-grid two-up">
               <article class="content-card">
                 <h3>RQ1</h3>
-                <p>Which feature views retain useful signal once evaluation is aligned with time rather than random shuffling?</p>
+                <p>What empirical relationship exists between temporal invariance and discriminability for features derived from leakage-controlled reduced CAPEv2 reports?</p>
               </article>
               <article class="content-card">
                 <h3>RQ2</h3>
-                <p>How much do performance claims change once obvious leakage paths and naming shortcuts are controlled?</p>
+                <p>To what extent does token-level leakage inflate apparent discriminability under random splits, and how does leakage removal change the estimated trade-off under strict chronological evaluation?</p>
               </article>
               <article class="content-card">
                 <h3>RQ3</h3>
-                <p>Does feature fusion remain helpful under chronological testing and rolling-origin evaluation?</p>
+                <p>How do the four feature views—API-call patterns, behavioural artefact tokens, behavioural summary counts, and compact static PE counts—compare under view-appropriate invariance and discriminability diagnostics, and does four-view feature-level fusion improve predictive performance over an aligned API-only baseline under chronological and forecast-horizon evaluation?</p>
               </article>
               <article class="content-card">
                 <h3>RQ4</h3>
-                <p>Are the resulting probability scores reliable enough for calibration and selective prediction analysis?</p>
+                <p>Can calibration and selective prediction provide a stable and technically defensible risk-coverage trade-off across time, and how does this relate to feature invariance?</p>
               </article>
             </div>
           </section>
@@ -180,7 +180,7 @@
         <section class="panel wide reveal">
           <div class="section-heading">
             <p class="eyebrow">Current Findings</p>
-            <h2>First conclusions from the completed run set</h2>
+            <h2>Bounded conclusions from the completed run set</h2>
           </div>
           <div class="card-grid four-up">
             <article class="content-card tone-accent">
@@ -189,15 +189,15 @@
             </article>
             <article class="content-card tone-accent">
               <h3>Text views carry most of the signal</h3>
-              <p>API tokens and artifact tokens remain the strongest feature views in the invariance and discriminability analysis.</p>
+              <p>API tokens and artefact tokens provide most of the predictive signal, but the heterogeneous shift diagnostics do not establish a single invariance frontier.</p>
             </article>
             <article class="content-card tone-accent">
               <h3>Time still makes the task harder</h3>
               <p>Walk-forward macro-F1 varies substantially by month, ranging from 0.669 to 0.929 across the current windows.</p>
             </article>
             <article class="content-card tone-accent">
-              <h3>Confidence can be improved</h3>
-              <p>Calibration reduced expected calibration error sharply, even with only a modest change in headline classification scores.</p>
+              <h3>Calibration is metric-specific</h3>
+              <p>Sigmoid calibration reduced expected calibration error, but worsened Brier score, log loss, and future selective-routing error in the strict sensitivity experiment.</p>
             </article>
           </div>
         </section>
@@ -210,9 +210,9 @@
             </div>
             <ul class="status-list">
               <li><strong>Data ingestion:</strong> completed for the reduced Avast archive and label join.</li>
-              <li><strong>Leakage audit:</strong> completed and recorded in the local artifact set.</li>
+              <li><strong>Leakage audit:</strong> completed and recorded in the public checksum-verifiable evidence bundle.</li>
               <li><strong>Split construction:</strong> random, global chronological, and per-family chronological splits are available.</li>
-              <li><strong>Feature extraction:</strong> cached feature matrices are built for API, artifact, count, and PE views.</li>
+              <li><strong>Feature extraction:</strong> defended manifests describe API, artefact, count, and PE views; large matrices remain local.</li>
               <li><strong>Baseline experiments:</strong> completed for the main comparison set.</li>
               <li><strong>Robustness analysis:</strong> invariance, walk-forward, leakage ablation, and calibration runs are complete.</li>
             </ul>
@@ -220,21 +220,21 @@
 
           <section class="panel reveal">
             <div class="section-heading">
-              <p class="eyebrow">Next Writing Tasks</p>
-              <h2>What this site supports</h2>
+              <p class="eyebrow">Methodological Scope</p>
+              <h2>What the public supplement supports</h2>
             </div>
             <div class="card-grid one-up">
               <article class="content-card">
-                <h3>Method chapter drafting</h3>
-                <p>The study design and experiment pages are organised so they can be reused directly when writing the methods chapter.</p>
+                <h3>Reproducible computation</h3>
+                <p>Versioned code, locked dependencies, split manifests, replay inputs, tests, and checksums support independent inspection of the reported computations.</p>
               </article>
               <article class="content-card">
-                <h3>Result chapter drafting</h3>
-                <p>The results page now holds a concise record of the main numbers and can be expanded as figures and tables are refined.</p>
+                <h3>Auditable decision logic</h3>
+                <p>The four-state policy maps confidence provenance, temporal status, scope evidence, and explanation availability to bounded recommendations.</p>
               </article>
               <article class="content-card">
-                <h3>Supervisor overview</h3>
-                <p>The homepage is now a short entry point, so a visitor can understand the project direction without reading a long continuous page.</p>
+                <h3>Prospective validation boundary</h3>
+                <p>No archived replay reaches supported enrichment and no analyst outcome is measured. Production and usability claims remain future work.</p>
               </article>
             </div>
           </section>
@@ -242,8 +242,8 @@
       </main>
 
       <footer class="site-footer">
-        <p>Hosted with GitHub Pages. Code and notes are public; raw dataset files and generated caches remain local.</p>
-        <p>Last site refresh: 21 March 2026.</p>
+        <p>Hosted with GitHub Pages. Code and defended evidence are public; raw dataset files and large generated caches remain local.</p>
+        <p>Last site refresh: 23 August 2026.</p>
       </footer>
     </div>
   </body>

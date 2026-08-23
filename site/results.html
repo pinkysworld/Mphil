@@ -66,11 +66,11 @@
         <section class="page-hero reveal">
           <div>
             <p class="eyebrow">Current Results</p>
-            <h1>Initial findings from the first full pipeline run.</h1>
+            <h1>Defended findings and their evidence limits.</h1>
             <p class="lead">
-              The numbers below summarise the current local results as of
-              21 March 2026. They are intended as working thesis results rather
-              than a final polished chapter table.
+              The numbers below summarise the checksum-verifiable 11 July 2026
+              result bundle and the later policy sensitivity experiments. They
+              match the final thesis interpretation as of 23 August 2026.
             </p>
           </div>
           <div class="jump-links">
@@ -78,6 +78,7 @@
             <a href="#temporal">Temporal results</a>
             <a href="#leakage">Leakage</a>
             <a href="#calibration">Calibration</a>
+            <a href="#decision-support">Decision support</a>
           </div>
         </section>
 
@@ -102,7 +103,7 @@
         <section id="baselines" class="panel wide reveal">
           <div class="section-heading">
             <p class="eyebrow">Baseline Comparison</p>
-            <h2>Main classification runs completed so far</h2>
+            <h2>Main defended classification runs</h2>
           </div>
           <div class="table-card">
             <table class="results-table">
@@ -156,8 +157,9 @@
           </div>
           <p class="section-note">
             In the current comparison set, the fused SGD model outperformed the
-            fused LightGBM model on the global chronological split, which makes
-            the linear baseline the stronger practical reference point for now.
+            fused LightGBM model on the global chronological split. This
+            supports the aligned predictive comparison; it does not establish
+            frontier dominance or a family-independent improvement.
           </p>
         </section>
 
@@ -173,7 +175,7 @@
             </article>
             <article class="content-card">
               <h3>Invariance and discriminability</h3>
-              <p>API tokens and artifact tokens are both highly discriminative, with within-window macro-F1 values of 0.9744 and 0.9641 respectively. Behaviour counts and static PE features appear more limited in predictive value.</p>
+              <p>API tokens and artefact tokens are highly discriminative, with within-training macro-F1 values of 0.9744 and 0.9641. The shift measures are view-specific, so the study does not combine them into one cross-view invariance ranking.</p>
             </article>
           </div>
           <div class="table-card">
@@ -182,7 +184,7 @@
                 <tr>
                   <th>Feature view</th>
                   <th>CV macro-F1</th>
-                  <th>Stability proxy</th>
+                  <th>Shift diagnostic and value</th>
                   <th>Top-feature overlap</th>
                 </tr>
               </thead>
@@ -190,25 +192,25 @@
                 <tr>
                   <td>API tokens</td>
                   <td>0.9744</td>
-                  <td>0.7665</td>
+                  <td>Jensen-Shannon distance: 0.2335</td>
                   <td>0.4706</td>
                 </tr>
                 <tr>
-                  <td>Artifact tokens</td>
+                  <td>Artefact tokens</td>
                   <td>0.9641</td>
-                  <td>0.7723</td>
+                  <td>Jensen-Shannon distance: 0.2277</td>
                   <td>0.3699</td>
                 </tr>
                 <tr>
                   <td>Behaviour counts</td>
                   <td>0.4536</td>
-                  <td>0.8902</td>
+                  <td>Mean featurewise KS: 0.1098</td>
                   <td>n/a</td>
                 </tr>
                 <tr>
                   <td>Static PE</td>
                   <td>0.2510</td>
-                  <td>0.8177</td>
+                  <td>Mean featurewise KS: 0.1823</td>
                   <td>n/a</td>
                 </tr>
               </tbody>
@@ -232,41 +234,64 @@
             </article>
           </div>
           <p class="section-note">
-            This does not mean leakage is never a concern. It means that under
-            the current filtering setup and tokenisation path, the aggregate
-            ablation did not show measurable inflation.
+            This null result is limited to audited exact family-name segments
+            in the implemented allow-listed inputs. Indirect proxies and fields
+            outside that representation remain possible leakage routes.
           </p>
         </section>
 
         <section id="calibration" class="panel wide reveal">
           <div class="section-heading">
             <p class="eyebrow">Calibration</p>
-            <h2>Confidence is more reliable after calibration</h2>
+            <h2>Lower ECE does not establish safer routing</h2>
           </div>
           <div class="card-grid three-up">
             <article class="content-card">
-              <h3>Uncalibrated model</h3>
-              <p>Accuracy 0.9559, macro-F1 0.8996, ECE 0.1031.</p>
+              <h3>Uncalibrated future test</h3>
+              <p>ECE 0.1031; validation-selected policy error 0.34% at 90.31% coverage.</p>
             </article>
             <article class="content-card">
-              <h3>Sigmoid-calibrated model</h3>
-              <p>Accuracy 0.9335, macro-F1 0.9071, ECE 0.0334.</p>
+              <h3>Sigmoid-calibrated future test</h3>
+              <p>ECE 0.0318; validation-selected policy error 2.56% at 89.41% coverage.</p>
             </article>
             <article class="content-card">
               <h3>Interpretation</h3>
-              <p>The calibrated model gives up a small amount of accuracy but produces substantially more trustworthy confidence scores.</p>
+              <p>H4a is supported for ECE. H4b is not supported: Brier score, log loss, and selective-routing transfer are worse after calibration in this sensitivity experiment.</p>
             </article>
           </div>
           <p class="section-note">
-            Per-family ECE still varies noticeably across families, so the
-            confidence story is not uniform across the label set.
+            Model fitting, calibration fitting, threshold selection, and future
+            testing use four strictly ordered date segments. The result is one
+            sensitivity analysis on the archived corpus, not repeated-window or
+            external validation.
           </p>
+        </section>
+
+        <section id="decision-support" class="panel wide reveal">
+          <div class="section-heading">
+            <p class="eyebrow">Decision-support methodology</p>
+            <h2>An executable four-state contract, not a simulated SOC</h2>
+          </div>
+          <div class="card-grid three-up">
+            <article class="content-card">
+              <h3>Contract test</h3>
+              <p>All eight deterministic cases pass and exercise States A-D under explicit confidence, temporal, scope, and evidence conditions.</p>
+            </article>
+            <article class="content-card">
+              <h3>Retrospective replays</h3>
+              <p>The confidence lane maps 8,840 cases to State B and 956 to State C; seven of 19 temporal windows map to State C; seven of nine held-out-family experiments map to State D.</p>
+            </article>
+            <article class="content-card">
+              <h3>Boundary</h3>
+              <p>No empirical replay reaches State A, and no analyst outcome is measured. The demonstrator validates policy execution, not production readiness or usability.</p>
+            </article>
+          </div>
         </section>
       </main>
 
       <footer class="site-footer">
-        <p>Hosted with GitHub Pages. Code and notes are public; raw dataset files and generated caches remain local.</p>
-        <p>Last site refresh: 21 March 2026.</p>
+        <p>Hosted with GitHub Pages. Code and defended evidence are public; raw dataset files and large generated caches remain local.</p>
+        <p>Last site refresh: 23 August 2026.</p>
       </footer>
     </div>
   </body>

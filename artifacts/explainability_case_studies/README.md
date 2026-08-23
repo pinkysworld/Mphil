@@ -1,6 +1,7 @@
 # Archived token-level case studies
 
-Source directory: `/Users/michelpicker/Library/Mobile Documents/com~apple~CloudDocs/Projekte/thesis_MPhil/github/results/2026-03-22_verified/explainability`
+Source provenance: Defended local explanation export; source feature matrices
+are not distributed in the public repository.
 Runs included: `6`
 Cases exported: `24`
 
@@ -10,3 +11,7 @@ Files:
 - `token_case_studies.csv`
 - `casebook.md`
 - `manifest.json`
+
+The case index and token rows are archived evidence, not a claim that these
+examples are representative of future malware or analyst outcomes. Integrity
+hashes for the four exported files are recorded in `manifest.json`.

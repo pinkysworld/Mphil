@@ -70,8 +70,8 @@
             <p class="lead">
               The experiment suite moves from simple classification baselines to
               stronger temporal and reliability checks. The aim is not only to
-              produce a high score, but to understand when that score is
-              trustworthy and when it begins to break down.
+              produce a high score, but to test where the evidence remains
+              stable and where the claims must be limited.
             </p>
           </div>
           <div class="jump-links">
@@ -84,7 +84,7 @@
         <section id="baseline" class="panel wide reveal">
           <div class="section-heading">
             <p class="eyebrow">Baselines</p>
-            <h2>Initial classification comparisons</h2>
+            <h2>Defended classification comparisons</h2>
           </div>
           <div class="card-grid three-up">
             <article class="content-card">
@@ -120,7 +120,7 @@
           <div class="card-grid three-up">
             <article class="content-card">
               <h3>Invariance vs discriminability</h3>
-              <p>This analysis asks whether a feature view is both predictive and reasonably stable across time. It is useful for separating strong but brittle signals from strong and durable ones.</p>
+              <p>This analysis pairs within-training discriminability with view-appropriate shift diagnostics. Because text and numeric views use different measures, it does not claim one common invariance ranking.</p>
             </article>
             <article class="content-card">
               <h3>Walk-forward evaluation</h3>
@@ -162,24 +162,26 @@
             </article>
             <article class="content-card">
               <h3>Selective prediction</h3>
-              <p>Selective prediction asks whether the model becomes safer if it is allowed to defer on uncertain samples rather than always forcing a label.</p>
+              <p>Selective prediction measures error and coverage after low-confidence deferral. A separate, strictly ordered experiment tests whether a validation-selected error target transfers to the future period.</p>
             </article>
           </div>
           <div class="table-card">
-            <h3>Output set produced by the reliability script</h3>
+            <h3>Reliability and decision-support evidence</h3>
             <ul class="status-list compact-list">
               <li><strong>Calibration metrics:</strong> summary JSON with uncalibrated and calibrated scores.</li>
               <li><strong>Reliability plots:</strong> diagrams for the confidence distribution before and after calibration.</li>
               <li><strong>Per-family ECE:</strong> a breakdown of confidence behaviour by predicted family.</li>
               <li><strong>Risk-coverage plot:</strong> comparison of max-probability and margin-based selection rules.</li>
+              <li><strong>Strict policy sensitivity:</strong> four date-ordered segments separate model fitting, calibration, threshold selection, and future testing.</li>
+              <li><strong>Decision contract:</strong> eight deterministic cases plus confidence, temporal, and held-out-family replay lanes exercise the four-state methodology.</li>
             </ul>
           </div>
         </section>
       </main>
 
       <footer class="site-footer">
-        <p>Hosted with GitHub Pages. Code and notes are public; raw dataset files and generated caches remain local.</p>
-        <p>Last site refresh: 21 March 2026.</p>
+        <p>Hosted with GitHub Pages. Code and defended evidence are public; raw dataset files and large generated caches remain local.</p>
+        <p>Last site refresh: 23 August 2026.</p>
       </footer>
     </div>
   </body>

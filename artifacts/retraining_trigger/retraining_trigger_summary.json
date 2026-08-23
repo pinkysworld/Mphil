@@ -1,7 +1,7 @@
 {
   "drop_margin": 0.1,
   "floor": 0.75,
-  "input_csv": "artifacts/walk_forward/walk_forward_results.csv",
+  "input_csv": "results/2026-07-11/walk_forward/walk_forward_results.csv",
   "max_macro_f1": 0.9289,
   "mean_macro_f1": 0.7908,
   "min_macro_f1": 0.669,

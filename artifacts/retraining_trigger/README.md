@@ -1,6 +1,6 @@
 # Retraining-trigger analysis
 
-Input walk-forward file: `artifacts/walk_forward/walk_forward_results.csv`
+Input walk-forward file: `results/2026-07-11/walk_forward/walk_forward_results.csv`
 Windows analysed: `19`
 Trigger windows: `7`
 Trigger episodes: `2`

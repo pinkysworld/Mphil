@@ -13,9 +13,9 @@ Outputs:
 
 Usage:
   python scripts/10_paired_bootstrap.py \\
-    --run-a artifacts/predictions/table_5_11.npz \\
+    --run-a artifacts/predictions/table_5_11_fusion_global_sgd.npz \\
     --run-b artifacts/predictions/table_5_8.npz \\
-    --output results/2026-03-21/bootstrap/paired_fusion_vs_api.json \\
+    --output /tmp/paired_fusion_global_vs_api_global.json \\
     --replicates 10000 --seed 2026
 """
 

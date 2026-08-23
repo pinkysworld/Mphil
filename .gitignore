@@ -52,11 +52,5 @@ artifacts/reproducibility/*
 # Build the dated defended bundle locally, then force-add it after verification.
 results/2026-07-11/
 
-# Workspace folders
-experiments/*
-!experiments/.gitkeep
-notebooks/*
-!notebooks/.gitkeep
-tests/*
-!tests/.gitkeep
-!tests/test_*.py
+# Tests are source files and are tracked normally. One-off notebooks and
+# exploratory work should remain outside this release repository.

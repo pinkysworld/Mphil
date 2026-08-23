@@ -18,8 +18,8 @@ paired bootstrap (requires per-sample predictions; see scripts/10_paired_bootstr
 
 Usage:
   python scripts/09_bootstrap_ci.py \\
-    --results-dir results/2026-03-21/metrics \\
-    --output-dir results/2026-03-21/bootstrap \\
+    --results-dir results/2026-07-11/metrics \\
+    --output-dir /tmp/mphil-bootstrap-check \\
     --replicates 10000 --seed 2026
 """
 

@@ -37,8 +37,8 @@ From the repository root:
 
 ```
 python scripts/09_bootstrap_ci.py \
-  --results-dir results/2026-03-21/metrics \
-  --output-dir results/2026-03-21/bootstrap \
+  --results-dir results/2026-07-11/metrics \
+  --output-dir results/2026-07-11/bootstrap \
   --replicates 10000 --seed 2026
 ```
 
@@ -49,7 +49,7 @@ that archives predictions):
 python scripts/10_paired_bootstrap.py \
   --run-a artifacts/predictions/table_5_11_fusion_global_sgd.npz \
   --run-b artifacts/predictions/table_5_8.npz \
-  --output results/2026-03-21/bootstrap/paired_fusion_vs_api.json
+  --output results/2026-07-11/bootstrap/paired_fusion_global_vs_api_global.json
 ```
 
 ## Files

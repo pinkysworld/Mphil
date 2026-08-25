@@ -1,0 +1,405 @@
+{
+  "schema_version": "1.0",
+  "status": "ok",
+  "scope": "Independent recomputation from archived predictions; full raw-data model training remains governed by the locked environment and input manifests.",
+  "runs_validated": 13,
+  "confusion_matrices_validated": 5,
+  "run_results": {
+    "baseline_random_api_hash_sgd": {
+      "prediction_path": "artifacts/predictions/baseline_random_api_hash_sgd.npz",
+      "sha256": "18366ee4d324ed27c6c5faa8fd1c456b7a1b4904fae26e35a44ad97b595f3c3f",
+      "split": "random_stratified",
+      "view": "api_hash",
+      "model": "sgd",
+      "n_test": 9796,
+      "metrics": {
+        "accuracy": 0.9089424254797877,
+        "macro_f1": 0.8718281565069723,
+        "weighted_f1": 0.9075855996943522
+      },
+      "expected_at_4dp": {
+        "accuracy": 0.9089,
+        "macro_f1": 0.8718,
+        "weighted_f1": 0.9076
+      },
+      "metric_matches_at_4dp": {
+        "accuracy": true,
+        "macro_f1": true,
+        "weighted_f1": true
+      },
+      "split_membership_match": true,
+      "reference_labels_match": true,
+      "confusion_matrix_match": true
+    },
+    "table_5_8": {
+      "prediction_path": "artifacts/predictions/table_5_8.npz",
+      "sha256": "423bd5f53126434dd1496e182578a1061f9e08bcfa3eec41686743ed06d0ab93",
+      "split": "global_chronological",
+      "view": "api_tfidf",
+      "model": "sgd",
+      "n_test": 9796,
+      "metrics": {
+        "accuracy": 0.9573295222539813,
+        "macro_f1": 0.9024446383547359,
+        "weighted_f1": 0.9601759374253432
+      },
+      "expected_at_4dp": {
+        "accuracy": 0.9573,
+        "macro_f1": 0.9024,
+        "weighted_f1": 0.9602
+      },
+      "metric_matches_at_4dp": {
+        "accuracy": true,
+        "macro_f1": true,
+        "weighted_f1": true
+      },
+      "split_membership_match": true,
+      "reference_labels_match": true,
+      "confusion_matrix_match": true
+    },
+    "global_art_tfidf_sgd": {
+      "prediction_path": "artifacts/predictions/global_art_tfidf_sgd.npz",
+      "sha256": "20d533669e449273d3aa7d332c444ce534ccfb17b63db862f1f021a168fb1947",
+      "split": "global_chronological",
+      "view": "art_tfidf",
+      "model": "sgd",
+      "n_test": 9796,
+      "metrics": {
+        "accuracy": 0.9407921600653328,
+        "macro_f1": 0.887160725222706,
+        "weighted_f1": 0.950314681659985
+      },
+      "expected_at_4dp": {
+        "accuracy": 0.9408,
+        "macro_f1": 0.8872,
+        "weighted_f1": 0.9503
+      },
+      "metric_matches_at_4dp": {
+        "accuracy": true,
+        "macro_f1": true,
+        "weighted_f1": true
+      },
+      "split_membership_match": true,
+      "reference_labels_match": true,
+      "confusion_matrix_match": null
+    },
+    "global_counts_logistic": {
+      "prediction_path": "artifacts/predictions/global_counts_logistic.npz",
+      "sha256": "0ef6eac66f2e568a3ee966bd77d67d8287f03a22e40017193770b423b65a4d7a",
+      "split": "global_chronological",
+      "view": "counts",
+      "model": "logistic",
+      "n_test": 9796,
+      "metrics": {
+        "accuracy": 0.45998366680277664,
+        "macro_f1": 0.396395201762261,
+        "weighted_f1": 0.5417825819794841
+      },
+      "expected_at_4dp": {
+        "accuracy": 0.46,
+        "macro_f1": 0.3964,
+        "weighted_f1": 0.5418
+      },
+      "metric_matches_at_4dp": {
+        "accuracy": true,
+        "macro_f1": true,
+        "weighted_f1": true
+      },
+      "split_membership_match": true,
+      "reference_labels_match": true,
+      "confusion_matrix_match": null
+    },
+    "global_pe_logistic": {
+      "prediction_path": "artifacts/predictions/global_pe_logistic.npz",
+      "sha256": "72b3d6c0370f41c0be3f5187f19fa2f820c7cc06342e0058c19741e13c56c5eb",
+      "split": "global_chronological",
+      "view": "pe",
+      "model": "logistic",
+      "n_test": 9796,
+      "metrics": {
+        "accuracy": 0.4135361371988567,
+        "macro_f1": 0.2016627344157776,
+        "weighted_f1": 0.38493170040261687
+      },
+      "expected_at_4dp": {
+        "accuracy": 0.4135,
+        "macro_f1": 0.2017,
+        "weighted_f1": 0.3849
+      },
+      "metric_matches_at_4dp": {
+        "accuracy": true,
+        "macro_f1": true,
+        "weighted_f1": true
+      },
+      "split_membership_match": true,
+      "reference_labels_match": true,
+      "confusion_matrix_match": null
+    },
+    "table_5_11_fusion_global_sgd": {
+      "prediction_path": "artifacts/predictions/table_5_11_fusion_global_sgd.npz",
+      "sha256": "6ee744d938414311ebeeade900cad7ffaba7e530b68743d8ebff70f9ef2cd167",
+      "split": "global_chronological",
+      "view": "fusion",
+      "model": "sgd",
+      "n_test": 9796,
+      "metrics": {
+        "accuracy": 0.9605961616986525,
+        "macro_f1": 0.9316918836538353,
+        "weighted_f1": 0.9630284911841899
+      },
+      "expected_at_4dp": {
+        "accuracy": 0.9606,
+        "macro_f1": 0.9317,
+        "weighted_f1": 0.963
+      },
+      "metric_matches_at_4dp": {
+        "accuracy": true,
+        "macro_f1": true,
+        "weighted_f1": true
+      },
+      "split_membership_match": true,
+      "reference_labels_match": true,
+      "confusion_matrix_match": true
+    },
+    "per_family_api_tfidf_sgd": {
+      "prediction_path": "artifacts/predictions/per_family_api_tfidf_sgd.npz",
+      "sha256": "9037508299936f09d6d5b758cf8cc0dd79a2bb2997d6f70151ae7e4fb2d16104",
+      "split": "per_family_chronological",
+      "view": "api_tfidf",
+      "model": "sgd",
+      "n_test": 9799,
+      "metrics": {
+        "accuracy": 0.9549954076946627,
+        "macro_f1": 0.9536331735004812,
+        "weighted_f1": 0.9554951845003206
+      },
+      "expected_at_4dp": {
+        "accuracy": 0.955,
+        "macro_f1": 0.9536,
+        "weighted_f1": 0.9555
+      },
+      "metric_matches_at_4dp": {
+        "accuracy": true,
+        "macro_f1": true,
+        "weighted_f1": true
+      },
+      "split_membership_match": true,
+      "reference_labels_match": true,
+      "confusion_matrix_match": null
+    },
+    "per_family_art_tfidf_sgd": {
+      "prediction_path": "artifacts/predictions/per_family_art_tfidf_sgd.npz",
+      "sha256": "9ec7e392e6fd349a73c52b7143636a5602e12a47939bac994225227a50e6f56b",
+      "split": "per_family_chronological",
+      "view": "art_tfidf",
+      "model": "sgd",
+      "n_test": 9799,
+      "metrics": {
+        "accuracy": 0.9454025921012348,
+        "macro_f1": 0.9348447311379688,
+        "weighted_f1": 0.9475293354380236
+      },
+      "expected_at_4dp": {
+        "accuracy": 0.9454,
+        "macro_f1": 0.9348,
+        "weighted_f1": 0.9475
+      },
+      "metric_matches_at_4dp": {
+        "accuracy": true,
+        "macro_f1": true,
+        "weighted_f1": true
+      },
+      "split_membership_match": true,
+      "reference_labels_match": true,
+      "confusion_matrix_match": null
+    },
+    "per_family_counts_logistic": {
+      "prediction_path": "artifacts/predictions/per_family_counts_logistic.npz",
+      "sha256": "15e7e423f4b692a2c983c155e9b07b7422ccdd9aca6902e2eb5306a08a095670",
+      "split": "per_family_chronological",
+      "view": "counts",
+      "model": "logistic",
+      "n_test": 9799,
+      "metrics": {
+        "accuracy": 0.5081130727625268,
+        "macro_f1": 0.4475717457711796,
+        "weighted_f1": 0.5716053014336264
+      },
+      "expected_at_4dp": {
+        "accuracy": 0.5081,
+        "macro_f1": 0.4476,
+        "weighted_f1": 0.5716
+      },
+      "metric_matches_at_4dp": {
+        "accuracy": true,
+        "macro_f1": true,
+        "weighted_f1": true
+      },
+      "split_membership_match": true,
+      "reference_labels_match": true,
+      "confusion_matrix_match": null
+    },
+    "per_family_pe_logistic": {
+      "prediction_path": "artifacts/predictions/per_family_pe_logistic.npz",
+      "sha256": "45cd49a1dc1b0e13547c60c17fd5041d51061ddb6d4c00b6c7660e105fc36542",
+      "split": "per_family_chronological",
+      "view": "pe",
+      "model": "logistic",
+      "n_test": 9799,
+      "metrics": {
+        "accuracy": 0.3895295438310032,
+        "macro_f1": 0.2698642998927471,
+        "weighted_f1": 0.3509310956691783
+      },
+      "expected_at_4dp": {
+        "accuracy": 0.3895,
+        "macro_f1": 0.2699,
+        "weighted_f1": 0.3509
+      },
+      "metric_matches_at_4dp": {
+        "accuracy": true,
+        "macro_f1": true,
+        "weighted_f1": true
+      },
+      "split_membership_match": true,
+      "reference_labels_match": true,
+      "confusion_matrix_match": null
+    },
+    "table_5_12_fusion_per_family_sgd": {
+      "prediction_path": "artifacts/predictions/table_5_12_fusion_per_family_sgd.npz",
+      "sha256": "21209ea87a02f10098cd34ca388fd9d787a5691d4cbd99b640a66bd69653eb99",
+      "split": "per_family_chronological",
+      "view": "fusion",
+      "model": "sgd",
+      "n_test": 9799,
+      "metrics": {
+        "accuracy": 0.9665271966527197,
+        "macro_f1": 0.9607077105644265,
+        "weighted_f1": 0.966722140763117
+      },
+      "expected_at_4dp": {
+        "accuracy": 0.9665,
+        "macro_f1": 0.9607,
+        "weighted_f1": 0.9667
+      },
+      "metric_matches_at_4dp": {
+        "accuracy": true,
+        "macro_f1": true,
+        "weighted_f1": true
+      },
+      "split_membership_match": true,
+      "reference_labels_match": true,
+      "confusion_matrix_match": true
+    },
+    "table_6_1_fusion_global_lightgbm": {
+      "prediction_path": "artifacts/predictions/table_6_1_fusion_global_lightgbm.npz",
+      "sha256": "ed61a85c0f7fc295e6e805edcb7883a6335f98f45ccc9422e1b12eb487aabad7",
+      "split": "global_chronological",
+      "view": "fusion",
+      "model": "lightgbm",
+      "n_test": 9796,
+      "metrics": {
+        "accuracy": 0.9458962841976317,
+        "macro_f1": 0.9118023805061144,
+        "weighted_f1": 0.9495659365515773
+      },
+      "expected_at_4dp": {
+        "accuracy": 0.9459,
+        "macro_f1": 0.9118,
+        "weighted_f1": 0.9496
+      },
+      "metric_matches_at_4dp": {
+        "accuracy": true,
+        "macro_f1": true,
+        "weighted_f1": true
+      },
+      "split_membership_match": true,
+      "reference_labels_match": true,
+      "confusion_matrix_match": true
+    },
+    "global_api_hash_sgd": {
+      "prediction_path": "artifacts/predictions/global_api_hash_sgd.npz",
+      "sha256": "79d7c5b1a2be3396a6f66ad347072f03c3a7875116208ff1ac07d5d1b181d778",
+      "split": "global_chronological",
+      "view": "api_hash",
+      "model": "sgd",
+      "n_test": 9796,
+      "metrics": {
+        "accuracy": 0.8996529195590037,
+        "macro_f1": 0.7977160987521991,
+        "weighted_f1": 0.8975652831696065
+      },
+      "expected_at_4dp": {
+        "accuracy": 0.8997,
+        "macro_f1": 0.7977,
+        "weighted_f1": 0.8976
+      },
+      "metric_matches_at_4dp": {
+        "accuracy": true,
+        "macro_f1": true,
+        "weighted_f1": true
+      },
+      "split_membership_match": true,
+      "reference_labels_match": true,
+      "confusion_matrix_match": null
+    }
+  },
+  "paired_comparisons": {
+    "API-only SGD to fused SGD": {
+      "n_samples": 9796,
+      "a_wrong_b_correct": 96,
+      "a_correct_b_wrong": 64,
+      "net_correct_change_b_minus_a": 32,
+      "mcnemar_two_sided_exact_p": 0.014001016159629528,
+      "family_rows_match_archive": true
+    },
+    "fused SGD to fused LightGBM": {
+      "n_samples": 9796,
+      "a_wrong_b_correct": 78,
+      "a_correct_b_wrong": 222,
+      "net_correct_change_b_minus_a": -144,
+      "mcnemar_two_sided_exact_p": 3.624544948466448e-17,
+      "family_rows_match_archive": true
+    }
+  },
+  "forecast_horizon": {
+    "rows": [
+      {
+        "horizon_bin": "0-30d",
+        "n": 1981,
+        "families_present": 10,
+        "accuracy": 0.889954568399798,
+        "macro_f1_present_families": 0.739483841530673
+      },
+      {
+        "horizon_bin": "31-60d",
+        "n": 4686,
+        "families_present": 10,
+        "accuracy": 0.9265898420827998,
+        "macro_f1_present_families": 0.8019554515691766
+      },
+      {
+        "horizon_bin": "61-90d",
+        "n": 3047,
+        "families_present": 9,
+        "accuracy": 0.8657696094519199,
+        "macro_f1_present_families": 0.7643208647367059
+      },
+      {
+        "horizon_bin": ">90d",
+        "n": 82,
+        "families_present": 8,
+        "accuracy": 0.8536585365853658,
+        "macro_f1_present_families": 0.5898809523809524
+      }
+    ],
+    "boundary_sensitivity": {
+      "development_end_date": "2019-09-09",
+      "boundary_tie_cases_in_test": 57,
+      "first_bin_includes_horizon_zero": true,
+      "tie_excluded_first_bin_n": 1924,
+      "tie_excluded_first_bin_macro_f1_present_families": 0.7380832256613349
+    }
+  },
+  "errors": []
+}

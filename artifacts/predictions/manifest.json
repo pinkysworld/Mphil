@@ -1,0 +1,123 @@
+{
+  "schema_version": "1.0",
+  "description": "Sample-level prediction archives used to validate full-dataset thesis metrics, paired comparisons, and the forecast-horizon diagnostic.",
+  "outputs": [
+    {
+      "run": "baseline_random_api_hash_sgd",
+      "path": "artifacts/predictions/baseline_random_api_hash_sgd.npz",
+      "sha256": "18366ee4d324ed27c6c5faa8fd1c456b7a1b4904fae26e35a44ad97b595f3c3f",
+      "split": "random_stratified",
+      "view": "api_hash",
+      "model": "sgd",
+      "n_test": 9796
+    },
+    {
+      "run": "table_5_8",
+      "path": "artifacts/predictions/table_5_8.npz",
+      "sha256": "423bd5f53126434dd1496e182578a1061f9e08bcfa3eec41686743ed06d0ab93",
+      "split": "global_chronological",
+      "view": "api_tfidf",
+      "model": "sgd",
+      "n_test": 9796
+    },
+    {
+      "run": "global_art_tfidf_sgd",
+      "path": "artifacts/predictions/global_art_tfidf_sgd.npz",
+      "sha256": "20d533669e449273d3aa7d332c444ce534ccfb17b63db862f1f021a168fb1947",
+      "split": "global_chronological",
+      "view": "art_tfidf",
+      "model": "sgd",
+      "n_test": 9796
+    },
+    {
+      "run": "global_counts_logistic",
+      "path": "artifacts/predictions/global_counts_logistic.npz",
+      "sha256": "0ef6eac66f2e568a3ee966bd77d67d8287f03a22e40017193770b423b65a4d7a",
+      "split": "global_chronological",
+      "view": "counts",
+      "model": "logistic",
+      "n_test": 9796
+    },
+    {
+      "run": "global_pe_logistic",
+      "path": "artifacts/predictions/global_pe_logistic.npz",
+      "sha256": "72b3d6c0370f41c0be3f5187f19fa2f820c7cc06342e0058c19741e13c56c5eb",
+      "split": "global_chronological",
+      "view": "pe",
+      "model": "logistic",
+      "n_test": 9796
+    },
+    {
+      "run": "table_5_11_fusion_global_sgd",
+      "path": "artifacts/predictions/table_5_11_fusion_global_sgd.npz",
+      "sha256": "6ee744d938414311ebeeade900cad7ffaba7e530b68743d8ebff70f9ef2cd167",
+      "split": "global_chronological",
+      "view": "fusion",
+      "model": "sgd",
+      "n_test": 9796
+    },
+    {
+      "run": "per_family_api_tfidf_sgd",
+      "path": "artifacts/predictions/per_family_api_tfidf_sgd.npz",
+      "sha256": "9037508299936f09d6d5b758cf8cc0dd79a2bb2997d6f70151ae7e4fb2d16104",
+      "split": "per_family_chronological",
+      "view": "api_tfidf",
+      "model": "sgd",
+      "n_test": 9799
+    },
+    {
+      "run": "per_family_art_tfidf_sgd",
+      "path": "artifacts/predictions/per_family_art_tfidf_sgd.npz",
+      "sha256": "9ec7e392e6fd349a73c52b7143636a5602e12a47939bac994225227a50e6f56b",
+      "split": "per_family_chronological",
+      "view": "art_tfidf",
+      "model": "sgd",
+      "n_test": 9799
+    },
+    {
+      "run": "per_family_counts_logistic",
+      "path": "artifacts/predictions/per_family_counts_logistic.npz",
+      "sha256": "15e7e423f4b692a2c983c155e9b07b7422ccdd9aca6902e2eb5306a08a095670",
+      "split": "per_family_chronological",
+      "view": "counts",
+      "model": "logistic",
+      "n_test": 9799
+    },
+    {
+      "run": "per_family_pe_logistic",
+      "path": "artifacts/predictions/per_family_pe_logistic.npz",
+      "sha256": "45cd49a1dc1b0e13547c60c17fd5041d51061ddb6d4c00b6c7660e105fc36542",
+      "split": "per_family_chronological",
+      "view": "pe",
+      "model": "logistic",
+      "n_test": 9799
+    },
+    {
+      "run": "table_5_12_fusion_per_family_sgd",
+      "path": "artifacts/predictions/table_5_12_fusion_per_family_sgd.npz",
+      "sha256": "21209ea87a02f10098cd34ca388fd9d787a5691d4cbd99b640a66bd69653eb99",
+      "split": "per_family_chronological",
+      "view": "fusion",
+      "model": "sgd",
+      "n_test": 9799
+    },
+    {
+      "run": "table_6_1_fusion_global_lightgbm",
+      "path": "artifacts/predictions/table_6_1_fusion_global_lightgbm.npz",
+      "sha256": "ed61a85c0f7fc295e6e805edcb7883a6335f98f45ccc9422e1b12eb487aabad7",
+      "split": "global_chronological",
+      "view": "fusion",
+      "model": "lightgbm",
+      "n_test": 9796
+    },
+    {
+      "run": "global_api_hash_sgd",
+      "path": "artifacts/predictions/global_api_hash_sgd.npz",
+      "sha256": "79d7c5b1a2be3396a6f66ad347072f03c3a7875116208ff1ac07d5d1b181d778",
+      "split": "global_chronological",
+      "view": "api_hash",
+      "model": "sgd",
+      "n_test": 9796
+    }
+  ]
+}

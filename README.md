@@ -14,6 +14,8 @@ methodology.
   and threshold-transfer sensitivity experiment
 - `artifacts/thesis_expansion/` — derived statistical analyses used in the
   expanded thesis
+- `artifacts/predictions/` — sample-level outputs and SHA-256 manifest for the
+  full-dataset result reconciliation
 - `artifacts/open_set/`, `artifacts/explainability_case_studies/`, and
   `artifacts/retraining_trigger/` — bounded supporting analyses
 - `scripts/` — ingestion, feature, modelling, validation, and policy code
@@ -23,8 +25,8 @@ methodology.
 The earlier duplicate result snapshot has been removed. Some files inside
 `results/2026-07-11/reproducibility/` intentionally duplicate files elsewhere
 in the same dated bundle: they form a self-contained, checksum-verifiable
-archive. Historical input paths embedded in the immutable bootstrap metadata
-are provenance records, not active directories. See
+archive. Bootstrap regeneration commands and metadata now resolve only to the
+canonical dated bundle. See
 [`docs/release_inventory.md`](docs/release_inventory.md).
 
 ## Evidence boundaries
@@ -54,7 +56,8 @@ python3.11 -m venv .venv
 ```
 
 The readable dependency input is `requirements.txt`; the defended lock is
-`requirements-lock.txt`.
+`requirements-lock.txt`. The exact lock and native LightGBM run were recorded
+on Linux x86-64; other host architectures need compatible native libraries.
 
 ## Data boundary
 
@@ -83,6 +86,7 @@ checks.
 ```bash
 .venv/bin/python scripts/19_decision_support_experiments.py
 .venv/bin/python scripts/20_calibrated_selective_policy.py --input-mode replay-bundle
+.venv/bin/python scripts/21_validate_thesis_results.py
 .venv/bin/python -m unittest discover -s tests -p 'test_*.py' -v
 .venv/bin/python tests/test_leakage_filters.py
 .venv/bin/python tests/test_reproducibility.py
@@ -101,5 +105,6 @@ outputs remain independently hash-verifiable.
 ```
 
 This checks the dated release inventory, forbidden local paths, defended
-`SHA256SUMS`, policy manifests, and explanation-archive hashes. A passing check
-confirms repository integrity; it does not extend the empirical claims above.
+`SHA256SUMS`, policy and prediction manifests, and explanation-archive hashes.
+A passing check confirms repository integrity; it does not extend the
+empirical claims above.

@@ -6,7 +6,7 @@
   "runs": [
     {
       "name": "baseline_random_api_hash_sgd",
-      "confusion_csv": "results/2026-03-21/metrics/baseline_random_api_hash_sgd_confusion.csv",
+      "confusion_csv": "results/2026-07-11/metrics/baseline_random_api_hash_sgd_confusion.csv",
       "n_test": 9796,
       "B": 10000,
       "seed": 2026,
@@ -199,7 +199,7 @@
     },
     {
       "name": "table_5_11_fusion_global_sgd",
-      "confusion_csv": "results/2026-03-21/metrics/table_5_11_fusion_global_sgd_confusion.csv",
+      "confusion_csv": "results/2026-07-11/metrics/table_5_11_fusion_global_sgd_confusion.csv",
       "n_test": 9796,
       "B": 10000,
       "seed": 2026,
@@ -392,7 +392,7 @@
     },
     {
       "name": "table_5_12_fusion_per_family_sgd",
-      "confusion_csv": "results/2026-03-21/metrics/table_5_12_fusion_per_family_sgd_confusion.csv",
+      "confusion_csv": "results/2026-07-11/metrics/table_5_12_fusion_per_family_sgd_confusion.csv",
       "n_test": 9799,
       "B": 10000,
       "seed": 2026,
@@ -585,7 +585,7 @@
     },
     {
       "name": "table_5_8",
-      "confusion_csv": "results/2026-03-21/metrics/table_5_8_confusion.csv",
+      "confusion_csv": "results/2026-07-11/metrics/table_5_8_confusion.csv",
       "n_test": 9796,
       "B": 10000,
       "seed": 2026,
@@ -778,7 +778,7 @@
     },
     {
       "name": "table_6_1_fusion_global_lightgbm",
-      "confusion_csv": "results/2026-03-21/metrics/table_6_1_fusion_global_lightgbm_confusion.csv",
+      "confusion_csv": "results/2026-07-11/metrics/table_6_1_fusion_global_lightgbm_confusion.csv",
       "n_test": 9796,
       "B": 10000,
       "seed": 2026,

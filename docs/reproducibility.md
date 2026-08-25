@@ -44,6 +44,25 @@ of that configuration. The walk-forward run additionally records ordered
 train/test membership hashes for every monthly window and archives every
 sample-level prediction.
 
+## Prediction-archive reconciliation
+
+The compact sample-level prediction archives support an independent check of
+the thesis's full-dataset tables without requiring the raw malware corpus:
+
+```bash
+.venv/bin/python scripts/21_validate_thesis_results.py
+```
+
+This command recomputes accuracy, macro-F1, and weighted-F1 for 13 archived
+runs; checks exact test membership and reference labels; verifies five tracked
+confusion matrices and both paired family-transition analyses; and validates
+the corrected forecast-horizon table. It also checks every prediction archive
+against `artifacts/predictions/manifest.json`.
+
+This is a result reconciliation, not a substitute for model retraining. An
+exact full rerun still requires the official input archive and the locked
+Linux x86-64 environment described above.
+
 ## Submission bundle
 
 After the full run, create the final self-checking bundle:

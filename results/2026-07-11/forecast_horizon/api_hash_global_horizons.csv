@@ -1,0 +1,5 @@
+horizon_bin,n,families_present,accuracy,macro_f1_present_families
+0-30d,1981,10,0.8900,0.7395
+31-60d,4686,10,0.9266,0.8020
+61-90d,3047,9,0.8658,0.7643
+>90d,82,8,0.8537,0.5899

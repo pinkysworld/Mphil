@@ -19,10 +19,13 @@ The current methodological supplements are:
 - `artifacts/open_set/`
 - `artifacts/explainability_case_studies/`
 - `artifacts/retraining_trigger/`
+- `artifacts/predictions/`
 
-Each policy bundle has a manifest. The explanation archive now has hashes for
-its curated public exports. Run `scripts/verify_release.py` to verify all of
-them together.
+Each policy bundle has a manifest. The explanation archive and every
+sample-level prediction archive have SHA-256 records. Run
+`scripts/verify_release.py` to verify all of them together, and run
+`scripts/21_validate_thesis_results.py` to recompute the archived metrics and
+alignment checks.
 
 ## Intentional duplication
 
@@ -32,9 +35,9 @@ The walk-forward files also appear in the bundle's `walk_forward/` directory,
 and the retraining analysis is both a derived artefact and part of the dated
 result record. These are deliberate archival copies, not competing versions.
 
-Several immutable bootstrap records inside the dated bundle retain their
-original March input path as execution provenance. No March result directory
-is present or used by current code.
+The bootstrap regeneration commands and JSON path fields refer to the single
+canonical `results/2026-07-11/` tree. No March result directory is present or
+used by current code.
 
 ## Local-only inputs
 

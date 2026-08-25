@@ -15,14 +15,12 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 OBSOLETE_RESULT_PREFIX = "results/" + "2026-03-21/"
 PRIVATE_SNAPSHOT_TOKEN = b"results/" + b"2026-03-22_verified"
 ABSOLUTE_HOME_TOKEN = b"/" + b"Users/"
-HISTORICAL_PATH_RECORDS = {
-    "results/2026-07-11/bootstrap/README.md",
-    "results/2026-07-11/bootstrap/bootstrap_ci_results.json",
-}
+HISTORICAL_PATH_RECORDS: set[str] = set()
 MANIFESTS = (
     PROJECT_ROOT / "artifacts" / "decision_support" / "manifest.json",
     PROJECT_ROOT / "artifacts" / "calibrated_selective_policy" / "manifest.json",
     PROJECT_ROOT / "artifacts" / "explainability_case_studies" / "manifest.json",
+    PROJECT_ROOT / "artifacts" / "predictions" / "manifest.json",
 )
 
 

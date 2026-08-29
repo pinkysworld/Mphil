@@ -28,7 +28,7 @@ The official Avast-CTU dataset documentation exposes, per sample, SHA-256, malwa
 New script: `scripts/22_supervisor_feature_level_analysis.py`
 
 - Token views (API and artifact TF-IDF):
-  - discriminability effect size = weighted dispersion of class-conditional token prevalence around overall training prevalence;
+  - discriminability effect size = Cramer's V from the family-by-token-presence contingency table;
   - temporal shift = Bernoulli Jensen-Shannon divergence between earlier and future prevalence for each feature.
 - Dense views (behavioural counts and static PE):
   - discriminability effect size = one-way eta-squared across malware families in the training window;
@@ -47,7 +47,7 @@ New script: `scripts/23_supervisor_model_robustness.py`
 
 - Re-runs API-only and four-view fusion on the fixed global chronological split.
 - Uses repeated seeds for SGD and LightGBM.
-- Reports per-model/per-view Macro-F1 mean, standard deviation, percentile confidence interval, and the paired fusion-minus-API effect for each seed.
+- Reports per-model/per-view Macro-F1 mean, standard deviation, percentile interval over the prespecified seeds, and the paired fusion-minus-API effect for each seed.
 - The purpose is not hyperparameter search. It tests whether the ordering is an artefact of one random seed or one model class.
 
 ### C. Label-provenance audit
@@ -75,7 +75,7 @@ The experiments above are required regardless of theoretical anchor. If Route B 
 
 | Claim | Result that challenges/refutes it |
 |---|---|
-| Feature-level invariance–discriminability relationship | pooled stratified association is near zero with a CI spanning practically meaningful positive and negative effects, and no consistent within-view evidence |
+| Feature-level invariance–discriminability relationship | pooled stratified association is near zero with an interval spanning practically meaningful positive and negative effects, and no consistent within-view evidence |
 | Mechanism is general rather than one-view artefact | relationship appears only in one feature view or reverses across views without an explained moderator |
 | Robust to model choice | API/fusion ordering or temporal conclusions reverse across model classes/seeds |
 | Leakage is controlled | blocked label/detection tokens materially improve performance when permitted, or appear among influential controlled features |

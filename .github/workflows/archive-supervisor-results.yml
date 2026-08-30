@@ -27,9 +27,9 @@ jobs:
         run: |
           rm -rf /tmp/supervisor-reanalysis
           mkdir -p /tmp/supervisor-reanalysis
-          gh run download 33269449501 \
+          gh run download 33269465874 \
             --repo "${{ github.repository }}" \
-            --name supervisor-reanalysis-b3bf0551444646c9cd3059d15ce41251b89d149a \
+            --name supervisor-reanalysis-76803095adfeacca41118df0936bfa6ecb286dd5 \
             --dir /tmp/supervisor-reanalysis
 
       - name: Archive immutable result bundle in repository
@@ -41,9 +41,10 @@ jobs:
           cat > "$target/README.md" <<'EOF'
           # Supervisor reanalysis result bundle
 
-          This directory archives the outputs of GitHub Actions run `33269449501`,
-          produced from the `supervisor-revision-2026-08-29` branch in response to
-          Dr R.M.M. Pradeep's synopsis feedback.
+          This directory archives the outputs of GitHub Actions run `33269465874`,
+          produced from commit `76803095adfeacca41118df0936bfa6ecb286dd5` on the
+          `supervisor-revision-2026-08-29` branch in response to Dr R.M.M. Pradeep's
+          synopsis feedback.
 
           The bundle contains the feature-level invariance-discriminability analysis,
           repeated-seed/model-class robustness analysis, label-provenance audit,

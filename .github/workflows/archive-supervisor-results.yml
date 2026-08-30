@@ -1,0 +1,75 @@
+name: Archive supervisor reanalysis results
+
+on:
+  push:
+    branches:
+      - supervisor-revision-2026-08-29
+    paths:
+      - '.github/workflows/archive-supervisor-results.yml'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out revision branch
+        uses: actions/checkout@v4
+        with:
+          ref: supervisor-revision-2026-08-29
+
+      - name: Download completed supervisor reanalysis artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          rm -rf /tmp/supervisor-reanalysis
+          mkdir -p /tmp/supervisor-reanalysis
+          gh run download 33269449501 \
+            --repo "${{ github.repository }}" \
+            --name supervisor-reanalysis-b3bf0551444646c9cd3059d15ce41251b89d149a \
+            --dir /tmp/supervisor-reanalysis
+
+      - name: Archive immutable result bundle in repository
+        run: |
+          target='results/2026-08-29-supervisor-reanalysis'
+          mkdir -p "$target"
+          cp -a /tmp/supervisor-reanalysis/. "$target/"
+          sha256sum "$target"/* | sort > "$target/SHA256SUMS"
+          cat > "$target/README.md" <<'EOF'
+          # Supervisor reanalysis result bundle
+
+          This directory archives the outputs of GitHub Actions run `33269449501`,
+          produced from the `supervisor-revision-2026-08-29` branch in response to
+          Dr R.M.M. Pradeep's synopsis feedback.
+
+          The bundle contains the feature-level invariance-discriminability analysis,
+          repeated-seed/model-class robustness analysis, label-provenance audit,
+          temporal label-composition summaries, the feature-level plot, the full
+          compressed feature-level metric table, and dataset checksum evidence.
+
+          `SHA256SUMS` is generated after copying the workflow artifact into this
+          repository. The original GitHub Actions artifact is retained separately by
+          GitHub for its configured retention period; this directory is the durable
+          repository copy.
+
+          Important interpretation boundary: the feature-level H1 result is strong in
+          the pooled analysis and in API/artifact token views, while the repeated-seed
+          robustness experiment does not support a general claim that four-view fusion
+          always outperforms API-only. The latter result is therefore retained as a
+          falsification/qualification result rather than hidden or overwritten.
+          EOF
+
+      - name: Commit archived outputs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/2026-08-29-supervisor-reanalysis
+          if git diff --cached --quiet; then
+            echo 'No changes to commit.'
+            exit 0
+          fi
+          git commit -m 'Archive completed supervisor reanalysis results'
+          git push origin HEAD:supervisor-revision-2026-08-29

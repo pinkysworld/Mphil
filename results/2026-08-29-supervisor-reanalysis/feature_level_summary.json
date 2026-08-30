@@ -1,0 +1,61 @@
+{
+  "association": {
+    "per_view": [
+      {
+        "bh_fdr_q_value": 0.0,
+        "n_features": 14543,
+        "p_value": 0.0,
+        "spearman_rho_discriminability_vs_shift": 0.7647701855234124,
+        "view": "API tokens"
+      },
+      {
+        "bh_fdr_q_value": 1.7350141841011941e-295,
+        "n_features": 1856,
+        "p_value": 8.675070920505971e-296,
+        "spearman_rho_discriminability_vs_shift": 0.719436659690647,
+        "view": "Artifact tokens"
+      },
+      {
+        "bh_fdr_q_value": 0.680785475070949,
+        "n_features": 13,
+        "p_value": 0.680785475070949,
+        "spearman_rho_discriminability_vs_shift": 0.12637362637362637,
+        "view": "Behavioral counts"
+      },
+      {
+        "bh_fdr_q_value": 0.680785475070949,
+        "n_features": 4,
+        "p_value": 0.6,
+        "spearman_rho_discriminability_vs_shift": -0.39999999999999997,
+        "view": "Static PE"
+      }
+    ],
+    "pooled_stratified": {
+      "bootstrap_95_ci": [
+        0.7509862036433099,
+        0.7664833059718379
+      ],
+      "bootstrap_replicates": 1000,
+      "equivalent_direction_for_discriminability_vs_invariance": "negative",
+      "n_features": 16416,
+      "permutation_replicates": 1000,
+      "rng_seed": 20260829,
+      "spearman_rho_discriminability_vs_shift": 0.7588604564586388,
+      "stratified_permutation_one_sided_p": 0.000999000999000999
+    }
+  },
+  "falsification_note": "The mechanism predicts a positive association between discriminability and future shift, equivalently a negative association between discriminability and temporal invariance. Null, reversed, or strongly view-specific results challenge the general trade-off claim.",
+  "metric_policy": {
+    "multiplicity": "Benjamini-Hochberg FDR for view-level Spearman tests",
+    "numeric_discriminability": "one-way eta-squared across families",
+    "numeric_shift": "two-sample Kolmogorov-Smirnov statistic",
+    "pooled_scale": "within-view percentile ranks",
+    "token_discriminability": "Cramer's V from family x token-presence chi-square",
+    "token_shift": "Bernoulli Jensen-Shannon divergence, base 2"
+  },
+  "minimum_token_train_support": 20,
+  "schema_version": "1.0",
+  "split": "global_chronological",
+  "test_scope": "fixed_future_test",
+  "train_scope": "train_plus_val"
+}

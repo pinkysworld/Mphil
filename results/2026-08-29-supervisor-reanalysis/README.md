@@ -1,8 +1,9 @@
 # Supervisor reanalysis result bundle
 
-This directory archives the outputs of GitHub Actions run `33269449501`,
-produced from the `supervisor-revision-2026-08-29` branch in response to
-Dr R.M.M. Pradeep's synopsis feedback.
+This directory archives the outputs of GitHub Actions run `33269465874`,
+produced from commit `76803095adfeacca41118df0936bfa6ecb286dd5` on the
+`supervisor-revision-2026-08-29` branch in response to Dr R.M.M. Pradeep's
+synopsis feedback.
 
 The bundle contains the feature-level invariance-discriminability analysis,
 repeated-seed/model-class robustness analysis, label-provenance audit,

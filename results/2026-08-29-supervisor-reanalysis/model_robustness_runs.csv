@@ -6,8 +6,8 @@ sgd,42,four_view_fusion,0.9316918836538353
 sgd,101,api_only,0.9020458702492661
 sgd,101,four_view_fusion,0.9197043507404116
 lightgbm,17,api_only,0.916631026395212
-lightgbm,17,four_view_fusion,0.9118023805061144
+lightgbm,17,four_view_fusion,0.9117887571370907
 lightgbm,42,api_only,0.916631026395212
-lightgbm,42,four_view_fusion,0.9118023805061144
+lightgbm,42,four_view_fusion,0.9117887571370907
 lightgbm,101,api_only,0.916631026395212
-lightgbm,101,four_view_fusion,0.9118023805061144
+lightgbm,101,four_view_fusion,0.9117887571370907

@@ -1,0 +1,103 @@
+{
+  "interpretation_boundary": "Seed intervals summarize sensitivity over the prespecified seed set; they are not population confidence intervals. The experiment tests ordering robustness, not hyperparameter optimality.",
+  "models": [
+    "sgd",
+    "lightgbm"
+  ],
+  "paired_fusion_minus_api": [
+    {
+      "all_seed_deltas_positive": false,
+      "mean_fusion_minus_api_macro_f1": -0.004842269258121257,
+      "model": "lightgbm",
+      "n_paired_seeds": 3,
+      "seed_deltas": [
+        -0.004842269258121257,
+        -0.004842269258121257,
+        -0.004842269258121257
+      ],
+      "seed_percentile_95_interval": [
+        -0.004842269258121257,
+        -0.004842269258121257
+      ],
+      "std_fusion_minus_api_macro_f1": 0.0
+    },
+    {
+      "all_seed_deltas_positive": false,
+      "mean_fusion_minus_api_macro_f1": -0.0050933251575454586,
+      "model": "sgd",
+      "n_paired_seeds": 3,
+      "seed_deltas": [
+        -0.062185701262881254,
+        0.02924724529909939,
+        0.01765848049114549
+      ],
+      "seed_percentile_95_interval": [
+        -0.05819349217517992,
+        0.028667807058701693
+      ],
+      "std_fusion_minus_api_macro_f1": 0.049781818211655914
+    }
+  ],
+  "schema_version": "1.0",
+  "seeds": [
+    17,
+    42,
+    101
+  ],
+  "split": "global_chronological",
+  "summaries": [
+    {
+      "max_macro_f1": 0.916631026395212,
+      "mean_macro_f1": 0.916631026395212,
+      "min_macro_f1": 0.916631026395212,
+      "model": "lightgbm",
+      "n_seeds": 3,
+      "seed_percentile_95_interval": [
+        0.916631026395212,
+        0.916631026395212
+      ],
+      "std_macro_f1": 0.0,
+      "view": "api_only"
+    },
+    {
+      "max_macro_f1": 0.9117887571370907,
+      "mean_macro_f1": 0.9117887571370907,
+      "min_macro_f1": 0.9117887571370907,
+      "model": "lightgbm",
+      "n_seeds": 3,
+      "seed_percentile_95_interval": [
+        0.9117887571370907,
+        0.9117887571370907
+      ],
+      "std_macro_f1": 0.0,
+      "view": "four_view_fusion"
+    },
+    {
+      "max_macro_f1": 0.9030410874444472,
+      "mean_macro_f1": 0.9025105320161497,
+      "min_macro_f1": 0.9020458702492661,
+      "model": "sgd",
+      "n_seeds": 3,
+      "seed_percentile_95_interval": [
+        0.9020658086545396,
+        0.9030112649899616
+      ],
+      "std_macro_f1": 0.0005008700403866727,
+      "view": "api_only"
+    },
+    {
+      "max_macro_f1": 0.9316918836538353,
+      "mean_macro_f1": 0.8974172068586043,
+      "min_macro_f1": 0.840855386181566,
+      "model": "sgd",
+      "n_seeds": 3,
+      "seed_percentile_95_interval": [
+        0.8447978344095083,
+        0.931092507008164
+      ],
+      "std_macro_f1": 0.04934931514280296,
+      "view": "four_view_fusion"
+    }
+  ],
+  "train_scope": "train_plus_val"
+}

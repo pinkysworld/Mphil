@@ -1,0 +1,1 @@
+1ea1706019547d0fa2a268ce783725d6090bb3acf992726d08f4637c46531433  data/raw/avast_ctu_reduced.zip

@@ -1,0 +1,13 @@
+model,seed,view,macro_f1
+sgd,17,api_only,0.9030410874444472
+sgd,17,four_view_fusion,0.840855386181566
+sgd,42,api_only,0.9024446383547359
+sgd,42,four_view_fusion,0.9316918836538353
+sgd,101,api_only,0.9020458702492661
+sgd,101,four_view_fusion,0.9197043507404116
+lightgbm,17,api_only,0.916631026395212
+lightgbm,17,four_view_fusion,0.9117887571370907
+lightgbm,42,api_only,0.916631026395212
+lightgbm,42,four_view_fusion,0.9117887571370907
+lightgbm,101,api_only,0.916631026395212
+lightgbm,101,four_view_fusion,0.9117887571370907

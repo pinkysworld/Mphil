@@ -1,0 +1,84 @@
+name: Supervisor reanalysis
+
+on:
+  push:
+    branches:
+      - supervisor-revision-2026-08-29
+    paths:
+      - 'scripts/22_supervisor_feature_level_analysis.py'
+      - 'scripts/23_supervisor_model_robustness.py'
+      - 'scripts/24_label_provenance_audit.py'
+      - 'docs/supervisor_revision_2026-08-29.md'
+      - '.github/workflows/supervisor-reanalysis.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reanalysis:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    env:
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - name: Check out revision branch
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+
+      - name: Install defended environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --require-hashes -r requirements-lock.txt
+          # gdown is transport-only and is not imported by the scientific code.
+          python -m pip install 'gdown==5.2.0'
+
+      - name: Syntax check new analyses
+        run: |
+          python -m py_compile \
+            scripts/22_supervisor_feature_level_analysis.py \
+            scripts/23_supervisor_model_robustness.py \
+            scripts/24_label_provenance_audit.py
+
+      - name: Download official reduced Avast-CTU CAPEv2 dataset
+        run: |
+          mkdir -p data/raw artifacts/supervisor_revision
+          python -m gdown 1xujiSqV0sUv4GinS2xq8XFRpZLvvs1um \
+            -O data/raw/avast_ctu_reduced.zip
+          sha256sum data/raw/avast_ctu_reduced.zip | tee \
+            artifacts/supervisor_revision/dataset_sha256.txt
+          ls -lh data/raw/avast_ctu_reduced.zip
+
+      - name: Rebuild leakage-controlled global chronological inputs
+        run: |
+          python scripts/01_ingest.py
+          python scripts/02_leakage_audit.py
+          python scripts/03_build_splits.py
+          python scripts/04_extract_features.py --split global_chronological
+
+      - name: Run feature-level invariance-discriminability analysis
+        run: python scripts/22_supervisor_feature_level_analysis.py
+
+      - name: Run repeated-seed model robustness
+        run: |
+          python scripts/23_supervisor_model_robustness.py \
+            --models sgd lightgbm \
+            --seeds 17 42 101
+
+      - name: Run label-provenance audit
+        run: python scripts/24_label_provenance_audit.py
+
+      - name: Archive supervisor-revision outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: supervisor-reanalysis-${{ github.sha }}
+          path: artifacts/supervisor_revision/
+          if-no-files-found: warn
+          retention-days: 30

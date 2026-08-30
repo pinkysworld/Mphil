@@ -1,0 +1,62 @@
+{
+  "date_range": {
+    "max": "2020-01-11 00:00:00",
+    "min": "2008-06-26 00:00:00"
+  },
+  "families": [
+    "adload",
+    "emotet",
+    "harhar",
+    "lokibot",
+    "njrat",
+    "qakbot",
+    "swisyn",
+    "trickbot",
+    "ursnif",
+    "zeus"
+  ],
+  "field_availability": {
+    "cross_vendor_agreement": {
+      "status": "not_available_in_public_dataset"
+    },
+    "detection_date": {
+      "column": "date",
+      "coverage": {
+        "fraction_present": 1.0,
+        "n_present": 48976,
+        "n_total": 48976
+      },
+      "status": "available"
+    },
+    "engine_version_used_for_labeling": {
+      "status": "not_available_in_public_dataset"
+    },
+    "family_target": {
+      "column": "family",
+      "provenance": "Avast-CTU public_labels.csv; official dataset documentation states classification is from Avast backend records.",
+      "status": "available"
+    },
+    "separate_labeling_date": {
+      "status": "not_available_in_public_dataset"
+    }
+  },
+  "identifiability_boundary": "Without an independently sourced label history, engine version, or cross-vendor agreement, this dataset alone cannot separate malware behaviour drift from vendor labelling-policy drift. Temporal label composition summaries are diagnostic only and must not be presented as proof of labelling-policy change.",
+  "input_side_leakage_control_note": "Family names/detection signals are removed from X where prohibited; the family label remains y for supervised classification.",
+  "labels_removed_from_target": false,
+  "n_samples": 48976,
+  "public_dataset_target_provenance": "Family labels are supplied by the Avast-CTU public dataset and originate from Avast backend classification records according to the official dataset documentation.",
+  "schema_version": "1.0",
+  "source_columns_observed": [
+    "sha256",
+    "family",
+    "classification_type",
+    "date",
+    "report_path",
+    "has_report"
+  ],
+  "supplemental_provenance": {
+    "coverage": {},
+    "path": null,
+    "provided": false
+  }
+}
